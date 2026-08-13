@@ -1,5 +1,5 @@
 ---
-title: 不會寫程式也能做網站？用 Notion 免費建立網站完整教學
+title: 不會寫程式也能做網站？<br/>用 Notion 免費建立網站完整教學
 slug: build-website-with-notion
 category: 數位工具教學
 tags:
@@ -10,8 +10,10 @@ tags:
   - 數位工具
 date: 2026-03-16
 updated: 2026-08-13
-description: 不會寫程式也能建立網站嗎？Notion 可以直接將頁面發布成公開網站，不需要
-  HTML、主機或程式基礎。本文從建立頁面、編輯內容到公開發布，完整介紹如何用 Notion 快速製作簡單網站。
+description: |-
+  不會寫程式也能建立網站嗎？
+  Notion 可以直接將頁面發布成公開網站，不需要 HTML、主機或程式基礎。
+  本文從建立頁面、編輯內容到公開發布，完整介紹如何用 Notion 快速製作簡單網站。
 image: /assets/images/build-website-with-notion.png
 author: isoPOS
 article_sections:
