@@ -18,15 +18,36 @@ layout: default
 </article>
 <script type="application/ld+json">
 {
-  "@context":"https://schema.org",
-  "@type":"Article",
-  "headline":{{ page.title | jsonify }},
-  "description":{{ page.meta_description | default: page.description | jsonify }},
-  "datePublished":{{ page.date | date_to_xmlschema | jsonify }},
-  {% if page.updated %}"dateModified":{{ page.updated | date_to_xmlschema | jsonify }},{% endif %}
-  "mainEntityOfPage":{"@type":"WebPage","@id":{{ page.url | absolute_url | jsonify }}},
-  "author":{"@type":"Organization","name":{{ page.author | default: site.author.name | jsonify }}},
-  "publisher":{"@type":"Organization","name":"isoPOS"}{% if page.image %},
-  "image":[{{ page.image | absolute_url | jsonify }}]{% endif %}
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ page.title | jsonify }},
+  "description": {{ page.meta_description | default: page.description | jsonify }},
+  "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+  {% if page.updated %}
+  "dateModified": {{ page.updated | date_to_xmlschema | jsonify }},
+  {% endif %}
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ page.url | absolute_url | jsonify }}
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "isoPOS"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "isoPOS"
+  },
+  {% if page.category %}
+  "articleSection": {{ page.category | jsonify }},
+  {% endif %}
+  {% if page.tags and page.tags.size > 0 %}
+  "keywords": {{ page.tags | join: ", " | jsonify }},
+  {% endif %}
+  {% if page.image %}
+  "image": [
+    {{ page.image | absolute_url | jsonify }}
+  ]
+  {% endif %}
 }
 </script>
