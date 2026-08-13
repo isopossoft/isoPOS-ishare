@@ -7,7 +7,7 @@ content:
     label: 文章管理
     type: collection
     path: _posts
-
+    format: yaml-frontmatter
     filename: "{year}-{month}-{day}-{fields.slug}.md"
 
     view:
@@ -17,11 +17,19 @@ content:
         - date
         - updated
       primary: title
+      search:
+        - title
+        - description
+        - category
+        - tags
+      default:
+        sort: date
+        order: desc
 
     fields:
 
       # ========================
-      # 基本資料
+      # ① 基本資料
       # ========================
 
       - name: title
@@ -34,12 +42,6 @@ content:
         type: string
         required: true
         description: "英文網址名稱，例如 line-pos-integration"
-
-      - name: description
-        label: 文章摘要
-        type: text
-        required: true
-        description: "簡短說明這篇文章在回答什麼問題"
 
       - name: category
         label: 文章分類
@@ -55,11 +57,8 @@ content:
       - name: tags
         label: 標籤
         type: string
+        list: true
         description: "例如 LINE、Messaging API、Webhook、會員"
-
-      # ========================
-      # 日期 / 作者
-      # ========================
 
       - name: date
         label: 發布日期
@@ -69,15 +68,13 @@ content:
       - name: updated
         label: 最後更新日期
         type: date
+        description: "文章有實質更新時再填寫"
 
-      - name: author
-        label: 作者
-        type: string
-        default: "isoPOS"
-
-      # ========================
-      # 圖片
-      # ========================
+      - name: description
+        label: 文章摘要
+        type: text
+        required: true
+        description: "簡短說明這篇文章在回答什麼問題，也會作為文章列表摘要使用"
 
       - name: image
         label: 封面圖片
@@ -86,58 +83,74 @@ content:
       - name: image_alt
         label: 封面圖片 ALT
         type: string
-        description: "描述圖片內容，請勿單純堆疊關鍵字"
+        description: "描述圖片實際內容，請勿單純堆疊關鍵字"
 
-      # ========================
-      # SEO
-      # ========================
-
-      - name: seo_title
-        label: SEO 標題
+      # 作者固定為 isoPOS，不在編輯畫面顯示
+      - name: author
+        label: 作者
         type: string
-        description: "Google 搜尋結果使用；留白時可使用文章標題"
-
-      - name: meta_description
-        label: Meta Description
-        type: text
-        description: "搜尋結果摘要，清楚說明文章能解決什麼問題"
-
-      - name: canonical
-        label: Canonical URL
-        type: string
-        description: "通常留白，由網站自動產生；只有特殊情況才設定"
-
-      - name: noindex
-        label: 不允許搜尋引擎索引
-        type: boolean
-        default: false
-        description: "一般文章請保持關閉"
+        default: "isoPOS"
+        hidden: true
 
       # ========================
-      # GEO / AI 搜尋
-      # ========================
-
-      - name: quick_answer
-        label: 快速解答
-        type: text
-        required: true
-        description: "用 2～4 句直接回答文章核心問題，避免廣告式文案"
-
-      - name: key_takeaways
-        label: 重點整理
-        type: text
-        description: "整理讀者最需要知道的重點"
-
-      - name: sources
-        label: 參考來源
-        type: text
-        description: "重要事實的官方或第一手來源，例如 LINE Developers"
-
-      # ========================
-      # 文章正文
+      # ② 文章內容
       # ========================
 
       - name: body
         label: 文章內容
         type: rich-text
         required: true
+        description: "直接使用視覺化編輯器撰寫；可使用標題、粗體、清單、連結與圖片"
+        options:
+          format: markdown
+          switcher: false
+          media: true
+          path: assets/images
+          rename: safe
+
+      # ========================
+      # ③ GEO / AI 搜尋
+      # ========================
+
+      - name: quick_answer
+        label: 快速解答
+        type: text
+        required: true
+        description: "用 2～4 句直接回答文章核心問題，讓搜尋引擎與 AI 更容易理解文章答案"
+
+      - name: key_takeaways
+        label: 重點整理
+        type: string
+        list: true
+        description: "每一項放一個重點，建議 3～6 項"
+
+      - name: sources
+        label: 參考來源
+        type: string
+        list: true
+        description: "重要事實優先放官方或第一手來源，例如 LINE Developers"
+
+      # ========================
+      # ④ SEO 進階設定
+      # ========================
+
+      - name: seo_title
+        label: SEO 標題
+        type: string
+        description: "選填。留白時使用文章標題；只有需要不同的 Google 搜尋標題時才填"
+
+      - name: meta_description
+        label: Meta Description
+        type: text
+        description: "選填。留白時可使用文章摘要；需要另外撰寫搜尋結果摘要時再填"
+
+      - name: canonical
+        label: Canonical URL
+        type: string
+        description: "進階設定。一般文章請留白，由網站自動產生"
+
+      - name: noindex
+        label: 不允許搜尋引擎索引
+        type: boolean
+        default: false
+        description: "進階設定。一般正式文章請保持關閉"
