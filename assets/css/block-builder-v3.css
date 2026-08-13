@@ -1,0 +1,352 @@
+/* =========================================================
+   isoPOS iShare｜Block Builder v3
+   請貼到現有 style.css 最底部
+   ========================================================= */
+
+/* ---------- Rich Text / Block 共用 ---------- */
+.article-text-block > :first-child,
+.ishare-box-content > :first-child,
+.ishare-step-content > :first-child,
+.ishare-video-intro > :first-child{
+  margin-top:0;
+}
+
+.article-text-block > :last-child,
+.ishare-box-content > :last-child,
+.ishare-step-content > :last-child,
+.ishare-video-intro > :last-child{
+  margin-bottom:0;
+}
+
+/* ---------- 重點文字／顏色 ---------- */
+.ishare-emphasis{
+  margin:24px 0;
+  font-size:18px;
+  line-height:1.8;
+  font-weight:700;
+}
+.ishare-emphasis--deep{color:#28384C}
+.ishare-emphasis--brand{color:#71809F}
+.ishare-emphasis--warm{color:#A17F68}
+.ishare-emphasis--muted{color:#7B8794;font-weight:600}
+
+/* ---------- 提示／注意／補充內容 ---------- */
+.ishare-box-content{
+  display:block;
+  margin-top:9px;
+  color:#4F5965;
+  font-size:16px;
+  line-height:1.85;
+}
+
+/* 重點提示：灰藍底 */
+.ishare-tip{
+  background:#E9EEF7 !important;
+  border:1px solid #D5DEED !important;
+}
+
+/* 注意事項：暖色底 */
+.ishare-warning{
+  background:#FAF2EC !important;
+  border:1px solid #EADDCF !important;
+}
+
+/* 補充資訊：明顯區分網站背景 */
+.ishare-note{
+  margin:30px 0;
+  padding:24px 26px;
+  background:#EDF1F7 !important;
+  border:1px solid #D6DEEA;
+  border-left:4px solid #AEB9CF !important;
+  border-radius:12px;
+}
+
+.ishare-note::before{
+  color:#75839E;
+}
+
+.ishare-note > strong:first-child{
+  display:block;
+  margin-bottom:8px;
+  color:#40516A;
+  font-size:18px;
+  font-weight:700;
+}
+
+/* ---------- 步驟卡內文與圖片 ---------- */
+.ishare-step-content{
+  min-width:0;
+}
+
+.ishare-step-content img,
+.article-text-block img,
+.ishare-box-content img{
+  display:block;
+  max-width:100%;
+  height:auto;
+  margin:22px 0;
+  border-radius:12px;
+}
+
+/* ---------- 獨立圖片 ---------- */
+.ishare-figure{
+  margin:32px 0;
+}
+.ishare-figure img{
+  display:block;
+  width:100%;
+  height:auto;
+  margin:0;
+  border-radius:14px;
+}
+.ishare-figure figcaption{
+  margin:10px 0 0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+  text-align:center;
+}
+
+/* ---------- YouTube ---------- */
+.ishare-video-block{
+  width:100%;
+  margin:34px 0;
+}
+
+.ishare-video-intro{
+  margin:0 0 16px;
+  color:#4F5965;
+  font-size:16px;
+  line-height:1.8;
+}
+
+.ishare-video-player{
+  position:relative;
+  width:100%;
+  aspect-ratio:16 / 9;
+  overflow:hidden;
+  border-radius:14px;
+  background:#000;
+}
+
+.ishare-video-player iframe{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  border:0;
+  border-radius:0;
+}
+
+.ishare-video-block figcaption{
+  margin:10px 0 0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+  text-align:center;
+}
+
+/* ---------- 表格 ---------- */
+.ishare-table-wrap{
+  width:100%;
+  margin:30px 0;
+  overflow-x:auto;
+}
+.ishare-table-wrap table{
+  margin:0;
+  min-width:560px;
+}
+
+/* ---------- Code ---------- */
+.ishare-code{
+  margin:30px 0;
+  padding:20px 22px;
+  overflow:auto;
+  background:#20242B;
+  color:#F7F8FB;
+  border-radius:14px;
+  font-family:Consolas,"SFMono-Regular","Liberation Mono",monospace;
+  font-size:14px;
+  line-height:1.7;
+  white-space:pre;
+}
+
+/* ---------- 官方來源／延伸閱讀 ---------- */
+.ishare-source > div{min-width:0}
+.ishare-source p,
+.ishare-related p{
+  margin:6px 0 0;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.65;
+}
+
+/* =========================================================
+   手機版左側抽屜選單
+   ========================================================= */
+
+.mobile-menu-toggle,
+.mobile-menu-close,
+.mobile-drawer,
+.mobile-nav-backdrop{
+  display:none;
+}
+
+@media(max-width:900px){
+  body.menu-open{
+    overflow:hidden;
+  }
+
+  .mobile-menu-toggle{
+    display:flex;
+    width:42px;
+    height:42px;
+    padding:0;
+    border:1px solid var(--line);
+    border-radius:11px;
+    background:#fff;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:4px;
+    cursor:pointer;
+  }
+
+  .mobile-menu-toggle span{
+    display:block;
+    width:18px;
+    height:2px;
+    border-radius:99px;
+    background:#35445C;
+  }
+
+  .mobile-nav-backdrop{
+    position:fixed;
+    inset:0;
+    z-index:49;
+    background:rgba(25,31,42,.32);
+    opacity:0;
+    transition:opacity .22s ease;
+  }
+
+  .mobile-nav-backdrop:not([hidden]){
+    display:block;
+  }
+
+  .mobile-nav-backdrop.is-visible{
+    opacity:1;
+  }
+
+  .mobile-drawer{
+    display:block;
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    z-index:50;
+    width:min(84vw,340px);
+    padding:22px;
+    background:#F7F8FB;
+    border-right:1px solid var(--line);
+    box-shadow:18px 0 45px rgba(40,48,63,.12);
+    transform:translateX(-105%);
+    transition:transform .24s ease;
+    overflow-y:auto;
+  }
+
+  body.menu-open .mobile-drawer{
+    transform:translateX(0);
+  }
+
+  .mobile-drawer-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding-bottom:22px;
+    border-bottom:1px solid var(--line);
+  }
+
+  .mobile-drawer-brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+  }
+
+  .mobile-drawer-brand img{
+    width:34px;
+    height:34px;
+    object-fit:contain;
+    border-radius:9px;
+  }
+
+  .mobile-drawer-brand strong{
+    display:block;
+    color:var(--text);
+  }
+
+  .mobile-drawer-brand small{
+    display:block;
+    margin-top:2px;
+    color:var(--muted);
+    font-size:11px;
+  }
+
+  .mobile-menu-close{
+    display:grid;
+    place-items:center;
+    width:38px;
+    height:38px;
+    padding:0;
+    border:0;
+    background:transparent;
+    color:#596577;
+    font-size:30px;
+    line-height:1;
+    cursor:pointer;
+  }
+
+  .mobile-drawer-nav{
+    display:grid;
+    gap:10px;
+    margin-top:22px;
+  }
+
+  .mobile-drawer-nav a{
+    display:grid;
+    grid-template-columns:36px 1fr;
+    align-items:center;
+    gap:10px;
+    padding:15px 14px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:#fff;
+  }
+
+  .mobile-drawer-nav a span{
+    color:var(--brand-deep);
+    font-family:'Orbitron',sans-serif;
+    font-size:11px;
+  }
+
+  .mobile-drawer-nav a strong{
+    color:#35445C;
+    font-size:15px;
+    font-weight:650;
+  }
+}
+
+@media(max-width:640px){
+  .ishare-emphasis{font-size:17px}
+  .ishare-video-block{margin:26px 0}
+  .ishare-video-player{border-radius:10px}
+  .ishare-code{padding:16px;font-size:13px;border-radius:10px}
+
+  .ishare-note,
+  .ishare-tip,
+  .ishare-warning{
+    padding:20px;
+  }
+}

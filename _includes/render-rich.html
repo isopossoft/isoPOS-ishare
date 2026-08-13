@@ -1,4 +1,4 @@
-{% assign rich = include.content | default: include.fallback | default: "" %}
+{% assign rich = include.content | default: "" %}
 {% capture image_prefix %}src="{{ '/assets/images/' | relative_url }}{% endcapture %}
 {% capture image_prefix_single %}src='{{ '/assets/images/' | relative_url }}{% endcapture %}
 {{ rich

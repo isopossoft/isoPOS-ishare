@@ -12,7 +12,11 @@ layout: default
   <header class="article-header">
     <p class="eyebrow">{{ page.category }}</p>
     <h1>{{ page.title }}</h1>
-    <p class="article-description">{{ page.description }}</p>
+
+    {% unless page.quick_answer %}
+      <p class="article-description">{{ page.description }}</p>
+    {% endunless %}
+
     <div class="article-meta">
       <span>發布 {{ page.date | date: "%Y.%m.%d" }}</span>
       {% if page.updated %}<span>更新 {{ page.updated | date: "%Y.%m.%d" }}</span>{% endif %}
@@ -56,14 +60,22 @@ layout: default
 
         {% when "quote" %}
           <blockquote>
-            {% include render-rich.html content=section.content fallback=section.text %}
+            {% if section.content %}
+              {% include render-rich.html content=section.content %}
+            {% elsif section.text %}
+              <p>{{ section.text }}</p>
+            {% endif %}
           </blockquote>
 
         {% when "tip" %}
           <div class="ishare-tip">
             <strong>{{ section.title }}</strong>
             <div class="ishare-box-content">
-              {% include render-rich.html content=section.content fallback=section.text %}
+              {% if section.content %}
+                {% include render-rich.html content=section.content %}
+              {% elsif section.text %}
+                <p>{{ section.text }}</p>
+              {% endif %}
             </div>
           </div>
 
@@ -71,7 +83,11 @@ layout: default
           <div class="ishare-warning">
             <strong>{{ section.title }}</strong>
             <div class="ishare-box-content">
-              {% include render-rich.html content=section.content fallback=section.text %}
+              {% if section.content %}
+                {% include render-rich.html content=section.content %}
+              {% elsif section.text %}
+                <p>{{ section.text }}</p>
+              {% endif %}
             </div>
           </div>
 
@@ -80,7 +96,11 @@ layout: default
             <span class="step-number">{{ section.number }}</span>
             <div class="ishare-step-content">
               <strong>{{ section.title }}</strong>
-              {% include render-rich.html content=section.content fallback=section.text %}
+              {% if section.content %}
+                {% include render-rich.html content=section.content %}
+              {% elsif section.text %}
+                <p>{{ section.text }}</p>
+              {% endif %}
             </div>
           </div>
 
@@ -88,7 +108,11 @@ layout: default
           <div class="ishare-note">
             <strong>{{ section.title }}</strong>
             <div class="ishare-box-content">
-              {% include render-rich.html content=section.content fallback=section.text %}
+              {% if section.content %}
+                {% include render-rich.html content=section.content %}
+              {% elsif section.text %}
+                <p>{{ section.text }}</p>
+              {% endif %}
             </div>
           </div>
 
@@ -113,6 +137,12 @@ layout: default
           {% assign video_id = video_id | split: '?' | first %}
 
           <figure class="ishare-video-block">
+            {% if section.intro %}
+              <div class="ishare-video-intro">
+                {% include render-rich.html content=section.intro %}
+              </div>
+            {% endif %}
+
             <div class="ishare-video-player">
               <iframe
                 src="https://www.youtube.com/embed/{{ video_id }}"
@@ -122,10 +152,36 @@ layout: default
                 allowfullscreen>
               </iframe>
             </div>
+
             {% if section.caption %}
               <figcaption>{{ section.caption }}</figcaption>
             {% endif %}
           </figure>
+
+        {% when "table" %}
+          <div class="ishare-table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  {% for header in section.headers %}
+                    <th>{{ header }}</th>
+                  {% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in section.rows %}
+                  <tr>
+                    {% for cell in row.cells %}
+                      <td>{{ cell }}</td>
+                    {% endfor %}
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+        {% when "code" %}
+          <pre class="ishare-code"><code class="language-{{ section.language }}">{{ section.code | escape }}</code></pre>
 
         {% when "source" %}
           <div class="ishare-source">

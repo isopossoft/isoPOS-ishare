@@ -52,8 +52,51 @@
       <a href="{{ '/categories/tools/' | relative_url }}">數位工具教學</a>
       <a href="{{ '/categories/industry/' | relative_url }}">產業知識</a>
     </nav>
+
+    <button class="mobile-menu-toggle"
+            type="button"
+            aria-label="開啟選單"
+            aria-controls="mobile-drawer"
+            aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+
+<div class="mobile-nav-backdrop" hidden></div>
+
+<aside id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
+  <div class="mobile-drawer-head">
+    <div class="mobile-drawer-brand">
+      <img src="{{ '/assets/images/isopos-icon.png' | relative_url }}" alt="">
+      <div>
+        <strong><span class="isopos-text">isoPOS</span> iShare</strong>
+        <small>知識中心</small>
+      </div>
+    </div>
+
+    <button class="mobile-menu-close" type="button" aria-label="關閉選單">×</button>
+  </div>
+
+  <nav class="mobile-drawer-nav" aria-label="手機版主要導覽">
+    <a href="{{ '/categories/line/' | relative_url }}">
+      <span>01</span>
+      <strong>LINE 官方帳號</strong>
+    </a>
+    <a href="{{ '/categories/management/' | relative_url }}">
+      <span>02</span>
+      <strong>美業經營管理</strong>
+    </a>
+    <a href="{{ '/categories/tools/' | relative_url }}">
+      <span>03</span>
+      <strong>數位工具教學</strong>
+    </a>
+    <a href="{{ '/categories/industry/' | relative_url }}">
+      <span>04</span>
+      <strong>產業知識</strong>
+    </a>
+  </nav>
+</aside>
 
 <main>{{ content }}</main>
 
@@ -69,6 +112,45 @@
     <p class="muted">© {{ 'now' | date: '%Y' }} isoPOS</p>
   </div>
 </footer>
+
+<script>
+(function(){
+  const toggle = document.querySelector('.mobile-menu-toggle');
+  const closeBtn = document.querySelector('.mobile-menu-close');
+  const drawer = document.querySelector('.mobile-drawer');
+  const backdrop = document.querySelector('.mobile-nav-backdrop');
+
+  if(!toggle || !drawer || !backdrop) return;
+
+  function openMenu(){
+    document.body.classList.add('menu-open');
+    drawer.setAttribute('aria-hidden','false');
+    toggle.setAttribute('aria-expanded','true');
+    backdrop.hidden = false;
+    requestAnimationFrame(() => backdrop.classList.add('is-visible'));
+  }
+
+  function closeMenu(){
+    document.body.classList.remove('menu-open');
+    drawer.setAttribute('aria-hidden','true');
+    toggle.setAttribute('aria-expanded','false');
+    backdrop.classList.remove('is-visible');
+    setTimeout(() => { backdrop.hidden = true; }, 220);
+  }
+
+  toggle.addEventListener('click', openMenu);
+  if(closeBtn) closeBtn.addEventListener('click', closeMenu);
+  backdrop.addEventListener('click', closeMenu);
+
+  drawer.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeMenu();
+  });
+})();
+</script>
 
 </body>
 </html>
