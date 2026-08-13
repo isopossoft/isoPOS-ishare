@@ -34,7 +34,11 @@ layout: default
   {% endif %}
 
   <div class="article-body">
-    {{ content }}
+    {% if page.content_html %}
+      {{ page.content_html }}
+    {% else %}
+      {{ content }}
+    {% endif %}
   </div>
 
   {% if page.key_takeaways and page.key_takeaways.size > 0 %}

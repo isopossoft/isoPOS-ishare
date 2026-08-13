@@ -217,3 +217,25 @@ img{max-width:100%;height:auto;display:block}
   font-weight:600;
   letter-spacing:.02em;
 }
+
+/* HTML 編輯版文章內容支援 */
+.article-body table{
+  width:100%;
+  border-collapse:collapse;
+  margin:24px 0;
+}
+.article-body th,
+.article-body td{
+  border:1px solid var(--line);
+  padding:10px 12px;
+  text-align:left;
+}
+.article-body hr{
+  border:0;
+  border-top:1px solid var(--line);
+  margin:36px 0;
+}
+.article-body iframe,
+.article-body video{
+  max-width:100%;
+}

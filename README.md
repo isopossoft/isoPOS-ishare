@@ -37,3 +37,10 @@
 - Hero 改用使用者提供的去背完整 Logo，並縮小尺寸、提高辨識度
 - Header Logo 再縮小
 - `isoPOS` 靜態品牌文字套用 Google Fonts Orbitron
+
+
+## HTML 編輯測試版
+- Pages CMS 不再使用特殊 `body` 欄位作為主要正文。
+- 新增一般欄位 `content_html`，可依欄位順序放在前面。
+- `content_html` 使用 rich-text + HTML 格式，支援 Editor / Source 切換。
+- 文章模板優先輸出 `page.content_html`；舊文章仍可 fallback 到原本 Markdown `body`，因此舊文章不會直接失效。
