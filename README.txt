@@ -1,21 +1,9 @@
-isoPOS iShare Block Builder v3
+Hotfix 原因：
+文章頁仍可能拿到舊版 default.html 快取，因此只載入 style.css，沒有載入 block-builder-v3.css。
+首頁已更新、文章頁仍舊版時，就會出現「抽屜選單 HTML 直接攤在頁面上、Logo 巨大」的狀況。
 
-本版調整：
-1. 手機版改為左側滑出選單。
-2. 文章頁有「快速解答」時，不再重複顯示文章摘要。
-3. Pages CMS 的區塊新增方式維持原生 Block Builder；原生目前不是 Notion 那種每兩塊中間浮出「＋」。
-4. YouTube 區塊新增「影片上方說明」Rich Text 欄位。
-5. 補充資訊、重點提示、注意事項底色加深，與頁面背景明顯區隔。
-6. 保留前版圖片路徑自動修正、YouTube 16:9 全寬、tip/note 舊 text 欄位 fallback。
-
-請上傳／覆蓋：
-- .pages.yml
-- _layouts/default.html
-- _layouts/post.html
-- _includes/render-rich.html
-
-CSS：
-- 打開 assets/css/block-builder-v3.css
-- 將內容貼到現有 assets/css/style.css 最底部
-
-建議 Commit 後等待 GitHub Pages 同步，再用手機寬度測試左側選單。
+處理方式：
+1. 覆蓋 _layouts/default.html
+2. 把 assets/css/APPEND_TO_style.css 整段貼到現有 assets/css/style.css 最底部
+3. 不再需要另外載入 block-builder-v3.css
+4. Commit 後 default.html 已用 style.css?v=20260813-4 強制換版，可減少舊快取問題

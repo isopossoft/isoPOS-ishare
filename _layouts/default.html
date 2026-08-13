@@ -32,8 +32,9 @@
 
   <link rel="icon" type="image/png" href="{{ '/assets/images/isopos-icon.png' | relative_url }}">
   <link rel="apple-touch-icon" href="{{ '/assets/images/isopos-icon.png' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/block-builder-v3.css' | relative_url }}">
+
+  <!-- 單一主 CSS + 版本號，避免首頁與文章頁抓到不同快取版本 -->
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}?v=20260813-4">
 </head>
 <body>
 
@@ -80,22 +81,10 @@
   </div>
 
   <nav class="mobile-drawer-nav" aria-label="手機版主要導覽">
-    <a href="{{ '/categories/line/' | relative_url }}">
-      <span>01</span>
-      <strong>LINE 官方帳號</strong>
-    </a>
-    <a href="{{ '/categories/management/' | relative_url }}">
-      <span>02</span>
-      <strong>美業經營管理</strong>
-    </a>
-    <a href="{{ '/categories/tools/' | relative_url }}">
-      <span>03</span>
-      <strong>數位工具教學</strong>
-    </a>
-    <a href="{{ '/categories/industry/' | relative_url }}">
-      <span>04</span>
-      <strong>產業知識</strong>
-    </a>
+    <a href="{{ '/categories/line/' | relative_url }}"><span>01</span><strong>LINE 官方帳號</strong></a>
+    <a href="{{ '/categories/management/' | relative_url }}"><span>02</span><strong>美業經營管理</strong></a>
+    <a href="{{ '/categories/tools/' | relative_url }}"><span>03</span><strong>數位工具教學</strong></a>
+    <a href="{{ '/categories/industry/' | relative_url }}"><span>04</span><strong>產業知識</strong></a>
   </nav>
 </aside>
 
@@ -142,14 +131,8 @@
   toggle.addEventListener('click', openMenu);
   if(closeBtn) closeBtn.addEventListener('click', closeMenu);
   backdrop.addEventListener('click', closeMenu);
-
-  drawer.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', closeMenu);
-  });
-
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape') closeMenu();
-  });
+  drawer.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
 })();
 </script>
 
