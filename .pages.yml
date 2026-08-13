@@ -1,7 +1,6 @@
 media:
   input: assets/images
-  output: /isoPOS-ishare/assets/images
-
+  output: /assets/images
 content:
   - name: posts
     label: 文章管理
