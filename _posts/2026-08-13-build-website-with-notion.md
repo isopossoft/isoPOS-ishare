@@ -11,8 +11,7 @@ tags:
 date: 2026-03-16
 updated: 2026-08-13
 description: |-
-  不會寫程式也能建立網站嗎？<br/>
-  Notion 可以直接將頁面發布成公開網站，不需要 HTML、主機或程式基礎。<br/>
+  不會寫程式也能建立網站嗎？Notion 可以直接將頁面發布成公開網站，不需要 HTML、主機或程式基礎。<br/>
   本文從建立頁面、編輯內容到公開發布，完整介紹如何用 Notion 快速製作簡單網站。<br/>
 image: /assets/images/build-website-with-notion.png
 author: isoPOS
@@ -33,20 +32,22 @@ article_sections:
   - type: step
     number: "01"
     title: 建立 Notion 帳號
-    content: <p>先到 <a href="https://www.notion.com/zh-tw"><u>Notion
-      官方網站</u></a></p><p>(1) 點擊 <strong>免費取得 Notion</strong></p><img
+    content: <p>先到 <a href="https://www.notion.com/zh-tw"><u>Notion 官方網站</u></a></p>
+  - type: text
+    content: <p>(1) 點擊 <strong>免費取得 Notion</strong></p><img
       src="/assets/images/notion01.png"><p>(2) 依需求選擇要用 Google 或 Email
       ，註冊建立帳號，完成後就可以進入 Notion 工作區</p><img
-      src="/assets/images/notion02.png"><p>(3) 詳細登入步驟，可參考影片操作</p><p></p>
+      src="/assets/images/notion02.png"><p>(3) 詳細登入步驟，可參考影片操作</p>
   - type: youtube
     video_id: 1nIsbRfEGK4
     title: 登入Notion操作步驟
   - type: step
     number: "02"
     title: 建立一個頁面
-    content: <p>進入 Notion 後，左側點擊：建立新頁面</p><img
-      src="/assets/images/notion03.png"><p>或是不同版本，建立新頁面的選項也可能會在左下方</p><img
-      src="/assets/images/notion04.png"><p></p>
+    content: <p>進入 Notion 頁面</p>
+  - type: text
+    content: <p>(1) 左側點擊：建立新頁面</p><img src="/assets/images/notion03.png"><p>(2)
+      或是不同版本，建立新頁面的選項也可能會在左下方</p><img src="/assets/images/notion04.png"><p></p>
   - type: step
     number: "03"
     title: 編輯內容
@@ -108,3 +109,4 @@ seo_title: Notion架網站教學｜不會寫程式也能免費建立網站
 meta_description: Notion 可以免費架網站嗎？本文完整教你從建立 Notion 頁面、加入文字圖片，到發布成公開網站，不需要會 HTML 或程式，也能快速建立簡單網站。
 noindex: false
 ---
+<p></p>
