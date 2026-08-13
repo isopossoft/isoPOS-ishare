@@ -1,0 +1,151 @@
+backend:
+  name: github
+  repo: isopossoft/isoPOS-ishare
+  branch: main
+
+media_folder: "assets/images"
+public_folder: "/isoPOS-ishare/assets/images"
+
+locale: "zh_Hant"
+
+collections:
+  - name: "posts"
+    label: "文章管理"
+    label_singular: "文章"
+    folder: "_posts"
+    create: true
+    delete: true
+    extension: "md"
+    format: "frontmatter"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}}｜{{category}}｜{{date}}"
+
+    fields:
+      - label: "文章標題"
+        name: "title"
+        widget: "string"
+
+      - label: "網址 Slug"
+        name: "slug"
+        widget: "string"
+        hint: "英文小寫＋連字號，例如 line-pos-integration"
+
+      - label: "文章分類"
+        name: "category"
+        widget: "select"
+        options:
+          - "LINE 官方帳號"
+          - "美業經營管理"
+          - "數位工具教學"
+          - "產業知識"
+
+      - label: "發布日期"
+        name: "date"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        format: "YYYY-MM-DD"
+
+      - label: "文章摘要"
+        name: "description"
+        widget: "text"
+        hint: "簡短說明文章在回答什麼問題，也會作為文章列表摘要。"
+
+      - label: "封面圖片"
+        name: "image"
+        widget: "image"
+        required: false
+
+      - label: "封面圖片 ALT"
+        name: "image_alt"
+        widget: "string"
+        required: false
+        hint: "自然描述圖片內容，不要堆疊關鍵字。"
+
+      - label: "標籤"
+        name: "tags"
+        widget: "list"
+        required: false
+        field:
+          label: "標籤"
+          name: "tag"
+          widget: "string"
+
+      - label: "文章內容"
+        name: "body"
+        widget: "markdown"
+        buttons:
+          - "bold"
+          - "italic"
+          - "link"
+          - "heading-two"
+          - "heading-three"
+          - "bulleted-list"
+          - "numbered-list"
+          - "quote"
+        editor_components:
+          - "image"
+        minimal: false
+        modes:
+          - "rich_text"
+        hint: "直接使用視覺化編輯器撰寫正文。"
+
+      - label: "快速解答"
+        name: "quick_answer"
+        widget: "text"
+        hint: "用 2～4 句直接回答文章核心問題。"
+
+      - label: "重點整理"
+        name: "key_takeaways"
+        widget: "list"
+        required: false
+        field:
+          label: "重點"
+          name: "item"
+          widget: "string"
+
+      - label: "參考來源"
+        name: "sources"
+        widget: "list"
+        required: false
+        field:
+          label: "來源網址"
+          name: "url"
+          widget: "string"
+
+      - label: "SEO 標題"
+        name: "seo_title"
+        widget: "string"
+        required: false
+        hint: "選填；留白時網站使用文章標題。"
+
+      - label: "Meta Description"
+        name: "meta_description"
+        widget: "text"
+        required: false
+        hint: "選填；留白時網站可使用文章摘要。"
+
+      - label: "Canonical URL"
+        name: "canonical"
+        widget: "string"
+        required: false
+        hint: "進階設定，一般文章留白。"
+
+      - label: "不允許搜尋引擎索引"
+        name: "noindex"
+        widget: "boolean"
+        default: false
+        required: false
+
+      - label: "最後更新日期"
+        name: "updated"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        format: "YYYY-MM-DD"
+        required: false
+
+      - label: "作者"
+        name: "author"
+        widget: "hidden"
+        default: "isoPOS"
