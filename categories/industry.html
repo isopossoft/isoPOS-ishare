@@ -1,0 +1,15 @@
+---
+layout: default
+title: "產業知識｜isoPOS iShare"
+description: "美業趨勢、制度、經營觀念與實務產業知識。"
+permalink: /categories/industry/
+---
+<section class="category-hero"><div class="container narrow"><p class="eyebrow">Category</p><h1>產業知識</h1><p>美業趨勢、制度、經營觀念與實務產業知識。</p></div></section>
+<section class="container narrow section"><div class="post-list">
+{% assign matched = site.posts | where: "category", "產業知識" %}
+{% if matched.size > 0 %}
+  {% for post in matched %}
+  <article class="post-list-item"><div><time>{{ post.date | date: "%Y.%m.%d" }}</time><h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2><p>{{ post.description | default: post.excerpt | strip_html | truncate: 150 }}</p></div><a class="arrow" href="{{ post.url | relative_url }}">→</a></article>
+  {% endfor %}
+{% else %}<div class="empty-state"><p>這個分類目前還沒有文章。</p></div>{% endif %}
+</div></section>

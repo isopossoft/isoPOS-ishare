@@ -1,0 +1,27 @@
+---
+layout: default
+title: "isoPOS iShare｜美業知識中心"
+description: "整理 LINE 官方帳號、美業經營管理、數位工具教學與產業知識。"
+---
+<section class="hero"><div class="container"><p class="eyebrow">isoPOS iShare</p><h1>把複雜的問題，整理成可以直接使用的答案。</h1><p>LINE 官方帳號、美業經營管理、數位工具與產業知識。</p></div></section>
+<section class="container section">
+  <div class="section-heading"><div><p class="eyebrow">Explore</p><h2>文章分類</h2></div></div>
+  <div class="category-grid">
+    <a class="category-card" href="{{ '/categories/line/' | relative_url }}"><span>01</span><h3>LINE 官方帳號</h3><p>LINE OA、Messaging API、Webhook、會員與串接應用。</p></a>
+    <a class="category-card" href="{{ '/categories/management/' | relative_url }}"><span>02</span><h3>美業經營管理</h3><p>顧客經營、回流、預約、會員制度與營運管理。</p></a>
+    <a class="category-card" href="{{ '/categories/tools/' | relative_url }}"><span>03</span><h3>數位工具教學</h3><p>Google、Windows、遠端工具與日常數位工作技巧。</p></a>
+    <a class="category-card" href="{{ '/categories/industry/' | relative_url }}"><span>04</span><h3>產業知識</h3><p>美業趨勢、制度、觀念與實務知識。</p></a>
+  </div>
+</section>
+<section class="container section">
+  <div class="section-heading"><div><p class="eyebrow">Latest</p><h2>最新文章</h2></div></div>
+  {% if site.posts.size > 0 %}
+  <div class="post-grid">
+    {% for post in site.posts limit: 12 %}
+    <article class="post-card"><p class="post-category">{{ post.category }}</p><h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3><p>{{ post.description | default: post.excerpt | strip_html | truncate: 110 }}</p><div class="post-footer"><time>{{ post.date | date: "%Y.%m.%d" }}</time><a href="{{ post.url | relative_url }}">閱讀文章 →</a></div></article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state"><h3>網站骨架已完成</h3><p>到 Pages CMS 新增第一篇文章，發布後就會自動出現在這裡。</p></div>
+  {% endif %}
+</section>
