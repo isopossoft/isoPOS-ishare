@@ -36,11 +36,100 @@ layout: default
   {% capture image_prefix %}src="{{ site.baseurl }}/assets/images/{% endcapture %}
 
 <div class="article-body">
-  {% if page.content_html %}
-    {{ page.content_html | replace: 'src="/assets/images/', image_prefix }}
+
+  {% if page.article_sections and page.article_sections.size > 0 %}
+
+    {% for section in page.article_sections %}
+
+      {% case section.type %}
+
+        {% when "text" %}
+          {{ section.content }}
+
+        {% when "h4" %}
+          <h4>{{ section.text }}</h4>
+
+        {% when "tip" %}
+          <div class="ishare-tip">
+            <strong>{{ section.title }}</strong>
+            <p>{{ section.text }}</p>
+          </div>
+
+        {% when "warning" %}
+          <div class="ishare-warning">
+            <strong>{{ section.title }}</strong>
+            <p>{{ section.text }}</p>
+          </div>
+
+        {% when "step" %}
+          <div class="ishare-step">
+            <span class="step-number">{{ section.number }}</span>
+            <div>
+              <strong>{{ section.title }}</strong>
+              {{ section.content }}
+            </div>
+          </div>
+
+        {% when "note" %}
+          <div class="ishare-note">
+            <strong>{{ section.title }}</strong>
+            <p>{{ section.text }}</p>
+          </div>
+
+        {% when "source" %}
+          <div class="ishare-source">
+            <span>官方來源</span>
+            <a href="{{ section.url }}"
+               target="_blank"
+               rel="noopener noreferrer">
+              {{ section.label }} ↗
+            </a>
+          </div>
+
+        {% when "related" %}
+          <div class="ishare-related">
+            <span>延伸閱讀</span>
+            <a href="{{ section.url }}">
+              {{ section.title }} →
+            </a>
+          </div>
+
+        {% when "youtube" %}
+          <div class="ishare-video">
+            <iframe
+              src="https://www.youtube.com/embed/{{ section.video_id }}"
+              title="{{ section.title | escape }}"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+
+        {% when "image" %}
+          <figure>
+            <img
+              src="{{ section.image | relative_url }}"
+              alt="{{ section.alt | escape }}">
+
+            {% if section.caption %}
+              <figcaption>{{ section.caption }}</figcaption>
+            {% endif %}
+          </figure>
+
+      {% endcase %}
+
+    {% endfor %}
+
+  {% elsif page.content_html %}
+
+    {{ page.content_html }}
+
   {% else %}
-    {{ content | replace: 'src="/assets/images/', image_prefix }}
+
+    {{ content }}
+
   {% endif %}
+
 </div>
 
   {% if page.key_takeaways and page.key_takeaways.size > 0 %}
