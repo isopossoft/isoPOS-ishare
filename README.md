@@ -13,3 +13,10 @@
 
 ## 上傳方式
 將本 ZIP 解壓縮後，把內容上傳到 GitHub repository 根目錄並覆蓋同名檔案即可。
+
+
+## V2.1 微調
+- Header Logo 改用方形 Logo，尺寸縮小
+- Hero 大 Logo 改用簡化符號 Logo
+- Hero 標題固定斷行為「美業經營與數位工具的 / 實用知識指南」
+- Footer Logo 縮小
