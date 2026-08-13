@@ -7,13 +7,16 @@
   {% assign page_desc = page.meta_description | default: page.description | default: site.description %}
   <title>{{ page_title | escape }}</title>
   <meta name="description" content="{{ page_desc | strip_html | strip_newlines | escape }}">
+
   {% if page.noindex %}
   <meta name="robots" content="noindex,follow">
   {% else %}
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   {% endif %}
+
   {% assign canonical_url = page.canonical | default: page.url | absolute_url %}
   <link rel="canonical" href="{{ canonical_url }}">
+
   <meta property="og:locale" content="zh_TW">
   <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
   <meta property="og:title" content="{{ page_title | escape }}">
@@ -23,14 +26,27 @@
   {% if page.image %}
   <meta property="og:image" content="{{ page.image | absolute_url }}">
   <meta property="og:image:alt" content="{{ page.image_alt | default: page.title | escape }}">
+  {% else %}
+  <meta property="og:image" content="{{ '/assets/images/isopos-icon.png' | absolute_url }}">
   {% endif %}
+
+  <link rel="icon" type="image/png" href="{{ '/assets/images/isopos-icon.png' | relative_url }}">
+  <link rel="apple-touch-icon" href="{{ '/assets/images/isopos-icon.png' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 </head>
 <body>
+
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="{{ '/' | relative_url }}"><span class="brand-mark">i</span><span><strong>isoPOS iShare</strong><small>知識中心</small></span></a>
-    <nav class="main-nav">
+    <a class="brand" href="{{ '/' | relative_url }}">
+      <img src="{{ '/assets/images/isopos-logo-symbol.png' | relative_url }}" alt="isoPOS Logo">
+      <span class="brand-copy">
+        <strong>isoPOS iShare</strong>
+        <small>知識中心</small>
+      </span>
+    </a>
+
+    <nav class="main-nav" aria-label="主要導覽">
       <a href="{{ '/categories/line/' | relative_url }}">LINE 官方帳號</a>
       <a href="{{ '/categories/management/' | relative_url }}">美業經營管理</a>
       <a href="{{ '/categories/tools/' | relative_url }}">數位工具教學</a>
@@ -38,7 +54,21 @@
     </nav>
   </div>
 </header>
+
 <main>{{ content }}</main>
-<footer class="site-footer"><div class="container"><strong>isoPOS iShare</strong><p>LINE 官方帳號、美業經營管理、數位工具與產業知識。</p><p class="muted">© {{ 'now' | date: '%Y' }} isoPOS</p></div></footer>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img src="{{ '/assets/images/isopos-logo-symbol.png' | relative_url }}" alt="isoPOS">
+      <div>
+        <strong>isoPOS iShare</strong>
+        <p>LINE 官方帳號、美業經營管理、數位工具與產業知識。</p>
+      </div>
+    </div>
+    <p class="muted">© {{ 'now' | date: '%Y' }} isoPOS</p>
+  </div>
+</footer>
+
 </body>
 </html>

@@ -1,21 +1,73 @@
 ---
 layout: default
 ---
+
 <article class="article container narrow">
-  <nav class="breadcrumb"><a href="{{ '/' | relative_url }}">首頁</a><span>›</span><span>{{ page.category }}</span></nav>
+  <nav class="breadcrumb" aria-label="麵包屑">
+    <a href="{{ '/' | relative_url }}">首頁</a>
+    <span>›</span>
+    <span>{{ page.category }}</span>
+  </nav>
+
   <header class="article-header">
     <p class="eyebrow">{{ page.category }}</p>
     <h1>{{ page.title }}</h1>
     <p class="article-description">{{ page.description }}</p>
-    <div class="article-meta"><span>發布 {{ page.date | date: "%Y.%m.%d" }}</span>{% if page.updated %}<span>更新 {{ page.updated | date: "%Y.%m.%d" }}</span>{% endif %}<span>{{ page.author | default: site.author.name }}</span></div>
+    <div class="article-meta">
+      <span>發布 {{ page.date | date: "%Y.%m.%d" }}</span>
+      {% if page.updated %}<span>更新 {{ page.updated | date: "%Y.%m.%d" }}</span>{% endif %}
+      <span>{{ page.author | default: site.author.name }}</span>
+    </div>
   </header>
-  {% if page.image %}<figure class="hero-image"><img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }}"></figure>{% endif %}
-  {% if page.quick_answer %}<section class="answer-box"><p class="answer-label">快速解答</p><p>{{ page.quick_answer }}</p></section>{% endif %}
-  <div class="article-body">{{ content }}</div>
-  {% if page.key_takeaways and page.key_takeaways.size > 0 %}<section class="takeaways"><h2>重點整理</h2><ul>{% for item in page.key_takeaways %}<li>{{ item }}</li>{% endfor %}</ul></section>{% endif %}
-  {% if page.sources and page.sources.size > 0 %}<section class="sources"><h2>參考來源</h2><ul>{% for source in page.sources %}<li><a href="{{ source }}" rel="noopener noreferrer">{{ source }}</a></li>{% endfor %}</ul></section>{% endif %}
-  {% if page.tags and page.tags.size > 0 %}<div class="tags">{% for tag in page.tags %}<span>#{{ tag }}</span>{% endfor %}</div>{% endif %}
+
+  {% if page.image %}
+  <figure class="hero-image">
+    <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }}">
+  </figure>
+  {% endif %}
+
+  {% if page.quick_answer %}
+  <section class="answer-box">
+    <p class="answer-label">快速解答</p>
+    <p>{{ page.quick_answer }}</p>
+  </section>
+  {% endif %}
+
+  <div class="article-body">
+    {{ content }}
+  </div>
+
+  {% if page.key_takeaways and page.key_takeaways.size > 0 %}
+  <section class="takeaways">
+    <h2>重點整理</h2>
+    <ul>
+      {% for item in page.key_takeaways %}
+      <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if page.sources and page.sources.size > 0 %}
+  <section class="sources">
+    <h2>參考來源</h2>
+    <ul>
+      {% for source in page.sources %}
+      <li><a href="{{ source }}" rel="noopener noreferrer">{{ source }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if page.tags and page.tags.size > 0 %}
+  <div class="tags">
+    {% for tag in page.tags %}
+    <span>#{{ tag }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
 </article>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -23,9 +75,7 @@ layout: default
   "headline": {{ page.title | jsonify }},
   "description": {{ page.meta_description | default: page.description | jsonify }},
   "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
-  {% if page.updated %}
-  "dateModified": {{ page.updated | date_to_xmlschema | jsonify }},
-  {% endif %}
+  {% if page.updated %}"dateModified": {{ page.updated | date_to_xmlschema | jsonify }},{% endif %}
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": {{ page.url | absolute_url | jsonify }}
@@ -36,18 +86,16 @@ layout: default
   },
   "publisher": {
     "@type": "Organization",
-    "name": "isoPOS"
+    "name": "isoPOS",
+    "logo": {
+      "@type": "ImageObject",
+      "url": {{ '/assets/images/isopos-icon.png' | absolute_url | jsonify }}
+    }
   },
-  {% if page.category %}
-  "articleSection": {{ page.category | jsonify }},
-  {% endif %}
-  {% if page.tags and page.tags.size > 0 %}
-  "keywords": {{ page.tags | join: ", " | jsonify }},
-  {% endif %}
-  {% if page.image %}
+  {% if page.category %}"articleSection": {{ page.category | jsonify }},{% endif %}
+  {% if page.tags and page.tags.size > 0 %}"keywords": {{ page.tags | join: ", " | jsonify }},{% endif %}
   "image": [
-    {{ page.image | absolute_url | jsonify }}
+    {% if page.image %}{{ page.image | absolute_url | jsonify }}{% else %}{{ '/assets/images/isopos-icon.png' | absolute_url | jsonify }}{% endif %}
   ]
-  {% endif %}
 }
 </script>

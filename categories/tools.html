@@ -1,15 +1,34 @@
 ---
 layout: default
 title: "數位工具教學｜isoPOS iShare"
-description: "Google、Windows、遠端工具與工作效率相關教學。"
+description: "Google、Windows、遠端工具與工作效率相關的數位工具教學。"
 permalink: /categories/tools/
 ---
-<section class="category-hero"><div class="container narrow"><p class="eyebrow">Category</p><h1>數位工具教學</h1><p>Google、Windows、遠端工具與工作效率相關教學。</p></div></section>
-<section class="container narrow section"><div class="post-list">
-{% assign matched = site.posts | where: "category", "數位工具教學" %}
-{% if matched.size > 0 %}
-  {% for post in matched %}
-  <article class="post-list-item"><div><time>{{ post.date | date: "%Y.%m.%d" }}</time><h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2><p>{{ post.description | default: post.excerpt | strip_html | truncate: 150 }}</p></div><a class="arrow" href="{{ post.url | relative_url }}">→</a></article>
-  {% endfor %}
-{% else %}<div class="empty-state"><p>這個分類目前還沒有文章。</p></div>{% endif %}
-</div></section>
+
+<section class="category-hero">
+  <div class="container narrow">
+    <p class="eyebrow">文章分類</p>
+    <h1>數位工具教學</h1>
+    <p>Google、Windows、遠端工具與工作效率相關的數位工具教學。</p>
+  </div>
+</section>
+
+<section class="container narrow section">
+  <div class="post-list">
+  {% assign matched = site.posts | where: "category", "數位工具教學" %}
+  {% if matched.size > 0 %}
+    {% for post in matched %}
+    <article class="post-list-item">
+      <div>
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+        <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+        <p>{{ post.description | default: post.excerpt | strip_html | truncate: 150 }}</p>
+      </div>
+      <a class="arrow" href="{{ post.url | relative_url }}" aria-label="閱讀文章">→</a>
+    </article>
+    {% endfor %}
+  {% else %}
+    <div class="empty-state"><p>這個分類目前還沒有文章。</p></div>
+  {% endif %}
+  </div>
+</section>

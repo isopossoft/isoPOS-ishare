@@ -20,7 +20,9 @@ key_takeaways:
 sources: []
 ---
 ## 這篇文章的用途
+
 如果你現在可以看到這個頁面，代表 GitHub Pages 已經成功讀取 Jekyll 文章模板。
 
 ## 下一步
+
 回到 Pages CMS 新增一篇正式文章，填寫標題、分類、快速解答與正文，再儲存發布即可。

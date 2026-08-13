@@ -1,27 +1,91 @@
 ---
 layout: default
-title: "isoPOS iShare｜美業知識中心"
-description: "整理 LINE 官方帳號、美業經營管理、數位工具教學與產業知識。"
+title: "isoPOS iShare｜美業經營與數位工具知識指南"
+description: "整理 LINE 官方帳號、美業經營管理、數位工具教學與產業知識，提供可實際應用的完整解答。"
 ---
-<section class="hero"><div class="container"><p class="eyebrow">isoPOS iShare</p><h1>把複雜的問題，整理成可以直接使用的答案。</h1><p>LINE 官方帳號、美業經營管理、數位工具與產業知識。</p></div></section>
-<section class="container section">
-  <div class="section-heading"><div><p class="eyebrow">Explore</p><h2>文章分類</h2></div></div>
-  <div class="category-grid">
-    <a class="category-card" href="{{ '/categories/line/' | relative_url }}"><span>01</span><h3>LINE 官方帳號</h3><p>LINE OA、Messaging API、Webhook、會員與串接應用。</p></a>
-    <a class="category-card" href="{{ '/categories/management/' | relative_url }}"><span>02</span><h3>美業經營管理</h3><p>顧客經營、回流、預約、會員制度與營運管理。</p></a>
-    <a class="category-card" href="{{ '/categories/tools/' | relative_url }}"><span>03</span><h3>數位工具教學</h3><p>Google、Windows、遠端工具與日常數位工作技巧。</p></a>
-    <a class="category-card" href="{{ '/categories/industry/' | relative_url }}"><span>04</span><h3>產業知識</h3><p>美業趨勢、制度、觀念與實務知識。</p></a>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">isoPOS iShare</p>
+      <h1>美業經營與數位工具的實用知識指南</h1>
+      <p class="hero-desc">從 LINE 官方帳號、美業經營管理到數位工具，把複雜問題整理成真正能使用的答案。</p>
+    </div>
+    <div class="hero-mark" aria-hidden="true">
+      <img src="{{ '/assets/images/isopos-logo-full.png' | relative_url }}" alt="">
+    </div>
   </div>
 </section>
+
 <section class="container section">
-  <div class="section-heading"><div><p class="eyebrow">Latest</p><h2>最新文章</h2></div></div>
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">文章分類</p>
+      <h2>從你現在遇到的問題開始</h2>
+    </div>
+  </div>
+
+  <div class="category-grid">
+    <a class="category-card" href="{{ '/categories/line/' | relative_url }}">
+      <span class="category-index">01</span>
+      <h3>LINE 官方帳號</h3>
+      <p>LINE OA、Messaging API、Webhook、會員綁定與系統串接。</p>
+    </a>
+    <a class="category-card" href="{{ '/categories/management/' | relative_url }}">
+      <span class="category-index">02</span>
+      <h3>美業經營管理</h3>
+      <p>顧客經營、回流率、預約、會員制度與營運管理。</p>
+    </a>
+    <a class="category-card" href="{{ '/categories/tools/' | relative_url }}">
+      <span class="category-index">03</span>
+      <h3>數位工具教學</h3>
+      <p>Google、Windows、遠端工具與數位工作技巧。</p>
+    </a>
+    <a class="category-card" href="{{ '/categories/industry/' | relative_url }}">
+      <span class="category-index">04</span>
+      <h3>產業知識</h3>
+      <p>美業趨勢、制度、經營觀念與實務知識。</p>
+    </a>
+  </div>
+</section>
+
+<section class="container section latest-section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">最新文章</p>
+      <h2>最近更新</h2>
+    </div>
+  </div>
+
   {% if site.posts.size > 0 %}
   <div class="post-grid">
     {% for post in site.posts limit: 12 %}
-    <article class="post-card"><p class="post-category">{{ post.category }}</p><h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3><p>{{ post.description | default: post.excerpt | strip_html | truncate: 110 }}</p><div class="post-footer"><time>{{ post.date | date: "%Y.%m.%d" }}</time><a href="{{ post.url | relative_url }}">閱讀文章 →</a></div></article>
+    <article class="post-card">
+      <a class="post-cover" href="{{ post.url | relative_url }}">
+        {% if post.image %}
+          <img src="{{ post.image | relative_url }}" alt="{{ post.image_alt | default: post.title | escape }}">
+        {% else %}
+          <div class="post-cover-fallback">
+            <img src="{{ '/assets/images/isopos-logo-symbol.png' | relative_url }}" alt="">
+          </div>
+        {% endif %}
+      </a>
+      <div class="post-card-body">
+        <p class="post-category">{{ post.category }}</p>
+        <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+        <p class="post-summary">{{ post.description | default: post.excerpt | strip_html | truncate: 110 }}</p>
+        <div class="post-footer">
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+          <a href="{{ post.url | relative_url }}">閱讀文章 →</a>
+        </div>
+      </div>
+    </article>
     {% endfor %}
   </div>
   {% else %}
-  <div class="empty-state"><h3>網站骨架已完成</h3><p>到 Pages CMS 新增第一篇文章，發布後就會自動出現在這裡。</p></div>
+  <div class="empty-state">
+    <h3>目前還沒有文章</h3>
+    <p>可從 Pages CMS 新增第一篇內容。</p>
+  </div>
   {% endif %}
 </section>
