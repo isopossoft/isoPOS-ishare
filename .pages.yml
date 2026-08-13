@@ -100,10 +100,10 @@ content:
         label: 文章內容
         type: rich-text
         required: true
-        description: "直接使用視覺化編輯器撰寫；可使用標題、粗體、清單、連結與圖片"
+        description: "直接使用視覺化編輯器撰寫；需要進階排版時可切換 Source 編輯原始碼"
         options:
-          format: markdown
-          switcher: false
+          format: html
+          switcher: true
           media: true
           path: assets/images
           rename: safe
