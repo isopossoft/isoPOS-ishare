@@ -20,9 +20,7 @@ article_sections:
   - type: text
     content: <blockquote><p>想建立一個簡單網站，不一定要會寫程式、HTML
       或自己架設主機。</p><p>如果只是想製作<strong>價目表、作品集、服務介紹、活動資訊或簡單的公開頁面</strong>，Notion
-      就是一個容易上手的選擇。</p><p>Notion 可以直接將完成的頁面發布到網路上。你只需要在 Notion
-      編輯內容，再開啟發布功能，就能取得一個可以分享給其他人的公開網址；之後修改 Notion
-      內容，公開頁面也會同步更新。</p><p>這篇文章會從建立帳號開始，一步一步介紹如何使用 Notion
+      就是一個容易上手的選擇。</p><p>這篇文章會從建立帳號開始，一步一步介紹如何使用 Notion
       建立並發布自己的第一個網站。</p></blockquote><h2><strong>一、Notion
       是什麼？</strong></h2><p><strong>Notion
       是一種整合型工作與筆記工具</strong>，大部分的人會用來：</p><ul><li><p>寫筆記</p></li><li><p>管理資料</p></li><li><p>做表格資料庫</p></li><li><p>建立知識庫</p></li><li><p>協作文件</p></li><li><p>建立網站</p></li></ul><h2><strong>二、Notion
