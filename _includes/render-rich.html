@@ -1,0 +1,7 @@
+{% assign rich = include.content | default: include.fallback | default: "" %}
+{% capture image_prefix %}src="{{ '/assets/images/' | relative_url }}{% endcapture %}
+{% capture image_prefix_single %}src='{{ '/assets/images/' | relative_url }}{% endcapture %}
+{{ rich
+  | replace: 'src="/assets/images/', image_prefix
+  | replace: "src='/assets/images/", image_prefix_single
+}}

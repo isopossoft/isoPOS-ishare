@@ -38,7 +38,9 @@ layout: default
       {% case section.type %}
 
         {% when "text" %}
-          <div class="article-text-block">{{ section.content }}</div>
+          <div class="article-text-block">
+            {% include render-rich.html content=section.content %}
+          </div>
 
         {% when "h2" %}
           <h2>{{ section.text }}</h2>
@@ -50,50 +52,44 @@ layout: default
           <h4>{{ section.text }}</h4>
 
         {% when "emphasis" %}
-          <p class="ishare-emphasis ishare-emphasis--{{ section.tone }}">{{ section.text }}</p>
+          <p class="ishare-emphasis ishare-emphasis--{{ section.tone | default: 'deep' }}">{{ section.text }}</p>
 
         {% when "quote" %}
-          <blockquote>{{ section.content }}</blockquote>
-
-        {% when "bullet_list" %}
-          <ul>
-            {% for item in section.items %}
-              <li>{{ item }}</li>
-            {% endfor %}
-          </ul>
-
-        {% when "numbered_list" %}
-          <ol>
-            {% for item in section.items %}
-              <li>{{ item }}</li>
-            {% endfor %}
-          </ol>
+          <blockquote>
+            {% include render-rich.html content=section.content fallback=section.text %}
+          </blockquote>
 
         {% when "tip" %}
           <div class="ishare-tip">
             <strong>{{ section.title }}</strong>
-            {{ section.content }}
+            <div class="ishare-box-content">
+              {% include render-rich.html content=section.content fallback=section.text %}
+            </div>
           </div>
 
         {% when "warning" %}
           <div class="ishare-warning">
             <strong>{{ section.title }}</strong>
-            {{ section.content }}
+            <div class="ishare-box-content">
+              {% include render-rich.html content=section.content fallback=section.text %}
+            </div>
           </div>
 
         {% when "step" %}
           <div class="ishare-step">
             <span class="step-number">{{ section.number }}</span>
-            <div>
+            <div class="ishare-step-content">
               <strong>{{ section.title }}</strong>
-              {{ section.content }}
+              {% include render-rich.html content=section.content fallback=section.text %}
             </div>
           </div>
 
         {% when "note" %}
           <div class="ishare-note">
             <strong>{{ section.title }}</strong>
-            {{ section.content }}
+            <div class="ishare-box-content">
+              {% include render-rich.html content=section.content fallback=section.text %}
+            </div>
           </div>
 
         {% when "image" %}
@@ -105,62 +101,38 @@ layout: default
           </figure>
 
         {% when "youtube" %}
-          {% assign video_id = section.video_url %}
+          {% assign raw_video = section.video_url | default: section.video_id %}
+          {% assign video_id = raw_video %}
           {% assign video_id = video_id | replace: 'https://youtu.be/', '' %}
           {% assign video_id = video_id | replace: 'https://www.youtube.com/watch?v=', '' %}
           {% assign video_id = video_id | replace: 'https://youtube.com/watch?v=', '' %}
           {% assign video_id = video_id | replace: 'https://www.youtube.com/embed/', '' %}
           {% assign video_id = video_id | replace: 'https://youtube.com/embed/', '' %}
+          {% assign video_id = video_id | replace: 'https://www.youtube.com/shorts/', '' %}
           {% assign video_id = video_id | split: '&' | first %}
           {% assign video_id = video_id | split: '?' | first %}
-          <figure class="ishare-video">
-            <iframe
-              src="https://www.youtube.com/embed/{{ video_id }}"
-              title="{{ section.title | escape }}"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
-            </iframe>
+
+          <figure class="ishare-video-block">
+            <div class="ishare-video-player">
+              <iframe
+                src="https://www.youtube.com/embed/{{ video_id }}"
+                title="{{ section.title | escape }}"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+              </iframe>
+            </div>
             {% if section.caption %}
               <figcaption>{{ section.caption }}</figcaption>
             {% endif %}
           </figure>
 
-        {% when "table" %}
-          <div class="ishare-table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  {% for header in section.headers %}
-                    <th>{{ header }}</th>
-                  {% endfor %}
-                </tr>
-              </thead>
-              <tbody>
-                {% for row in section.rows %}
-                  <tr>
-                    {% for cell in row.cells %}
-                      <td>{{ cell }}</td>
-                    {% endfor %}
-                  </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-
-        {% when "code" %}
-          <pre class="ishare-code"><code class="language-{{ section.language }}">{{ section.code | escape }}</code></pre>
-
         {% when "source" %}
           <div class="ishare-source">
             <span>官方來源</span>
             <div>
-              <a href="{{ section.url }}" target="_blank" rel="noopener noreferrer">
-                {{ section.label }} ↗
-              </a>
-              {% if section.description %}
-                <p>{{ section.description }}</p>
-              {% endif %}
+              <a href="{{ section.url }}" target="_blank" rel="noopener noreferrer">{{ section.label }} ↗</a>
+              {% if section.description %}<p>{{ section.description }}</p>{% endif %}
             </div>
           </div>
 
@@ -168,9 +140,7 @@ layout: default
           <div class="ishare-related">
             <span>延伸閱讀</span>
             <a href="{{ section.url }}">{{ section.title }} →</a>
-            {% if section.description %}
-              <p>{{ section.description }}</p>
-            {% endif %}
+            {% if section.description %}<p>{{ section.description }}</p>{% endif %}
           </div>
 
         {% when "divider" %}
@@ -215,25 +185,19 @@ layout: default
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": {{ page.title | jsonify }},
-  "description": {{ page.meta_description | default: page.description | jsonify }},
+  "headline": {{ page.title | strip_html | jsonify }},
+  "description": {{ page.meta_description | default: page.description | strip_html | jsonify }},
   "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
   {% if page.updated %}"dateModified": {{ page.updated | date_to_xmlschema | jsonify }},{% endif %}
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": {{ page.url | absolute_url | jsonify }}
   },
-  "author": {
-    "@type": "Organization",
-    "name": "isoPOS"
-  },
+  "author": {"@type": "Organization","name": "isoPOS"},
   "publisher": {
     "@type": "Organization",
     "name": "isoPOS",
-    "logo": {
-      "@type": "ImageObject",
-      "url": {{ '/assets/images/isopos-icon.png' | absolute_url | jsonify }}
-    }
+    "logo": {"@type": "ImageObject","url": {{ '/assets/images/isopos-icon.png' | absolute_url | jsonify }}}
   },
   {% if page.category %}"articleSection": {{ page.category | jsonify }},{% endif %}
   {% if page.tags and page.tags.size > 0 %}"keywords": {{ page.tags | join: ", " | jsonify }},{% endif %}

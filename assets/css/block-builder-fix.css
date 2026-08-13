@@ -1,0 +1,120 @@
+/* =========================================================
+   isoPOS iShare｜Block Builder 修正版
+   請貼在 style.css 最底部
+   ========================================================= */
+
+/* Rich Text 區塊 */
+.article-text-block > :first-child,
+.ishare-box-content > :first-child,
+.ishare-step-content > :first-child{
+  margin-top:0;
+}
+.article-text-block > :last-child,
+.ishare-box-content > :last-child,
+.ishare-step-content > :last-child{
+  margin-bottom:0;
+}
+
+/* 提示框內容一定顯示 */
+.ishare-box-content{
+  display:block;
+  margin-top:8px;
+  color:#4F5965;
+  font-size:16px;
+  line-height:1.85;
+}
+.ishare-tip .ishare-box-content,
+.ishare-note .ishare-box-content,
+.ishare-warning .ishare-box-content{
+  color:#4F5965;
+}
+
+/* 步驟卡中的內容與圖片 */
+.ishare-step-content{
+  min-width:0;
+}
+.ishare-step-content img{
+  display:block;
+  max-width:100%;
+  height:auto;
+  margin:22px 0;
+  border-radius:12px;
+}
+
+/* 重點文字／顏色 */
+.ishare-emphasis{
+  margin:24px 0;
+  font-size:18px;
+  line-height:1.8;
+  font-weight:700;
+}
+.ishare-emphasis--deep{color:#28384C}
+.ishare-emphasis--brand{color:#71809F}
+.ishare-emphasis--warm{color:#A17F68}
+.ishare-emphasis--muted{color:#7B8794;font-weight:600}
+
+/* 獨立圖片區塊 */
+.ishare-figure{
+  margin:32px 0;
+}
+.ishare-figure img{
+  display:block;
+  width:100%;
+  height:auto;
+  margin:0;
+  border-radius:14px;
+}
+.ishare-figure figcaption{
+  margin:10px 0 0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+  text-align:center;
+}
+
+/* YouTube：文章寬度 16:9 */
+.ishare-video-block{
+  width:100%;
+  margin:34px 0;
+}
+.ishare-video-player{
+  position:relative;
+  width:100%;
+  aspect-ratio:16 / 9;
+  overflow:hidden;
+  border-radius:14px;
+  background:#000;
+}
+.ishare-video-player iframe{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  border:0;
+  border-radius:0;
+}
+.ishare-video-block figcaption{
+  margin:10px 0 0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+  text-align:center;
+}
+
+/* 官方來源／延伸閱讀說明 */
+.ishare-source > div{min-width:0}
+.ishare-source p,
+.ishare-related p{
+  margin:6px 0 0;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.65;
+}
+
+@media(max-width:640px){
+  .ishare-emphasis{font-size:17px}
+  .ishare-video-block{margin:26px 0}
+  .ishare-video-player{border-radius:10px}
+}
