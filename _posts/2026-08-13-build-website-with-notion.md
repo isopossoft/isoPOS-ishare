@@ -37,7 +37,7 @@ article_sections:
       官方網站</u></a></p><p>(1) 點擊 <strong>免費取得 Notion</strong></p><img
       src="/assets/images/notion01.png"><p>(2) 依需求選擇要用 Google 或 Email
       ，註冊建立帳號，完成後就可以進入 Notion 工作區</p><img
-      src="/assets/images/notion02.png"><p>(3) 詳細登入步驟，可參考影片操作</p>
+      src="/assets/images/notion02.png"><p>(3) 詳細登入步驟，可參考影片操作</p><p></p>
   - type: youtube
     video_id: 1nIsbRfEGK4
     title: 登入Notion操作步驟
