@@ -30,3 +30,10 @@
 - 最新文章卡片維持三欄配置
 - 文章封面統一 16:9
 - 首頁整體垂直留白縮減
+
+
+## V4 調整
+- Hero 高度再縮短
+- Hero 改用使用者提供的去背完整 Logo，並縮小尺寸、提高辨識度
+- Header Logo 再縮小
+- `isoPOS` 靜態品牌文字套用 Google Fonts Orbitron
