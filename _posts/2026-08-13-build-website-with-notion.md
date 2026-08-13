@@ -12,7 +12,7 @@ date: 2026-03-16
 updated: 2026-08-13
 description: 不會寫程式也能建立網站嗎？Notion 可以直接將頁面發布成公開網站，不需要
   HTML、主機或程式基礎。本文從建立頁面、編輯內容到公開發布，完整介紹如何用 Notion 快速製作簡單網站。
-image: /isoPOS-ishare/assets/images/build-website-with-notion.png
+image: /assets/images/build-website-with-notion.png
 author: isoPOS
 quick_answer: 即使不會寫程式或 HTML，也能使用 Notion
   將頁面直接發布成公開網站。完成頁面內容後，只要開啟發布功能即可取得公開網址，之後在 Notion 修改內容，網站內容也會同步更新。
