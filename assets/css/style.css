@@ -58,7 +58,13 @@ img{max-width:100%;height:auto;display:block}
   margin:14px 0 22px;
 }
 .hero-desc{font-size:19px;color:var(--muted);max-width:720px;margin:0}
-.hero-mark{display:flex;justify-content:center;align-items:center;opacity:.4;transform:translateX(8%)}
+.hero-mark{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  opacity:.72;
+  transform:translateX(8%)
+}
 .hero-mark img{max-height:430px;width:auto}
 .eyebrow{
   color:var(--brand-deep);
