@@ -33,13 +33,15 @@ layout: default
   </section>
   {% endif %}
 
-  <div class="article-body">
-    {% if page.content_html %}
-      {{ page.content_html }}
-    {% else %}
-      {{ content }}
-    {% endif %}
-  </div>
+  {% capture image_prefix %}src="{{ site.baseurl }}/assets/images/{% endcapture %}
+
+<div class="article-body">
+  {% if page.content_html %}
+    {{ page.content_html | replace: 'src="/assets/images/', image_prefix }}
+  {% else %}
+    {{ content | replace: 'src="/assets/images/', image_prefix }}
+  {% endif %}
+</div>
 
   {% if page.key_takeaways and page.key_takeaways.size > 0 %}
   <section class="takeaways">
