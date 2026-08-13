@@ -1,6 +1,22 @@
 media:
-  input: assets/images
-  output: /assets/images
+  - name: images
+    label: 圖片
+    input: assets/images
+    output: /assets/images
+    categories:
+      - image
+    rename: safe
+
+  - name: videos
+    label: 影片
+    input: assets/videos
+    output: /assets/videos
+    categories:
+      - video
+    extensions:
+      - mp4
+      - webm
+    rename: safe
 content:
   - name: posts
     label: 文章管理
@@ -103,8 +119,7 @@ content:
         options:
           format: html
           switcher: true
-          media: true
-          path: assets/images
+          media: images
           rename: safe
 
       # ========================
