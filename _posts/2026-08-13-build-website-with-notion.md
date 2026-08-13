@@ -51,13 +51,12 @@ article_sections:
   - type: step
     number: "03"
     title: 編輯內容
-    content: <p>在頁面中可以先加入網站的標題，例如我想要放上店內的價目表，則標題名稱輸入：ZW價目表</p>
+    content: <p>依照需求放上資訊</p>
   - type: h4
     text: ▍標題
   - type: text
-    content: <img src="/assets/images/notion05.png"><p></p>
-  - type: h4
-    text: ▍文字、表格
+    content: <p>在頁面中可以先加入網站的標題，例如我想要放上店內的價目表，則標題名稱輸入：ZW價目表</p><img
+      src="/assets/images/notion05.png"><p></p>
   - type: text
     content: <p>您可直接輸入文字。選取文字後，可調整文字樣式，例如：大小、粗體、底線或變更顏色…等等</p><img
       src="/assets/images/notion06.png"><p>只要在欄位輸入 斜線 /
@@ -71,17 +70,21 @@ article_sections:
       src="/assets/images/notion09.png"><p>選擇『上傳檔案』</p><img
       src="/assets/images/notion10.png"><p>如果有多張圖片，則可連續加入</p><img
       src="/assets/images/notion11.png"><p></p>
-  - type: youtube
-    video_id: Ec1r-_I496U
-    title: 調整圖片大小位置
   - type: step
     number: "04"
     title: 發布網站
+    content: <p>方享網址給他人</p>
+  - type: text
     content: <p>當內容完成後，在右上角點擊「分享」，依照需求確認是否需要調整存取權限，例如：當選擇〝網路上知道連結的任何人〞，指的就是：是否要讓別人在搜尋引擎上可以找到你的Notion網站，如果您是要放上例如：作品集、價目表等讓顧客查看，請選擇此選項。</p><img
       src="/assets/images/notion12.png"><p>切換到「發布」頁籤後，點選「發布」</p><img
       src="/assets/images/notion13.png"><p>Notion就會生成一個公開網址，例如：<a
       href="https://petguide.notion.site/zw-XXXX">https://petguide.notion.site/zw-XXXX</a>
       ，點選右側連結圖示可以將網址進行複製；或是可以點選「查看網站」，直接開啟網站確認呈現畫面。</p>
+  - type: h4
+    text: ▍文字、表格
+  - type: youtube
+    video_id: Ec1r-_I496U
+    title: 調整圖片大小位置
   - type: note
     title: 補充資訊
     text: 預設會使用Notion提供結尾為「.notion.site」的網址；如果想要使用自己命名的網址，首先要購買Notion的PLUS會員，才能進行設定。
