@@ -1,0 +1,143 @@
+media:
+  input: assets/images
+  output: /assets/images
+
+content:
+  - name: posts
+    label: 文章管理
+    type: collection
+    path: _posts
+
+    filename: "{year}-{month}-{day}-{primary}.md"
+
+    view:
+      fields:
+        - title
+        - category
+        - date
+        - updated
+      primary: title
+
+    fields:
+
+      # ========================
+      # 基本資料
+      # ========================
+
+      - name: title
+        label: 文章標題
+        type: string
+        required: true
+
+      - name: slug
+        label: 網址 Slug
+        type: string
+        required: true
+        description: "英文網址名稱，例如 line-pos-integration"
+
+      - name: description
+        label: 文章摘要
+        type: text
+        required: true
+        description: "簡短說明這篇文章在回答什麼問題"
+
+      - name: category
+        label: 文章分類
+        type: select
+        required: true
+        options:
+          values:
+            - LINE 官方帳號
+            - 美業經營管理
+            - 數位工具教學
+            - 產業知識
+
+      - name: tags
+        label: 標籤
+        type: string
+        description: "例如 LINE、Messaging API、Webhook、會員"
+
+      # ========================
+      # 日期 / 作者
+      # ========================
+
+      - name: date
+        label: 發布日期
+        type: date
+        required: true
+
+      - name: updated
+        label: 最後更新日期
+        type: date
+
+      - name: author
+        label: 作者
+        type: string
+        default: "isoPOS"
+
+      # ========================
+      # 圖片
+      # ========================
+
+      - name: image
+        label: 封面圖片
+        type: image
+
+      - name: image_alt
+        label: 封面圖片 ALT
+        type: string
+        description: "描述圖片內容，請勿單純堆疊關鍵字"
+
+      # ========================
+      # SEO
+      # ========================
+
+      - name: seo_title
+        label: SEO 標題
+        type: string
+        description: "Google 搜尋結果使用；留白時可使用文章標題"
+
+      - name: meta_description
+        label: Meta Description
+        type: text
+        description: "搜尋結果摘要，清楚說明文章能解決什麼問題"
+
+      - name: canonical
+        label: Canonical URL
+        type: string
+        description: "通常留白，由網站自動產生；只有特殊情況才設定"
+
+      - name: noindex
+        label: 不允許搜尋引擎索引
+        type: boolean
+        default: false
+        description: "一般文章請保持關閉"
+
+      # ========================
+      # GEO / AI 搜尋
+      # ========================
+
+      - name: quick_answer
+        label: 快速解答
+        type: text
+        required: true
+        description: "用 2～4 句直接回答文章核心問題，避免廣告式文案"
+
+      - name: key_takeaways
+        label: 重點整理
+        type: text
+        description: "整理讀者最需要知道的重點"
+
+      - name: sources
+        label: 參考來源
+        type: text
+        description: "重要事實的官方或第一手來源，例如 LINE Developers"
+
+      # ========================
+      # 文章正文
+      # ========================
+
+      - name: body
+        label: 文章內容
+        type: rich-text
+        required: true
