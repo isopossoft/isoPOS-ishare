@@ -1,6 +1,6 @@
 media:
   input: assets/images
-  output: /assets/images
+  output: /isoPOS-ishare/assets/images
 
 content:
   - name: posts
@@ -8,7 +8,7 @@ content:
     type: collection
     path: _posts
 
-    filename: "{year}-{month}-{day}-{primary}.md"
+    filename: "{year}-{month}-{day}-{fields.slug}.md"
 
     view:
       fields:
