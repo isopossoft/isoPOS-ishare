@@ -93,13 +93,7 @@ article_sections:
       <strong>自動更新</strong>，不需要重新發布。</p>
   - type: tip
     title: 小技巧
-    text: 除了使用電腦開啟 網頁版Notion 之外，也能在電腦中安裝 Notion 的應用程式；或是手機 APP 也能下載 Notion，隨時都能編輯無負擔。
-  - type: text
-    content: <ul><li><p><a
-      href="https://apps.apple.com/us/app/notion-notes-tasks-ai/id1232780281">Apple
-      Store</a></p></li><li><p><a
-      href="https://play.google.com/store/apps/details?id=notion.id&amp;pcampaignid=web_share">Google
-      Play</a></p></li></ul><p></p>
+    content: <p>除了使用電腦開啟網頁版 Notion 之外，也能在電腦中安裝 Notion 的應用程式；手機 APP 也能下載 Notion，隨時都能編輯。</p><ul><li><p><a href="https://apps.apple.com/us/app/notion-notes-tasks-ai/id1232780281">Apple Store</a></p></li><li><p><a href="https://play.google.com/store/apps/details?id=notion.id&amp;pcampaignid=web_share">Google Play</a></p></li></ul>
 quick_answer: 即使不會寫程式或 HTML，也能使用 Notion
   將頁面直接發布成公開網站。完成頁面內容後，只要開啟發布功能即可取得公開網址，之後在 Notion 修改內容，網站內容也會同步更新。
 key_takeaways:

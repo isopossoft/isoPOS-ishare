@@ -698,3 +698,255 @@ img{max-width:100%;height:auto;display:block}
     white-space:nowrap;
   }
 }
+
+/* =========================================================
+   isoPOS iShare｜2026-08-13 consolidated fixes
+   - responsive YouTube
+   - mobile drawer visibility/layout
+   - consistent article image alignment
+   - note/tip contrast
+   ========================================================= */
+
+/* Rich-text block spacing */
+.article-text-block > :first-child,
+.ishare-box-content > :first-child,
+.ishare-step-content > :first-child,
+.ishare-video-intro > :first-child{margin-top:0}
+
+.article-text-block > :last-child,
+.ishare-box-content > :last-child,
+.ishare-step-content > :last-child,
+.ishare-video-intro > :last-child{margin-bottom:0}
+
+.ishare-box-content{
+  display:block;
+  margin-top:9px;
+  color:#4F5965;
+  font-size:16px;
+  line-height:1.85;
+}
+
+/* Special content blocks */
+.ishare-tip{
+  background:#E9EEF7 !important;
+  border:1px solid #D5DEED !important;
+}
+
+.ishare-warning{
+  background:#FAF2EC !important;
+  border:1px solid #EADDCF !important;
+}
+
+.ishare-note{
+  margin:30px 0;
+  padding:24px 26px;
+  background:#E9EEF7 !important;
+  border:1px solid #D3DCEA;
+  border-left:4px solid #9CAAC4 !important;
+  border-radius:12px;
+}
+
+.ishare-note::before{color:#6F7E99}
+.ishare-note > strong:first-child{
+  display:block;
+  margin-bottom:8px;
+  color:#40516A;
+  font-size:18px;
+  font-weight:700;
+}
+
+.ishare-step-content{min-width:0}
+
+/* Keep rich-text images aligned to the text column instead of auto-centering
+   at different intrinsic widths. */
+.article-text-block img,
+.ishare-step-content img,
+.ishare-box-content img{
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:auto;
+  margin:22px 0;
+  border-radius:12px;
+}
+
+/* Responsive YouTube: always follows the article width and 16:9 ratio. */
+.ishare-video-block{
+  width:100%;
+  margin:34px 0;
+}
+
+.ishare-video-intro{
+  margin:0 0 16px;
+  color:#4F5965;
+  font-size:16px;
+  line-height:1.8;
+}
+
+.ishare-video-player{
+  position:relative;
+  width:100%;
+  aspect-ratio:16 / 9;
+  overflow:hidden;
+  border-radius:14px;
+  background:#000;
+}
+
+.ishare-video-player iframe{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  border:0;
+  border-radius:0;
+}
+
+/* The drawer exists in default.html for every page. Hide it by default so its
+   raw contents never appear in the desktop article header. */
+.mobile-menu-toggle,
+.mobile-menu-close,
+.mobile-drawer,
+.mobile-nav-backdrop{display:none}
+
+@media(max-width:900px){
+  body.menu-open{overflow:hidden}
+
+  .mobile-menu-toggle{
+    display:flex;
+    flex:0 0 auto;
+    width:42px;
+    height:42px;
+    padding:0;
+    border:1px solid var(--line);
+    border-radius:11px;
+    background:#fff;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:4px;
+    cursor:pointer;
+  }
+
+  .mobile-menu-toggle span{
+    display:block;
+    width:18px;
+    height:2px;
+    border-radius:99px;
+    background:#35445C;
+  }
+
+  .mobile-nav-backdrop{
+    position:fixed;
+    inset:0;
+    z-index:9998;
+    background:rgba(25,31,42,.32);
+    opacity:0;
+    transition:opacity .22s ease;
+  }
+
+  .mobile-nav-backdrop:not([hidden]){display:block}
+  .mobile-nav-backdrop.is-visible{opacity:1}
+
+  .mobile-drawer{
+    display:block;
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    z-index:9999;
+    width:min(84vw,340px);
+    padding:22px;
+    background:#F7F8FB;
+    border-right:1px solid var(--line);
+    box-shadow:18px 0 45px rgba(40,48,63,.12);
+    transform:translateX(-105%);
+    transition:transform .24s ease;
+    overflow-y:auto;
+  }
+
+  body.menu-open .mobile-drawer{transform:translateX(0)}
+
+  .mobile-drawer-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding-bottom:22px;
+    border-bottom:1px solid var(--line);
+  }
+
+  .mobile-drawer-brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+  }
+
+  .mobile-drawer-brand img{
+    width:34px !important;
+    height:34px !important;
+    max-width:34px !important;
+    object-fit:contain;
+    border-radius:9px;
+  }
+
+  .mobile-drawer-brand strong{display:block;color:var(--text)}
+  .mobile-drawer-brand small{
+    display:block;
+    margin-top:2px;
+    color:var(--muted);
+    font-size:11px;
+  }
+
+  .mobile-menu-close{
+    display:grid;
+    place-items:center;
+    width:38px;
+    height:38px;
+    padding:0;
+    border:0;
+    background:transparent;
+    color:#596577;
+    font-size:30px;
+    line-height:1;
+    cursor:pointer;
+  }
+
+  .mobile-drawer-nav{
+    display:grid;
+    gap:10px;
+    margin-top:22px;
+  }
+
+  .mobile-drawer-nav a{
+    display:grid;
+    grid-template-columns:36px 1fr;
+    align-items:center;
+    gap:10px;
+    padding:15px 14px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:#fff;
+  }
+
+  .mobile-drawer-nav a span{
+    color:var(--brand-deep);
+    font-family:'Orbitron',sans-serif;
+    font-size:11px;
+  }
+
+  .mobile-drawer-nav a strong{
+    color:#35445C;
+    font-size:15px;
+    font-weight:650;
+  }
+}
+
+@media(max-width:640px){
+  .ishare-video-block{margin:26px 0}
+  .ishare-video-player{border-radius:10px}
+  .ishare-note,
+  .ishare-tip,
+  .ishare-warning{padding:20px}
+}

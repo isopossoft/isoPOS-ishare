@@ -22,7 +22,7 @@ permalink: /categories/industry/
       <div>
         <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
         <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-        <p>{{ post.description | default: post.excerpt | strip_html | truncate: 150 }}</p>
+        <p>{{ post.description | default: post.quick_answer | default: post.excerpt | strip_html | truncate: 150 }}</p>
       </div>
       <a class="arrow" href="{{ post.url | relative_url }}" aria-label="閱讀文章">→</a>
     </article>
