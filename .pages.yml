@@ -114,13 +114,184 @@ content:
       - name: body
         label: 文章內容
         type: rich-text
-        required: true
+        required: false
         description: "直接使用視覺化編輯器撰寫；需要進階排版時可切換 Source 編輯原始碼"
         options:
           format: html
           switcher: true
           media: images
           rename: safe
+
+                # ========================
+      # 新版文章區塊（測試）
+      # ========================
+
+      - name: article_sections
+        label: 新版文章內容
+        type: block
+        list: true
+        required: false
+        blockKey: type
+
+        blocks:
+
+          # 一般文章內容
+          - name: text
+            label: 一般文章內容
+            fields:
+              - name: content
+                label: 內容
+                type: rich-text
+                required: true
+                options:
+                  format: html
+                  switcher: false
+                  media: true
+                  path: assets/images
+                  rename: safe
+
+          # H4
+          - name: h4
+            label: H4 小標題
+            fields:
+              - name: text
+                label: 標題
+                type: string
+                required: true
+
+          # 重點提示
+          - name: tip
+            label: 重點提示
+            fields:
+              - name: title
+                label: 標題
+                type: string
+                default: "重點提示"
+
+              - name: text
+                label: 內容
+                type: text
+                required: true
+
+          # 注意事項
+          - name: warning
+            label: 注意事項
+            fields:
+              - name: title
+                label: 標題
+                type: string
+                default: "注意事項"
+
+              - name: text
+                label: 內容
+                type: text
+                required: true
+
+          # 步驟
+          - name: step
+            label: 步驟區塊
+            fields:
+              - name: number
+                label: 步驟編號
+                type: string
+                required: true
+                description: "例如 01"
+
+              - name: title
+                label: 步驟標題
+                type: string
+                required: true
+
+              - name: content
+                label: 步驟內容
+                type: rich-text
+                required: true
+                options:
+                  format: html
+                  switcher: false
+                  media: true
+                  path: assets/images
+                  rename: safe
+
+          # 補充資訊
+          - name: note
+            label: 補充資訊
+            fields:
+              - name: title
+                label: 標題
+                type: string
+                default: "補充資訊"
+
+              - name: text
+                label: 內容
+                type: text
+                required: true
+
+          # 官方來源
+          - name: source
+            label: 官方來源
+            fields:
+              - name: label
+                label: 顯示文字
+                type: string
+                required: true
+                description: "例如 Notion 官方網站"
+
+              - name: url
+                label: 網址
+                type: string
+                required: true
+
+          # 延伸閱讀
+          - name: related
+            label: 延伸閱讀
+            fields:
+              - name: title
+                label: 文章名稱
+                type: string
+                required: true
+
+              - name: url
+                label: 文章網址
+                type: string
+                required: true
+
+          # YouTube
+          - name: youtube
+            label: YouTube 影片
+            fields:
+              - name: video_id
+                label: YouTube 影片 ID
+                type: string
+                required: true
+                description: "例如網址 https://youtu.be/1nIsbRfEGK4，只填 1nIsbRfEGK4"
+
+              - name: title
+                label: 影片標題
+                type: string
+                required: true
+
+          # 圖片
+          - name: image
+            label: 圖片
+            fields:
+              - name: image
+                label: 圖片
+                type: image
+                required: true
+                options:
+                  path: assets/images
+                  rename: safe
+
+              - name: alt
+                label: 圖片 ALT
+                type: string
+                required: true
+
+              - name: caption
+                label: 圖片說明
+                type: string
+                required: false
 
       # ========================
       # ③ GEO / AI 搜尋
