@@ -17,6 +17,7 @@ media:
       - mp4
       - webm
     rename: safe
+
 content:
   - name: posts
     label: 文章管理
@@ -86,10 +87,10 @@ content:
         description: "文章有實質更新時再填寫"
 
       - name: description
-        label: 文章摘要
+        label: 文章摘要（選填）
         type: text
-        required: true
-        description: "簡短說明這篇文章在回答什麼問題，也會作為文章列表摘要使用"
+        required: false
+        description: "選填。可與快速解答擇一填寫；留白時可改由快速解答作為文章列表摘要"
 
       - name: image
         label: 封面圖片
@@ -122,8 +123,8 @@ content:
           media: images
           rename: safe
 
-                # ========================
-      # 新版文章區塊（測試）
+      # ========================
+      # 新版文章區塊
       # ========================
 
       - name: article_sections
@@ -145,9 +146,8 @@ content:
                 required: true
                 options:
                   format: html
-                  switcher: false
-                  media: true
-                  path: assets/images
+                  switcher: true
+                  media: images
                   rename: safe
 
           # H4
@@ -170,8 +170,14 @@ content:
 
               - name: text
                 label: 內容
-                type: text
+                type: rich-text
                 required: true
+                description: "可直接編輯連結、項目符號、編號清單與排序；需要時可切換 Source 編輯 HTML"
+                options:
+                  format: html
+                  switcher: true
+                  media: images
+                  rename: safe
 
           # 注意事項
           - name: warning
@@ -208,9 +214,8 @@ content:
                 required: true
                 options:
                   format: html
-                  switcher: false
-                  media: true
-                  path: assets/images
+                  switcher: true
+                  media: images
                   rename: safe
 
           # 補充資訊
@@ -298,10 +303,10 @@ content:
       # ========================
 
       - name: quick_answer
-        label: 快速解答
+        label: 快速解答（選填）
         type: text
-        required: true
-        description: "用 2～4 句直接回答文章核心問題，讓搜尋引擎與 AI 更容易理解文章答案"
+        required: false
+        description: "選填。可與文章摘要擇一填寫；若有填，建議用 2～4 句直接回答文章核心問題"
 
       - name: key_takeaways
         label: 重點整理
