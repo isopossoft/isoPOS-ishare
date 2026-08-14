@@ -95,7 +95,52 @@
     }
   })();
 
-  /* ---------- 2. 複製連結 ---------- */
+  /* ---------- 2a. Facebook：改用彈出視窗；手機優先用系統分享 ---------- */
+  (function shareFacebook() {
+    var wrap = document.querySelector('.article-share');
+    var fb = document.querySelector('.share-fb');
+    if (!wrap || !fb) return;
+
+    var url   = wrap.dataset.shareUrl || location.href;
+    var title = wrap.dataset.shareTitle || document.title;
+
+    fb.addEventListener('click', function (e) {
+      // 手機：FB App 常會攔截 sharer.php 卻不帶入內容，
+      // 改走系統原生分享選單，使用者仍可選 Facebook，成功率高很多。
+      if (navigator.share && window.matchMedia('(max-width: 900px)').matches) {
+        e.preventDefault();
+        navigator.share({ title: title, url: url }).catch(function () { /* 使用者取消，忽略 */ });
+        return;
+      }
+      // 桌機：開固定尺寸的彈出視窗，比開新分頁順暢
+      var w = 620, h = 560;
+      var left = (screen.width  - w) / 2;
+      var top  = (screen.height - h) / 2;
+      var popup = window.open(fb.href, 'fbshare',
+        'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top +
+        ',toolbar=0,menubar=0,location=0,status=0,scrollbars=1,resizable=1');
+      if (popup) { e.preventDefault(); popup.focus(); }
+      // 彈出視窗被瀏覽器擋掉時，就讓原本的連結照常開新分頁
+    });
+  })();
+
+  /* ---------- 2b. 系統原生分享 ---------- */
+  (function shareNative() {
+    var wrap = document.querySelector('.article-share');
+    var btn  = document.querySelector('.share-native');
+    if (!wrap || !btn) return;
+    if (!navigator.share) return;   // 不支援就維持隱藏
+
+    btn.hidden = false;
+    btn.addEventListener('click', function () {
+      navigator.share({
+        title: wrap.dataset.shareTitle || document.title,
+        url:   wrap.dataset.shareUrl   || location.href
+      }).catch(function () { /* 使用者取消，忽略 */ });
+    });
+  })();
+
+  /* ---------- 2c. 複製連結 ---------- */
   (function shareCopy() {
     var btn = document.querySelector('.share-copy');
     if (!btn) return;

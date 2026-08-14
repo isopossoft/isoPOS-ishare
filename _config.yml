@@ -34,11 +34,25 @@ isopos:
   product_url:  "https://zoom-world.tw/"
   product_name: "isoPOS"
 
+  # 文末 CTA 的預設文案。單篇文章可在 Pages CMS 覆蓋。
+  cta_kicker: "FROM KNOWLEDGE TO WORKFLOW"
+  cta_title:  "想把數位工具真正整合進日常營運？"
+  cta_text:   "如果你希望不只處理單一工具，而是把 POS、會員、線上預約、LINE 與官網整合成更完整的營運流程，可以進一步了解 isoPOS。"
+  cta_button: "了解 isoPOS"
+
   # 預設社群分享圖（1200x630）。文章沒設封面時會用這張。
   default_og_image: "/assets/images/og-default.png"
 
   # 品牌 Logo（結構化資料的 publisher logo 會用）
   logo: "/assets/images/isopos-icon.png"
+
+# -------------------------------------------------------------
+# 社群連結（留空的不會顯示）
+# -------------------------------------------------------------
+social:
+  facebook:  "https://www.facebook.com/isopos.soft"
+  instagram: "https://www.instagram.com/zoomworld_isopos/"
+  threads:   "https://www.threads.com/@zoomworld_isopos"
 
 # -------------------------------------------------------------
 # 分析與驗證（填了才會輸出，留空就不會插入任何程式碼）
@@ -91,6 +105,9 @@ features:
   related_posts:  true    # 相關文章
   prev_next:      true    # 上一篇 / 下一篇
   site_search:    true    # 站內搜尋
+  rss_link:       false   # 頁尾是否顯示 RSS 連結
+                          # （feed.xml 本身仍會產生，RSS 閱讀器可自動偵測訂閱，
+                          #   只是不放在頁尾讓一般訪客誤點）
 
 # 中文閱讀速度（字／分鐘），用來估算閱讀時間
 reading_speed: 400

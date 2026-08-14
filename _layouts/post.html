@@ -283,16 +283,25 @@ layout: default
     {% include share-buttons.html %}
   {%- endif %}
 
-  {%- assign default_cta_text = "如果你希望不只處理單一工具，而是把 POS、會員、線上預約、LINE 與官網整合成更完整的營運流程，可以進一步了解 isoPOS。" -%}
-  {%- assign cta_text = page.cta_text | default: default_cta_text -%}
+  {%- comment -%}
+    文末 CTA。四個部分都能調整：
+      預設值 → _config.yml 的 isopos.cta_*
+      單篇覆蓋 → Pages CMS 的「文末 CTA」欄位
+  {%- endcomment -%}
+  {%- assign cta_kicker = page.cta_kicker | default: site.isopos.cta_kicker -%}
+  {%- assign cta_title  = page.cta_title  | default: site.isopos.cta_title -%}
+  {%- assign cta_text   = page.cta_text   | default: site.isopos.cta_text -%}
+  {%- assign cta_button = page.cta_button | default: site.isopos.cta_button -%}
   <aside class="article-cta" aria-label="了解 isoPOS">
     <div class="article-cta-copy">
-      <p class="article-cta-kicker">FROM KNOWLEDGE TO WORKFLOW</p>
-      <h2>想把數位工具真正整合進日常營運？</h2>
+      {%- if cta_kicker and cta_kicker != '' %}
+      <p class="article-cta-kicker">{{ cta_kicker }}</p>
+      {%- endif %}
+      <h2>{% include brandify.html text=cta_title %}</h2>
       <p>{% include brandify.html text=cta_text %}</p>
     </div>
     <a class="article-cta-button" href="{{ site.isopos.product_url }}" rel="noopener">
-      了解 <span class="isopos-text">isoPOS</span> <span aria-hidden="true">→</span>
+      {% include brandify.html text=cta_button %} <span aria-hidden="true">→</span>
     </a>
   </aside>
 

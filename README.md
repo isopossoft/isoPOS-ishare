@@ -131,7 +131,9 @@ baseurl: ""
 | 8 | 上一篇 / 下一篇 | 文章底部新增，自動跳過測試文章 |
 | 9 | 相關文章 | 同分類優先，不足三篇自動補其他分類最新文章 |
 | 10 | 404 頁面 | 原本會看到 GitHub 預設頁面，完全跳出品牌 |
-| 11 | 頁尾導覽 | 新增分類、搜尋、標籤、RSS、官網連結 |
+| 11 | 頁尾導覽 | 新增分類、搜尋、標籤、官網連結，以及 Facebook / Instagram / Threads |
+| 11b | 文末 CTA 全可調 | 小標、標題、內文、按鈕四個部分都能在 `_config.yml` 設預設值，或單篇覆蓋 |
+| 11c | 移除 Canonical 欄位 | 一般文章用不到，填錯會讓整篇文章從 Google 搜尋結果消失。網站仍會自動產生正確的 canonical |
 
 ### SEO
 
@@ -202,7 +204,22 @@ features:
 
 **改品牌色**：`assets/css/style.css` 最上方的 `:root` 區塊。
 
-**改文末 CTA**：預設文字在 `_layouts/post.html`；單篇文章可在 Pages CMS 的「文末 isoPOS CTA 銜接文字」覆蓋。
+**改文末 CTA**：四個部分都能調整。
+
+| 部分 | 預設值改哪裡 | 單篇覆蓋 |
+|---|---|---|
+| 上方小標（FROM KNOWLEDGE TO WORKFLOW） | `_config.yml` → `isopos.cta_kicker` | 文末 CTA 上方小標 |
+| 標題（想把數位工具真正整合進日常營運？） | `isopos.cta_title` | 文末 CTA 標題 |
+| 內文 | `isopos.cta_text` | 文末 CTA 銜接文字 |
+| 按鈕（了解 isoPOS） | `isopos.cta_button` | 文末 CTA 按鈕文字 |
+
+小標想整行隱藏，在 Pages CMS 該欄位填一個半形空格即可。
+
+**改社群連結**：`_config.yml` → `social`。留空的圖示不會顯示。
+
+**要不要顯示 RSS**：`_config.yml` → `features.rss_link`。
+預設關閉，但 `feed.xml` 仍會產生 —— RSS 閱讀器可以自動偵測訂閱，
+只是不放在頁尾避免一般訪客點進去看到一堆原始碼。
 
 **本機預覽**：
 
@@ -249,6 +266,21 @@ Variable '{{ ... }}' was not properly terminated
 自動擷取只是保底，會直接抓內文開頭，讀起來通常不夠精準。
 建議在 Pages CMS 幫每篇文章填「**快速解答**」—— 用 2～4 句直接回答文章的核心問題。
 這段同時會用在搜尋結果、分類頁、首頁卡片、Google 搜尋摘要與社群分享，CP 值最高。
+
+### 分享到 Facebook 沒有帶入內容
+
+手機上的 **FB App 會攔截 `sharer.php` 連結**，常常只把 App 打開卻不帶入分享內容。
+這是 FB 的已知行為，不是網站的問題。
+
+新版的處理方式：
+
+- **手機**：點 Facebook 會改叫出**系統原生分享選單**，可以選 FB、IG、Threads、LINE 或任何 App
+- **桌機**：開固定尺寸的彈出視窗
+- 另外多一顆「更多分享」按鈕，支援的裝置才會出現
+
+如果分享出去**標題或縮圖不對**，是 Facebook 快取了舊資料。
+到 [Facebook 分享偵錯工具](https://developers.facebook.com/tools/debug/)
+貼上網址 → 按「Scrape Again」重新抓取即可。
 
 ### 標籤點進去是 404
 
