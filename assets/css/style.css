@@ -1224,3 +1224,72 @@ html{scroll-behavior:smooth}
   html{scroll-behavior:auto}
   .article-cta-button{transition:none}
 }
+
+
+/* =========================================================
+   2026-08-14 UI 修正
+   - POINT / INFO 樣式色系對調
+   - 文章圖片靠左
+   ========================================================= */
+
+/* POINT：改用原本 INFO 的暖沙米色＋左側重點線 */
+.ishare-tip{
+  margin:30px 0 !important;
+  padding:24px 26px !important;
+  background:#FBF4E8 !important;
+  border:1px solid #E8D9BE !important;
+  border-left:4px solid #C8A46A !important;
+  border-radius:12px !important;
+}
+.ishare-tip::before{
+  color:#A27B3E !important;
+}
+.ishare-tip > strong:first-child{
+  color:#624E2F !important;
+}
+
+/* INFO：改用原本 POINT 的冷調霧藍完整框線 */
+.ishare-note{
+  margin:32px 0 !important;
+  padding:24px 26px !important;
+  background:#E7EEF9 !important;
+  border:1px solid #C9D7EC !important;
+  border-left:1px solid #C9D7EC !important;
+  border-radius:14px !important;
+}
+.ishare-note::before{
+  color:#667FA8 !important;
+}
+.ishare-note > strong:first-child{
+  color:#304A70 !important;
+}
+
+/* 文章內圖片一律貼齊文字欄左側，不再以 auto margin 置中。 */
+.article-body img,
+.article-text-block img,
+.ishare-step-content img,
+.ishare-box-content img{
+  display:block !important;
+  width:auto !important;
+  max-width:100% !important;
+  height:auto !important;
+  margin-left:0 !important;
+  margin-right:auto !important;
+}
+
+.ishare-figure{
+  width:100%;
+  margin:30px 0 !important;
+  padding:0 !important;
+}
+.ishare-figure img{
+  display:block;
+  width:auto !important;
+  max-width:100% !important;
+  height:auto;
+  margin:0 !important;
+}
+.article-body figcaption,
+.ishare-figure figcaption{
+  text-align:left !important;
+}

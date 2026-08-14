@@ -26,7 +26,8 @@ layout: default
   </figure>
   {% endif %}
 
-  {% if page.quick_answer != blank %}
+  {% assign quick_answer_check = page.quick_answer | default: '' | strip_html | strip_newlines | replace: '&nbsp;', '' | strip %}
+  {% if quick_answer_check != '' %}
   <section class="answer-box">
     <p class="answer-label">快速解答</p>
     <p>{{ page.quick_answer }}</p>
@@ -343,6 +344,47 @@ layout: default
     const target = document.getElementById(id);
     if(target) setTimeout(() => target.scrollIntoView({block:'start'}), 0);
   }
+})();
+</script>
+
+<script>
+(function(){
+  // 文章內所有「isoPOS」自動套用品牌標準字體，不需要在 Pages CMS 手動加 span。
+  const article = document.querySelector('.article');
+  if(!article) return;
+
+  const walker = document.createTreeWalker(
+    article,
+    NodeFilter.SHOW_TEXT,
+    {
+      acceptNode(node){
+        const parent = node.parentElement;
+        if(!parent) return NodeFilter.FILTER_REJECT;
+        if(parent.closest('script, style, code, pre, .isopos-text')) return NodeFilter.FILTER_REJECT;
+        return node.nodeValue.includes('isoPOS') ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    }
+  );
+
+  const nodes = [];
+  while(walker.nextNode()) nodes.push(walker.currentNode);
+
+  nodes.forEach((node) => {
+    const parts = node.nodeValue.split(/(isoPOS)/g);
+    if(parts.length < 2) return;
+    const frag = document.createDocumentFragment();
+    parts.forEach((part) => {
+      if(part === 'isoPOS'){
+        const span = document.createElement('span');
+        span.className = 'isopos-text';
+        span.textContent = part;
+        frag.appendChild(span);
+      }else if(part){
+        frag.appendChild(document.createTextNode(part));
+      }
+    });
+    node.replaceWith(frag);
+  });
 })();
 </script>
 
