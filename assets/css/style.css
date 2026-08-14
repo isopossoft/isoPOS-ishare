@@ -726,31 +726,36 @@ img{max-width:100%;height:auto;display:block}
   line-height:1.85;
 }
 
-/* Special content blocks */
+/* Special content blocks — intentionally differentiated */
+/* POINT：偏冷的霧藍紫 */
 .ishare-tip{
-  background:#E9EEF7 !important;
-  border:1px solid #D5DEED !important;
+  background:#EAF0FA !important;
+  border:1px solid #CFDAEC !important;
 }
+.ishare-tip::before{color:#6F7FA0 !important}
+.ishare-tip > strong:first-child{color:#344865 !important}
 
+/* WARNING：偏暖的淡杏色 */
 .ishare-warning{
   background:#FAF2EC !important;
   border:1px solid #EADDCF !important;
 }
 
+/* INFO：中性的暖灰米色，與 POINT 明顯區隔 */
 .ishare-note{
   margin:30px 0;
   padding:24px 26px;
-  background:#E9EEF7 !important;
-  border:1px solid #D3DCEA;
-  border-left:4px solid #9CAAC4 !important;
+  background:#F3F0EA !important;
+  border:1px solid #E1DBD1 !important;
+  border-left:4px solid #A99D8B !important;
   border-radius:12px;
 }
 
-.ishare-note::before{color:#6F7E99}
+.ishare-note::before{color:#8B7F6E !important}
 .ishare-note > strong:first-child{
   display:block;
   margin-bottom:8px;
-  color:#40516A;
+  color:#544B40 !important;
   font-size:18px;
   font-weight:700;
 }
