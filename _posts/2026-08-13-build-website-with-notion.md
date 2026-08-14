@@ -77,24 +77,24 @@ article_sections:
   - type: text
     content: <p>例如：也可以將複雜的文字，轉換成表格呈現，讓資訊更清晰。</p>
   - type: image
-    image: /assets/images/notion08.png
+    image: /assets/images/notion07-1.png
     alt: Notion 頁面使用表格整理價目與資訊的範例
   - type: h4
     text: ▍圖片、影片
   - type: text
     content: <p>或是您也可以選擇放上圖片、影片，讓畫面更豐富及美觀。</p>
   - type: image
-    image: /assets/images/notion09.png
+    image: /assets/images/notion08-1.png
     alt: Notion 斜線命令選單中的圖片與媒體插入選項
   - type: text
     content: <p>選擇『上傳檔案』</p>
   - type: image
-    image: /assets/images/notion10.png
+    image: /assets/images/notion09-1.png
     alt: Notion 圖片區塊選擇上傳檔案的畫面
   - type: text
     content: <p>如果有多張圖片，則可連續加入</p>
   - type: image
-    image: /assets/images/notion11.png
+    image: /assets/images/notion10.jpg
     alt: Notion 頁面加入價目表圖片後的呈現畫面
   - type: h4
     text: ▍調整影片大小、位置
