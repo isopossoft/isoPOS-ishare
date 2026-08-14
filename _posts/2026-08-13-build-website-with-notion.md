@@ -10,7 +10,7 @@ tags:
   - 數位工具
 date: 2026-03-16
 updated: 2026-08-13
-image: /assets/images/build-website-with-notion.png
+image: /assets/images/notion-1.png
 image_alt: Notion 免費建立網站完整教學封面
 author: isoPOS
 article_sections:
