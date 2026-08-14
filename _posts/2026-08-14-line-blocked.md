@@ -43,9 +43,10 @@ article_sections:
   - type: step
     number: "02"
     title: 加入「LINE客服小幫手」為好友
-    content: |-
-      <p>如果仍然找不到原因，就可以加入「<a href="https://u.lin.ee/Ur3VaHf/cctw/CSF">LINE客服小幫手</a>」成為好友，點選選單中的「寫信給客服」管道提出問題。</p>
-      <img src="https://raw.githubusercontent.com/isopossoft/isoPOS-ishare/main/assets/images/line-blocked02.png" alt="LineHelptw"><p></p>
+    content: <p>如果仍然找不到原因，就可以加入「<a
+      href="https://u.lin.ee/Ur3VaHf/cctw/CSF">LINE客服小幫手</a>」成為好友，點選選單中的「寫信給客服」管道提出問題。</p><img
+      src="https://raw.githubusercontent.com/isopossoft/isoPOS-ishare/main/assets/images/line-blocked02.png"
+      alt="LineHelptw"><p></p>
   - type: step
     number: "03"
     title: 敘述問題，提出申請表
@@ -53,5 +54,8 @@ article_sections:
       src="https://raw.githubusercontent.com/isopossoft/isoPOS-ishare/main/assets/images/line-blocked04.png"
       alt="LINEFillouttheform"><p></p>
 noindex: false
+cta_text: |-
+  遇到像這樣的事別擔心？isoPOS總是走在您的前面，為您鋪路。
+  如果您想把 POS、會員、線上預約、LINE 與官網整合成更完整的營運流程，可以進一步了解 isoPOS。
 ---
 <p></p>
