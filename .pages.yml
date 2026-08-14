@@ -1,4 +1,7 @@
 media:
+  # ========================
+  # 圖片
+  # ========================
   - name: images
     label: 圖片
     input: assets/images
@@ -7,6 +10,9 @@ media:
       - image
     rename: safe
 
+  # ========================
+  # 影片
+  # ========================
   - name: videos
     label: 影片
     input: assets/videos
@@ -18,6 +24,7 @@ media:
       - webm
     rename: safe
 
+
 content:
   - name: posts
     label: 文章管理
@@ -26,38 +33,51 @@ content:
     format: yaml-frontmatter
     filename: "{year}-{month}-{day}-{fields.slug}.md"
 
+    # ========================
+    # 文章列表設定
+    # ========================
     view:
       fields:
         - title
         - category
         - date
         - updated
+
       primary: title
+
       search:
         - title
-        - description
         - category
         - tags
+        - quick_answer
+        - meta_description
+
       default:
         sort: date
         order: desc
 
+
     fields:
 
-      # ========================
+      # ==================================================
       # ① 基本資料
-      # ========================
+      # ==================================================
 
       - name: title
         label: 文章標題
         type: string
         required: true
 
+
       - name: slug
         label: 網址 Slug
         type: string
         required: true
         description: "英文網址名稱，例如 line-pos-integration"
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: "只能使用英文小寫、數字與連字號 -"
+
 
       - name: category
         label: 文章分類
@@ -70,277 +90,467 @@ content:
             - 數位工具教學
             - 產業知識
 
+
       - name: tags
         label: 標籤
         type: string
         list: true
-        description: "例如 LINE、Messaging API、Webhook、會員"
+        required: false
+        description: "例如 Notion、Notion教學、LINE、POS、會員。文章前台會顯示成可點擊標籤。"
+
 
       - name: date
         label: 發布日期
         type: date
         required: true
 
+
       - name: updated
         label: 最後更新日期
         type: date
-        description: "文章有實質更新時再填寫"
-
-      - name: description
-        label: 文章摘要（選填）
-        type: text
         required: false
-        description: "選填。可與快速解答擇一填寫；留白時可改由快速解答作為文章列表摘要"
+        description: "只有文章內容有實質更新時再填寫"
+
+
+      # ========================
+      # 封面圖片
+      # ========================
 
       - name: image
         label: 封面圖片
         type: image
+        required: false
+        options:
+          media: images
+          rename: safe
+
 
       - name: image_alt
         label: 封面圖片 ALT
         type: string
-        description: "描述圖片實際內容，請勿單純堆疊關鍵字"
+        required: false
+        description: "有使用封面圖片時請填寫，例如：Notion 網站發布功能操作畫面。描述圖片內容，不要堆疊關鍵字。"
 
-      # 作者固定為 isoPOS，不在編輯畫面顯示
+
+      # ========================
+      # 作者固定
+      # ========================
+
       - name: author
         label: 作者
         type: string
         default: "isoPOS"
         hidden: true
 
-      # ========================
-      # ② 文章內容
-      # ========================
+
+
+      # ==================================================
+      # ② 快速解答
+      # ==================================================
+
+      - name: quick_answer
+        label: 快速解答｜選填
+        type: text
+        required: false
+        description: "選填。建議用 2～4 句直接回答文章核心問題，讓讀者與搜尋引擎快速理解答案。"
+
+
+
+      # ==================================================
+      # ③ 舊版文章內容
+      # ==================================================
+      #
+      # 保留 body 是為了相容原本已經建立的文章。
+      # 新文章建議主要使用下方「新版文章內容」。
+      #
+      # 這裡關閉圖片上傳，
+      # 圖片請使用「圖片」文章區塊，
+      # 才能確保每一張圖都有 ALT。
+      # ==================================================
 
       - name: body
-        label: 文章內容
+        label: 舊版文章內容
         type: rich-text
         required: false
-        description: "直接使用視覺化編輯器撰寫；需要進階排版時可切換 Source 編輯原始碼"
+        description: "舊文章相容欄位。新文章建議改用下方「新版文章內容」編輯。"
         options:
           format: html
           switcher: true
-          media: images
-          rename: safe
+          media: false
 
-      # ========================
-      # 新版文章區塊
-      # ========================
+
+
+      # ==================================================
+      # ④ 新版文章內容
+      # ==================================================
 
       - name: article_sections
         label: 新版文章內容
         type: block
-        list: true
+        list:
+          collapsible:
+            collapsed: false
         required: false
         blockKey: type
 
         blocks:
 
+
+          # ==================================================
           # 一般文章內容
+          # ==================================================
+
           - name: text
             label: 一般文章內容
+
             fields:
               - name: content
                 label: 內容
                 type: rich-text
                 required: true
+                description: "一般段落文字。圖片請另外新增「圖片」區塊，才能填寫 ALT。"
                 options:
                   format: html
                   switcher: true
-                  media: images
-                  rename: safe
+                  media: false
 
-          # H4
+
+
+          # ==================================================
+          # H4 小標題
+          # ==================================================
+
           - name: h4
             label: H4 小標題
+
             fields:
               - name: text
                 label: 標題
                 type: string
                 required: true
+                description: "較小層級的小標題。文章目錄主要段落建議仍使用文章中的 H2／H3。"
 
+
+
+          # ==================================================
           # 重點提示
+          # ==================================================
+          #
+          # 改成 Rich Text
+          # 可以：
+          # - 超連結
+          # - 項目符號
+          # - 編號清單
+          # - 粗體
+          # - Source HTML
+          #
+          # ==================================================
+
           - name: tip
             label: 重點提示
+
             fields:
               - name: title
                 label: 標題
                 type: string
+                required: false
                 default: "重點提示"
 
               - name: text
                 label: 內容
                 type: rich-text
                 required: true
-                description: "可直接編輯連結、項目符號、編號清單與排序；需要時可切換 Source 編輯 HTML"
                 options:
                   format: html
                   switcher: true
-                  media: images
-                  rename: safe
+                  media: false
 
+
+
+          # ==================================================
           # 注意事項
+          # ==================================================
+
           - name: warning
             label: 注意事項
+
             fields:
               - name: title
                 label: 標題
                 type: string
+                required: false
                 default: "注意事項"
 
               - name: text
                 label: 內容
-                type: text
+                type: rich-text
                 required: true
+                options:
+                  format: html
+                  switcher: true
+                  media: false
 
-          # 步驟
+
+
+          # ==================================================
+          # 步驟區塊
+          # ==================================================
+
           - name: step
             label: 步驟區塊
+
             fields:
               - name: number
                 label: 步驟編號
                 type: string
                 required: true
-                description: "例如 01"
+                description: "例如 01、02、03"
+
 
               - name: title
                 label: 步驟標題
                 type: string
                 required: true
 
+
               - name: content
                 label: 步驟內容
+                type: rich-text
+                required: true
+                description: "步驟中的圖片請另外新增「圖片」區塊，以確保 ALT 完整。"
+                options:
+                  format: html
+                  switcher: true
+                  media: false
+
+
+
+          # ==================================================
+          # 補充資訊
+          # ==================================================
+
+          - name: note
+            label: 補充資訊
+
+            fields:
+              - name: title
+                label: 標題
+                type: string
+                required: false
+                default: "補充資訊"
+
+
+              - name: text
+                label: 內容
                 type: rich-text
                 required: true
                 options:
                   format: html
                   switcher: true
+                  media: false
+
+
+
+          # ==================================================
+          # 常見問題 FAQ
+          # ==================================================
+          #
+          # 新增一個 FAQ 區塊後，
+          # 可以在裡面持續 Add an item
+          #
+          # ==================================================
+
+          - name: faq
+            label: 常見問題 FAQ
+
+            fields:
+
+              - name: title
+                label: 區塊標題
+                type: string
+                required: false
+                default: "常見問題"
+
+
+              - name: items
+                label: 問題與答案
+                type: object
+                required: true
+
+                list:
+                  min: 1
+                  collapsible:
+                    collapsed: true
+                    summary: "{question}"
+
+                fields:
+
+                  - name: question
+                    label: 問題
+                    type: string
+                    required: true
+
+
+                  - name: answer
+                    label: 回答
+                    type: rich-text
+                    required: true
+                    options:
+                      format: html
+                      switcher: true
+                      media: false
+
+
+
+          # ==================================================
+          # 圖片
+          # ==================================================
+          #
+          # 所有文章圖片都建議透過這裡新增
+          # ALT 設為必填
+          #
+          # ==================================================
+
+          - name: image
+            label: 圖片
+
+            fields:
+
+              - name: image
+                label: 圖片
+                type: image
+                required: true
+                options:
                   media: images
                   rename: safe
 
-          # 補充資訊
-          - name: note
-            label: 補充資訊
-            fields:
-              - name: title
-                label: 標題
+
+              - name: alt
+                label: 圖片 ALT 文字
                 type: string
-                default: "補充資訊"
-
-              - name: text
-                label: 內容
-                type: text
                 required: true
+                description: "請描述圖片真正呈現的內容，例如：Notion 發布網站設定畫面。不要寫『圖片1』或只堆疊 SEO 關鍵字。"
 
+
+              - name: caption
+                label: 圖片說明
+                type: string
+                required: false
+                description: "選填。顯示在圖片下方給讀者看的補充文字。"
+
+
+
+          # ==================================================
+          # YouTube
+          # ==================================================
+
+          - name: youtube
+            label: YouTube 影片
+
+            fields:
+
+              - name: video_id
+                label: YouTube 影片 ID
+                type: string
+                required: true
+                description: "例如 https://youtu.be/1nIsbRfEGK4，只填 1nIsbRfEGK4"
+
+
+              - name: title
+                label: 影片標題
+                type: string
+                required: true
+                description: "用於影片 iframe title 與無障礙說明"
+
+
+
+          # ==================================================
           # 官方來源
+          # ==================================================
+
           - name: source
             label: 官方來源
+
             fields:
+
               - name: label
                 label: 顯示文字
                 type: string
                 required: true
                 description: "例如 Notion 官方網站"
 
+
               - name: url
                 label: 網址
                 type: string
                 required: true
+                description: "請貼完整 https:// 網址"
 
+
+
+          # ==================================================
           # 延伸閱讀
+          # ==================================================
+
           - name: related
             label: 延伸閱讀
+
             fields:
+
               - name: title
                 label: 文章名稱
                 type: string
                 required: true
 
+
               - name: url
                 label: 文章網址
                 type: string
                 required: true
+                description: "可以填站內文章網址或完整網址"
 
-          # YouTube
-          - name: youtube
-            label: YouTube 影片
-            fields:
-              - name: video_id
-                label: YouTube 影片 ID
-                type: string
-                required: true
-                description: "例如網址 https://youtu.be/1nIsbRfEGK4，只填 1nIsbRfEGK4"
 
-              - name: title
-                label: 影片標題
-                type: string
-                required: true
 
-          # 圖片
-          - name: image
-            label: 圖片
-            fields:
-              - name: image
-                label: 圖片
-                type: image
-                required: true
-                options:
-                  path: assets/images
-                  rename: safe
-
-              - name: alt
-                label: 圖片 ALT
-                type: string
-                required: true
-
-              - name: caption
-                label: 圖片說明
-                type: string
-                required: false
-
-      # ========================
-      # ③ GEO / AI 搜尋
-      # ========================
-
-      - name: quick_answer
-        label: 快速解答（選填）
-        type: text
-        required: false
-        description: "選填。可與文章摘要擇一填寫；若有填，建議用 2～4 句直接回答文章核心問題"
-
-      - name: key_takeaways
-        label: 重點整理
-        type: string
-        list: true
-        description: "每一項放一個重點，建議 3～6 項"
-
-      - name: sources
-        label: 參考來源
-        type: string
-        list: true
-        description: "重要事實優先放官方或第一手來源，例如 LINE Developers"
-
-      # ========================
-      # ④ SEO 進階設定
-      # ========================
+      # ==================================================
+      # ⑤ SEO 進階設定
+      # ==================================================
 
       - name: seo_title
         label: SEO 標題
         type: string
-        description: "選填。留白時使用文章標題；只有需要不同的 Google 搜尋標題時才填"
+        required: false
+        description: "選填。留白時直接使用文章標題；只有 Google 搜尋標題需要不同文字時才填。"
+
 
       - name: meta_description
         label: Meta Description
         type: text
-        description: "選填。留白時可使用文章摘要；需要另外撰寫搜尋結果摘要時再填"
+        required: false
+        description: "選填。Google 搜尋結果使用的說明文字。留白時網站可由快速解答或文章內容自動產生。"
+
 
       - name: canonical
         label: Canonical URL
         type: string
-        description: "進階設定。一般文章請留白，由網站自動產生"
+        required: false
+        description: "進階設定。一般文章留白，由網站自動產生。"
+
 
       - name: noindex
         label: 不允許搜尋引擎索引
         type: boolean
         default: false
-        description: "進階設定。一般正式文章請保持關閉"
+        required: false
+        description: "一般正式文章保持關閉；測試文章或不希望出現在搜尋結果時才開啟。"
+
+
+
+      # ==================================================
+      # ⑥ isoPOS 文末 CTA
+      # ==================================================
+
+      - name: cta_text
+        label: 文末 isoPOS CTA 銜接文字
+        type: text
+        required: false
+        description: "選填。依文章內容自然銜接到 isoPOS，例如：如果你需要的不只是建立網站，而是希望整合線上預約、會員、LINE 與 POS，也可以進一步了解 isoPOS。"
