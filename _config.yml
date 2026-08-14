@@ -19,3 +19,6 @@ defaults:
 
 exclude:
   - README.md
+
+isopos:
+  product_url: "https://zoom-world.tw/"

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {% assign page_title = page.seo_title | default: page.title | default: site.title %}
-  {% assign page_desc = page.meta_description | default: page.description | default: page.quick_answer | default: site.description %}
+  {% assign page_desc = page.meta_description | default: page.quick_answer | default: site.description %}
   <title>{{ page_title | escape }}</title>
   <meta name="description" content="{{ page_desc | strip_html | strip_newlines | escape }}">
 
@@ -34,7 +34,7 @@
   <link rel="apple-touch-icon" href="{{ '/assets/images/isopos-icon.png' | relative_url }}">
 
   <!-- 單一主 CSS + 版本號，避免首頁與文章頁抓到不同快取版本 -->
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}?v=20260813-6">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}?v=20260814-2">
 </head>
 <body>
 

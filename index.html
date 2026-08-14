@@ -73,7 +73,7 @@ description: "整理 LINE 官方帳號、美業經營管理、數位工具教學
       <div class="post-card-body">
         <p class="post-category">{{ post.category }}</p>
         <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-        <p class="post-summary">{{ post.description | default: post.quick_answer | default: post.excerpt | strip_html | truncate: 110 }}</p>
+        <p class="post-summary">{{ post.quick_answer | default: post.meta_description | default: post.excerpt | strip_html | truncate: 110 }}</p>
         <div class="post-footer">
           <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
           <a href="{{ post.url | relative_url }}">閱讀文章 →</a>

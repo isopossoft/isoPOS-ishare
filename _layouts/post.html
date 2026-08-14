@@ -13,10 +13,6 @@ layout: default
     <p class="eyebrow">{{ page.category }}</p>
     <h1>{{ page.title }}</h1>
 
-    {% if page.quick_answer == blank and page.description != blank %}
-      <p class="article-description">{{ page.description }}</p>
-    {% endif %}
-
     <div class="article-meta">
       <span>發布 {{ page.date | date: "%Y.%m.%d" }}</span>
       {% if page.updated %}<span>更新 {{ page.updated | date: "%Y.%m.%d" }}</span>{% endif %}
@@ -26,7 +22,7 @@ layout: default
 
   {% if page.image %}
   <figure class="hero-image">
-    <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }}">
+    <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | strip_html | escape }}">
   </figure>
   {% endif %}
 
@@ -37,7 +33,22 @@ layout: default
   </section>
   {% endif %}
 
-  <div class="article-body">
+  <nav class="article-toc" id="article-toc" aria-label="文章目錄" hidden>
+    <button class="article-toc-toggle" type="button" aria-expanded="true" aria-controls="article-toc-list">
+      <span>文章目錄</span>
+      <span class="article-toc-toggle-icon" aria-hidden="true">⌃</span>
+    </button>
+    <ol class="article-toc-list" id="article-toc-list"></ol>
+  </nav>
+
+  <div class="article-body" id="article-content">
+    {% assign legacy_content = content | strip %}
+    {% unless legacy_content == blank or legacy_content == '<p></p>' %}
+      <div class="article-text-block article-legacy-body">
+        {{ content }}
+      </div>
+    {% endunless %}
+
     {% for section in page.article_sections %}
       {% case section.type %}
 
@@ -116,9 +127,24 @@ layout: default
             </div>
           </div>
 
+        {% when "faq" %}
+          <section class="ishare-faq">
+            <h2>{{ section.title | default: "常見問題" }}</h2>
+            <div class="ishare-faq-list">
+              {% for item in section.items %}
+              <details class="ishare-faq-item">
+                <summary>{{ item.question }}</summary>
+                <div class="ishare-faq-answer">
+                  {% include render-rich.html content=item.answer %}
+                </div>
+              </details>
+              {% endfor %}
+            </div>
+          </section>
+
         {% when "image" %}
           <figure class="ishare-figure">
-            <img src="{{ section.image | relative_url }}" alt="{{ section.alt | escape }}">
+            <img src="{{ section.image | relative_url }}" alt="{{ section.alt | default: section.caption | default: page.title | strip_html | escape }}">
             {% if section.caption %}
               <figcaption>{{ section.caption }}</figcaption>
             {% endif %}
@@ -206,17 +232,6 @@ layout: default
     {% endfor %}
   </div>
 
-  {% if page.key_takeaways and page.key_takeaways.size > 0 %}
-  <section class="takeaways">
-    <h2>重點整理</h2>
-    <ul>
-      {% for item in page.key_takeaways %}
-      <li>{{ item }}</li>
-      {% endfor %}
-    </ul>
-  </section>
-  {% endif %}
-
   {% if page.sources and page.sources.size > 0 %}
   <section class="sources">
     <h2>參考來源</h2>
@@ -228,21 +243,115 @@ layout: default
   </section>
   {% endif %}
 
+  {% assign default_cta_text = "如果你希望不只處理單一工具，而是把 POS、會員、線上預約、LINE 與官網整合成更完整的營運流程，可以進一步了解 isoPOS。" %}
+  <aside class="article-cta" aria-label="了解 isoPOS">
+    <div class="article-cta-copy">
+      <p class="article-cta-kicker">FROM KNOWLEDGE TO WORKFLOW</p>
+      <h2>想把數位工具真正整合進日常營運？</h2>
+      <p>{{ page.cta_text | default: default_cta_text }}</p>
+    </div>
+    <a class="article-cta-button" href="{{ site.isopos.product_url | default: 'https://zoom-world.tw/' }}">了解 isoPOS <span aria-hidden="true">→</span></a>
+  </aside>
+
   {% if page.tags and page.tags.size > 0 %}
-  <div class="tags">
+  <nav class="tags" aria-label="文章標籤">
     {% for tag in page.tags %}
-    <span>#{{ tag }}</span>
+    <a href="{{ '/tags/' | relative_url }}?tag={{ tag | url_encode }}">#{{ tag }}</a>
     {% endfor %}
-  </div>
+  </nav>
   {% endif %}
 </article>
+
+<script>
+(function(){
+  const toc = document.getElementById('article-toc');
+  const list = document.getElementById('article-toc-list');
+  const content = document.getElementById('article-content');
+  if(!toc || !list || !content) return;
+
+  const targets = [];
+  content.querySelectorAll('h2, h3, h4, .ishare-step').forEach((el) => {
+    if(el.matches('.ishare-step')){
+      const num = el.querySelector('.step-number')?.textContent.trim() || '';
+      const title = el.querySelector('.ishare-step-content > strong')?.textContent.trim() || '';
+      if(title) targets.push({ el, text: (num ? '步驟 ' + num + ' ' : '') + title, level: 3 });
+      return;
+    }
+    const text = el.textContent.trim();
+    if(text) targets.push({ el, text, level: Number(el.tagName.substring(1)) });
+  });
+
+  if(!targets.length) return;
+
+  const used = new Map();
+  const slugify = (text) => {
+    let slug = text.normalize('NFKC').toLowerCase().trim()
+      .replace(/[\s/]+/g, '-')
+      .replace(/[^a-z0-9\u3400-\u9fff\-]/g, '')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+    if(!slug) slug = 'section';
+    const count = used.get(slug) || 0;
+    used.set(slug, count + 1);
+    return count ? slug + '-' + (count + 1) : slug;
+  };
+
+  targets.forEach(({el, text, level}) => {
+    if(!el.id) el.id = slugify(text);
+    el.classList.add('anchor-target');
+
+    const li = document.createElement('li');
+    li.className = 'toc-level-' + Math.min(Math.max(level, 2), 4);
+    const a = document.createElement('a');
+    a.href = '#' + encodeURIComponent(el.id);
+    a.textContent = text;
+    li.appendChild(a);
+    list.appendChild(li);
+  });
+
+  toc.hidden = false;
+
+  const toggle = toc.querySelector('.article-toc-toggle');
+  const icon = toc.querySelector('.article-toc-toggle-icon');
+  const setExpanded = (expanded) => {
+    toggle.setAttribute('aria-expanded', String(expanded));
+    list.hidden = !expanded;
+    if(icon) icon.textContent = expanded ? '⌃' : '⌄';
+  };
+
+  if(window.matchMedia('(max-width: 640px)').matches) setExpanded(false);
+  toggle.addEventListener('click', () => setExpanded(toggle.getAttribute('aria-expanded') !== 'true'));
+
+  list.addEventListener('click', (event) => {
+    const link = event.target.closest('a');
+    if(!link) return;
+    if(window.matchMedia('(max-width: 640px)').matches) setExpanded(false);
+  });
+
+  // Runtime accessibility fallback for legacy rich-text images that were saved without alt.
+  content.querySelectorAll('img').forEach((img) => {
+    if(img.hasAttribute('alt') && img.alt.trim()) return;
+    const figureCaption = img.closest('figure')?.querySelector('figcaption')?.textContent.trim();
+    let previous = img.previousElementSibling;
+    while(previous && !previous.textContent.trim()) previous = previous.previousElementSibling;
+    const contextText = previous?.textContent.trim();
+    img.alt = figureCaption || contextText || document.querySelector('.article-header h1')?.textContent.trim() || '文章圖片';
+  });
+
+  if(location.hash){
+    const id = decodeURIComponent(location.hash.slice(1));
+    const target = document.getElementById(id);
+    if(target) setTimeout(() => target.scrollIntoView({block:'start'}), 0);
+  }
+})();
+</script>
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": {{ page.title | strip_html | jsonify }},
-  "description": {{ page.meta_description | default: page.description | default: page.quick_answer | strip_html | jsonify }},
+  "description": {{ page.meta_description | default: page.quick_answer | default: site.description | strip_html | jsonify }},
   "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
   {% if page.updated %}"dateModified": {{ page.updated | date_to_xmlschema | jsonify }},{% endif %}
   "mainEntityOfPage": {
@@ -262,3 +371,30 @@ layout: default
   ]
 }
 </script>
+
+{% assign faq_sections = page.article_sections | where: "type", "faq" %}
+{% if faq_sections and faq_sections.size > 0 %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% assign faq_first = true %}
+    {% for faq_section in faq_sections %}
+      {% for item in faq_section.items %}
+        {% unless faq_first %},{% endunless %}
+        {
+          "@type": "Question",
+          "name": {{ item.question | strip_html | jsonify }},
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": {{ item.answer | strip_html | strip_newlines | jsonify }}
+          }
+        }
+        {% assign faq_first = false %}
+      {% endfor %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}

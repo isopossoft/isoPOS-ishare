@@ -727,13 +727,13 @@ img{max-width:100%;height:auto;display:block}
 }
 
 /* Special content blocks — intentionally differentiated */
-/* POINT：偏冷的霧藍紫 */
+/* POINT：冷調霧藍，作為「重點提示」 */
 .ishare-tip{
-  background:#EAF0FA !important;
-  border:1px solid #CFDAEC !important;
+  background:#E7EEF9 !important;
+  border:1px solid #C9D7EC !important;
 }
-.ishare-tip::before{color:#6F7FA0 !important}
-.ishare-tip > strong:first-child{color:#344865 !important}
+.ishare-tip::before{color:#667FA8 !important}
+.ishare-tip > strong:first-child{color:#304A70 !important}
 
 /* WARNING：偏暖的淡杏色 */
 .ishare-warning{
@@ -741,21 +741,21 @@ img{max-width:100%;height:auto;display:block}
   border:1px solid #EADDCF !important;
 }
 
-/* INFO：中性的暖灰米色，與 POINT 明顯區隔 */
+/* INFO：暖沙米色，與 POINT 的藍色明顯區隔 */
 .ishare-note{
   margin:30px 0;
   padding:24px 26px;
-  background:#F3F0EA !important;
-  border:1px solid #E1DBD1 !important;
-  border-left:4px solid #A99D8B !important;
+  background:#FBF4E8 !important;
+  border:1px solid #E8D9BE !important;
+  border-left:4px solid #C8A46A !important;
   border-radius:12px;
 }
 
-.ishare-note::before{color:#8B7F6E !important}
+.ishare-note::before{color:#A27B3E !important}
 .ishare-note > strong:first-child{
   display:block;
   margin-bottom:8px;
-  color:#544B40 !important;
+  color:#624E2F !important;
   font-size:18px;
   font-weight:700;
 }
@@ -954,4 +954,273 @@ img{max-width:100%;height:auto;display:block}
   .ishare-note,
   .ishare-tip,
   .ishare-warning{padding:20px}
+}
+
+/* =========================================================
+   isoPOS iShare｜TOC + FAQ + clickable tags + article CTA
+   2026-08-14
+   ========================================================= */
+
+html{scroll-behavior:smooth}
+.anchor-target{scroll-margin-top:96px}
+
+/* Article table of contents */
+.article-toc{
+  margin:34px 0 44px;
+  border:1px solid #DCE2EA;
+  border-radius:14px;
+  background:#FFFFFF;
+  overflow:hidden;
+}
+
+.article-toc[hidden]{display:none !important}
+
+.article-toc-toggle{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:17px 20px;
+  border:0;
+  background:#F2F5F9;
+  color:#31445F;
+  font:inherit;
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:.04em;
+  cursor:pointer;
+}
+
+.article-toc-toggle-icon{
+  flex:0 0 auto;
+  font-size:17px;
+  color:#7A8798;
+}
+
+.article-toc-list{
+  margin:0;
+  padding:16px 22px 18px 42px;
+}
+
+.article-toc-list li{
+  margin:7px 0;
+  line-height:1.55;
+}
+
+.article-toc-list li::marker{color:#95A1B1}
+
+.article-toc-list a{
+  color:#46566D;
+  text-decoration:none;
+  text-underline-offset:3px;
+}
+
+.article-toc-list a:hover{
+  color:#1F385B;
+  text-decoration:underline;
+}
+
+.article-toc-list .toc-level-3{margin-left:18px}
+.article-toc-list .toc-level-4{margin-left:36px;font-size:14px}
+
+/* FAQ */
+.ishare-faq{
+  margin:54px 0 34px;
+}
+
+.ishare-faq > h2{
+  margin-bottom:20px !important;
+}
+
+.ishare-faq-list{
+  display:grid;
+  gap:10px;
+}
+
+.ishare-faq-item{
+  border:1px solid #DCE2EA;
+  border-radius:12px;
+  background:#FFFFFF;
+  overflow:hidden;
+}
+
+.ishare-faq-item summary{
+  position:relative;
+  padding:17px 48px 17px 19px;
+  color:#364860;
+  font-weight:700;
+  cursor:pointer;
+  list-style:none;
+}
+
+.ishare-faq-item summary::-webkit-details-marker{display:none}
+.ishare-faq-item summary::after{
+  content:'＋';
+  position:absolute;
+  right:18px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#8290A3;
+  font-size:20px;
+  font-weight:400;
+}
+
+.ishare-faq-item[open] summary{
+  background:#F7F9FC;
+  border-bottom:1px solid #E6EAF0;
+}
+
+.ishare-faq-item[open] summary::after{content:'−'}
+
+.ishare-faq-answer{
+  padding:17px 19px 18px;
+  color:#4E5C6E;
+}
+
+.ishare-faq-answer > :first-child{margin-top:0}
+.ishare-faq-answer > :last-child{margin-bottom:0}
+
+/* isoPOS article CTA */
+.article-cta{
+  margin:52px 0 30px;
+  padding:30px 32px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:30px;
+  border:1px solid #D8E0EB;
+  border-radius:16px;
+  background:linear-gradient(135deg,#F5F7FB 0%,#EEF2F8 100%);
+}
+
+.article-cta-copy{max-width:610px}
+.article-cta-kicker{
+  margin:0 0 8px;
+  color:#74839A;
+  font-family:'Orbitron',sans-serif;
+  font-size:10px;
+  letter-spacing:.13em;
+}
+
+.article-cta h2{
+  margin:0 0 10px;
+  color:#293C57;
+  font-size:23px;
+  line-height:1.4;
+}
+
+.article-cta-copy > p:last-child{
+  margin:0;
+  color:#596779;
+  font-size:15px;
+  line-height:1.8;
+}
+
+.article-cta-button{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:46px;
+  padding:0 19px;
+  border:1px solid #536B8D;
+  border-radius:10px;
+  background:#536B8D;
+  color:#FFFFFF;
+  font-size:14px;
+  font-weight:700;
+  text-decoration:none;
+  white-space:nowrap;
+  transition:transform .15s ease,opacity .15s ease;
+}
+
+.article-cta-button:hover{transform:translateY(-1px);opacity:.92}
+
+/* Clickable hashtags */
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.tags a{
+  display:inline-flex;
+  align-items:center;
+  padding:7px 11px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--surface);
+  color:#647187;
+  font-size:12px;
+  text-decoration:none;
+  transition:background .15s ease,border-color .15s ease,color .15s ease;
+}
+.tags a:hover{
+  background:#EEF2F7;
+  border-color:#C7D0DC;
+  color:#324A6B;
+}
+
+/* Tag index page */
+.tag-cloud{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:24px;
+}
+
+.tag-cloud a{
+  padding:7px 11px;
+  border:1px solid #D9DFE8;
+  border-radius:999px;
+  background:#FFFFFF;
+  color:#657187;
+  font-size:13px;
+  text-decoration:none;
+}
+
+.tag-cloud a:hover,.tag-cloud a.is-active{
+  border-color:#879AB5;
+  background:#EDF2F8;
+  color:#304969;
+}
+
+.tag-results-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:16px;
+}
+.tag-results-head h2{margin:0;font-size:24px}
+.tag-result-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.tag-result-tags span{font-size:11px;color:#7C8798}
+.tag-post-item[hidden]{display:none !important}
+
+@media(max-width:640px){
+  .anchor-target{scroll-margin-top:78px}
+
+  .article-toc{
+    margin:26px 0 34px;
+    border-radius:12px;
+  }
+  .article-toc-toggle{padding:15px 17px;font-size:15px}
+  .article-toc-list{padding:13px 16px 16px 34px}
+  .article-toc-list .toc-level-3{margin-left:12px}
+  .article-toc-list .toc-level-4{margin-left:20px}
+
+  .ishare-faq{margin:42px 0 28px}
+  .ishare-faq-item summary{padding:15px 44px 15px 16px;font-size:15px}
+  .ishare-faq-answer{padding:15px 16px 17px;font-size:15px}
+
+  .article-cta{
+    margin:42px 0 26px;
+    padding:23px 20px;
+    display:block;
+    border-radius:14px;
+  }
+  .article-cta h2{font-size:20px}
+  .article-cta-button{width:100%;margin-top:20px}
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .article-cta-button{transition:none}
 }
