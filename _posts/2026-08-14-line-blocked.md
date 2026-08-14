@@ -44,15 +44,17 @@ article_sections:
     number: "02"
     title: 加入「LINE客服小幫手」為好友
     content: <p>如果仍然找不到原因，就可以加入「<a
-      href="https://u.lin.ee/Ur3VaHf/cctw/CSF">LINE客服小幫手</a>」成為好友，點選選單中的「寫信給客服」管道提出問題。</p><img
-      src="https://raw.githubusercontent.com/isopossoft/isoPOS-ishare/main/assets/images/line-blocked02.png"
-      alt="LineHelptw"><p></p>
+      href="https://u.lin.ee/Ur3VaHf/cctw/CSF">LINE客服小幫手</a>」成為好友，點選選單中的「寫信給客服」管道提出問題。</p>
+  - type: image
+    image: /assets/images/line-blocked02-1.png
+    alt: LineHelptw
   - type: step
     number: "03"
     title: 敘述問題，提出申請表
-    content: <p>依照表單中的選項，依序填入「服務類別」、「問題類別」、「細項」…等資訊，完成後即可點選「傳送」。</p><p>接著，耐心等待LINE官方帳號客服回覆。</p><img
-      src="https://raw.githubusercontent.com/isopossoft/isoPOS-ishare/main/assets/images/line-blocked04.png"
-      alt="LINEFillouttheform"><p></p>
+    content: <p>依照表單中的選項，依序填入「服務類別」、「問題類別」、「細項」…等資訊，完成後即可點選「傳送」。</p><p>接著，耐心等待LINE官方帳號客服回覆。</p>
+  - type: image
+    image: /assets/images/line-blocked04-1.png
+    alt: LINEFillouttheform
 noindex: false
 cta_text: |-
   遇到像這樣的事別擔心？isoPOS總是走在您的前面，為您鋪路。
