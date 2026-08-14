@@ -24,7 +24,7 @@
     {%- endif %}
     <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
     {%- unless include.compact %}
-    <p class="post-summary">{{ p.quick_answer | default: p.meta_description | default: p.excerpt | strip_html | truncate: 110 }}</p>
+    <p class="post-summary">{% include post-summary.html post=p length=110 %}</p>
     {%- endunless %}
     <div class="post-footer">
       <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%Y.%m.%d" }}</time>

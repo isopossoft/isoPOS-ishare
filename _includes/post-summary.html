@@ -1,0 +1,31 @@
+{%- comment -%}
+  產生文章摘要，依序取用：
+    1. 快速解答 quick_answer
+    2. Meta Description
+    3. Jekyll excerpt（舊版 Markdown／body 欄位的文章才有）
+    4. 新版「文章內容」區塊的文字（article_sections）
+
+  第 4 項是關鍵：用區塊編輯器寫的文章，Jekyll 的 excerpt 是空的，
+  沒有這一層 fallback，分類頁與搜尋結果就會沒有摘要。
+
+  用法：{% include post-summary.html post=p length=150 %}
+{%- endcomment -%}
+{%- assign _p = include.post -%}
+{%- assign _len = include.length | default: 150 -%}
+
+{%- assign _s = _p.quick_answer | default: _p.meta_description | default: _p.excerpt -%}
+{%- assign _s = _s | strip_html | normalize_whitespace | strip -%}
+
+{%- if _s == '' -%}
+  {%- capture _flat -%}
+    {%- for _sec in _p.article_sections -%}
+      {%- if _sec.type == 'text' or _sec.type == 'quote' -%}{{ _sec.content }} {{ _sec.text }} {%- endif -%}
+    {%- endfor -%}
+    {%- for _sec in _p.article_sections -%}
+      {%- unless _sec.type == 'text' or _sec.type == 'quote' -%}{{ _sec.content }} {{ _sec.text }} {%- endunless -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- assign _s = _flat | strip_html | normalize_whitespace | strip -%}
+{%- endif -%}
+
+{{- _s | truncate: _len -}}

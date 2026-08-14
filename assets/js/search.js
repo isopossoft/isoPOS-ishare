@@ -59,6 +59,11 @@
     return out;
   }
 
+  function clamp(text, max) {
+    text = (text || '').trim();
+    return text.length > max ? text.slice(0, max) + '…' : text;
+  }
+
   // 取出包含關鍵字的一小段內文當摘要
   function snippet(body, terms) {
     var lower = normalize(body);
@@ -67,7 +72,7 @@
       pos = lower.indexOf(terms[i]);
       if (pos !== -1) break;
     }
-    if (pos === -1) return body.slice(0, 110);
+    if (pos === -1) return clamp(body, 150);
     var start = Math.max(0, pos - 40);
     var end   = Math.min(body.length, pos + 90);
     return (start > 0 ? '…' : '') + body.slice(start, end) + (end < body.length ? '…' : '');
@@ -140,7 +145,9 @@
 
     results.innerHTML = matched.map(function (r) {
       var d = r.item;
-      var text = d.summary || d.body || '';
+      // summary 已在 search.json 端算好（含區塊文章的 fallback）。
+      // 萬一仍是空的，才從內文索引截一小段，絕不整段輸出。
+      var text = d.summary || clamp(d.body, 150);
       var body = terms.length ? snippet(d.body || text, terms) : text;
 
       return '' +

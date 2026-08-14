@@ -28,7 +28,7 @@ sitemap: false
   "iso": {{ post.date | date_to_xmlschema | jsonify }},
   "category": {{ post.category | jsonify }},
   "categoryUrl": {% if cat %}{{ '/categories/' | append: cat.slug | append: '/' | relative_url | jsonify }}{% else %}""{% endif %},
-  "summary": {{ post.quick_answer | default: post.meta_description | default: post.excerpt | strip_html | normalize_whitespace | truncate: 160 | jsonify }},
+  "summary": {% capture _sum %}{% include post-summary.html post=post length=160 %}{% endcapture %}{{ _sum | strip | jsonify }},
   "tags": {% if post.tags and post.tags.size > 0 %}{{ post.tags | jsonify }}{% else %}[]{% endif %},
   "image": {% if post.image %}{{ post.image | relative_url | jsonify }}{% else %}""{% endif %},
   "body": {{ body_text | jsonify }}
