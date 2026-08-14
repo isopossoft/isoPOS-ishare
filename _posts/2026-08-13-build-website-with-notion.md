@@ -32,11 +32,10 @@ article_sections:
   - type: image
     image: /assets/images/notion01-1.png
     alt: Notion 官方網站首頁的「免費取得 Notion」按鈕
-    caption: 兩個地方都可加入，擇一操作即可
   - type: text
     content: <p>(2) 依需求選擇要用 Google 或 Email ，註冊建立帳號，完成後就可以進入 Notion 工作區</p>
   - type: image
-    image: /assets/images/notion02.png
+    image: /assets/images/notion02-1.png
     alt: Notion 建立帳號畫面，可選擇 Google 或 Email 登入
   - type: text
     content: <p>(3) 詳細登入步驟，可參考影片操作</p>
@@ -48,15 +47,10 @@ article_sections:
     title: 建立一個頁面
     content: <p>進入 Notion 頁面</p>
   - type: text
-    content: <p>(1) 左側點擊：建立新頁面</p>
+    content: <p>左側點擊：建立新頁面</p>
   - type: image
-    image: /assets/images/notion03.png
+    image: /assets/images/notion03-1.png
     alt: Notion 左側選單的建立新頁面位置
-  - type: text
-    content: <p>(2) 或是不同版本，建立新頁面的選項也可能會在左下方</p>
-  - type: image
-    image: /assets/images/notion04.png
-    alt: Notion 桌面版左下角的建立新頁面按鈕
   - type: step
     number: "03"
     title: 編輯內容
@@ -64,21 +58,21 @@ article_sections:
   - type: h4
     text: ▍標題
   - type: text
-    content: <p>在頁面中可以先加入網站的標題，例如我想要放上店內的價目表，則標題名稱輸入：ZW價目表</p>
+    content: <p>在頁面中可以先加入網站的標題，假設想要放上店內的價目表，則標題名稱輸入：ZW Salon價目表</p>
   - type: image
-    image: /assets/images/notion05.png
+    image: /assets/images/notion04-1.png
     alt: Notion 頁面輸入「ZW價目表」標題的範例
   - type: h4
     text: ▍文字、表格
   - type: text
     content: <p>您可直接輸入文字。選取文字後，可調整文字樣式，例如：大小、粗體、底線或變更顏色…等等</p>
   - type: image
-    image: /assets/images/notion06.png
+    image: /assets/images/notion05-1.png
     alt: Notion 選取文字後開啟文字樣式工具列
   - type: text
     content: <p>只要在欄位輸入 斜線 / ，即可快速開啟命令視窗，挑選要新增的內容樣式。</p>
   - type: image
-    image: /assets/images/notion07.png
+    image: /assets/images/notion06-1.png
     alt: Notion 輸入斜線後開啟內容區塊命令選單
   - type: text
     content: <p>例如：也可以將複雜的文字，轉換成表格呈現，讓資訊更清晰。</p>
