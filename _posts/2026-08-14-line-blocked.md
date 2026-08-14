@@ -43,11 +43,9 @@ article_sections:
   - type: step
     number: "02"
     title: 加入「LINE客服小幫手」為好友
-    content: <p>如果仍然找不到原因，就可以加入「<a
-      href="https://u.lin.ee/Ur3VaHf/cctw/CSF">LINE客服小幫手</a>」成為好友，點選選單中的「寫信給客服」管道提出問題。</p>
-  - type: image
-    image: /assets/images/line-blocked02.png
-    alt: LineHelptw
+    content: |-
+      <p>如果仍然找不到原因，就可以加入「<a href="https://u.lin.ee/Ur3VaHf/cctw/CSF">LINE客服小幫手</a>」成為好友，點選選單中的「寫信給客服」管道提出問題。</p>
+      <img src="https://raw.githubusercontent.com/isopossoft/isoPOS-ishare/main/assets/images/line-blocked02.png" alt="LineHelptw"><p></p>
   - type: step
     number: "03"
     title: 敘述問題，提出申請表
