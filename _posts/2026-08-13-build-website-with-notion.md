@@ -108,19 +108,19 @@ article_sections:
   - type: text
     content: <p>當內容完成後，在右上角點擊「分享」，依照需求確認是否需要調整存取權限。</p><p>例如：當選擇〝網路上知道連結的任何人〞，指的就是：是否要讓別人在搜尋引擎上可以找到你的Notion網站，如果您是要放上例如：作品集、價目表等讓顧客查看，請選擇此選項。</p>
   - type: image
-    image: /assets/images/notion12.png
+    image: /assets/images/notion11-1.png
     alt: Notion 分享視窗中的分享與存取權限設定
   - type: text
     content: <p>切換到「發布」頁籤後，點選「發布」</p>
   - type: image
-    image: /assets/images/notion13.png
+    image: /assets/images/notion12-1.png
     alt: Notion 分享視窗切換至發布頁籤並點選發布
   - type: text
     content: <p>Notion就會生成一個公開網址，例如：<a
       href="https://petguide.notion.site/zw-XXXX">https://petguide.notion.site/zw-XXXX</a>
       。</p><p>點選右側連結圖示可以將網址進行複製；或是可以點選「查看網站」，直接開啟網站確認呈現畫面。</p>
   - type: image
-    image: /assets/images/notion14.png
+    image: /assets/images/notion13-1.png
     alt: Notion 發布設定中複製公開網址與查看網站的操作位置
   - type: note
     title: 補充資訊
