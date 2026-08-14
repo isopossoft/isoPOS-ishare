@@ -10,12 +10,6 @@ tags:
   - 數位工具
 date: 2026-03-16
 updated: 2026-08-13
-description: |-
-  想建立一個簡單網站，不一定要會寫程式、HTML 或自己架設主機。
-
-  如果只是想製作價目表、作品集、服務介紹、活動資訊或簡單的公開頁面，Notion 就是一個容易上手的選擇。
-
-  這篇文章會從建立帳號開始，一步一步介紹如何使用 Notion 建立並發布自己的第一個網站。
 image: /assets/images/build-website-with-notion.png
 image_alt: Notion 免費建立網站完整教學封面
 author: isoPOS
@@ -135,7 +129,7 @@ article_sections:
     alt: Notion 發布設定中複製公開網址與查看網站的操作位置
   - type: note
     title: 補充資訊
-    text: 預設會使用Notion提供結尾為「.notion.site」的網址。如果想要使用自己命名的網址，首先要購買Notion的PLUS會員，才能進行設定。
+    text: <p>預設會使用Notion提供結尾為「.notion.site」的網址。如果想要使用自己命名的網址，首先要購買Notion的PLUS會員，才能進行設定。</p>
   - type: text
     content: <p>未來，如果要更新內容，調整後網站就會 <strong>自動更新</strong>，不需要重新發布。</p>
   - type: tip
@@ -146,6 +140,17 @@ article_sections:
       Store</u></a></p></li><li><p><a
       href="https://play.google.com/store/apps/details?id=notion.id&amp;pcampaignid=web_share"><u>Google
       Play</u></a></p></li></ul><p></p>
+  - type: faq
+    title: 常見問題
+    items:
+      - question: 用 Notion 建立網站需要會寫程式嗎？
+        answer: <p>不需要。Notion 頁面可以直接透過「發布」功能變成公開網站，不需要另外撰寫 HTML
+          或程式碼，適合想快速建立簡單網站、作品集或資訊頁的人使用。</p>
+      - question: 免費版 Notion 可以建立網站嗎？
+        answer: <p>可以。免費方案也能將頁面發布到網路上，並可使用 <code>notion.site</code> 網址；若需要更多網站外觀、SEO
+          或自訂網域等進階功能，則部分功能需要付費方案或額外加購。</p>
+      - question: Notion 網站發布後，修改內容需要重新發布嗎？
+        answer: <p>不用。網站發布後，只要回到原本的 Notion 頁面修改內容，公開網站會自動同步更新，不需要每次重新按發布。</p>
 seo_title: Notion架網站教學｜不會寫程式也能免費建立網站
 meta_description: Notion 可以免費架網站嗎？本文完整教你從建立 Notion 頁面、加入文字圖片，到發布成公開網站，不需要會 HTML 或程式，也能快速建立簡單網站。
 noindex: false
