@@ -529,19 +529,12 @@ content:
         description: "選填。Google 搜尋結果使用的說明文字。留白時網站可由快速解答或文章內容自動產生。"
 
 
-      - name: canonical
-        label: Canonical URL
-        type: string
-        required: false
-        description: "進階設定。一般文章留白，由網站自動產生。"
-
-
       - name: noindex
         label: 不允許搜尋引擎索引
         type: boolean
         default: false
         required: false
-        description: "一般正式文章保持關閉；測試文章或不希望出現在搜尋結果時才開啟。"
+        description: "開啟後，這篇文章不會出現在首頁、分類頁、標籤頁、站內搜尋、RSS 與 sitemap，也不會被搜尋引擎索引。草稿或測試文章用。"
 
 
 
@@ -549,8 +542,29 @@ content:
       # ⑥ isoPOS 文末 CTA
       # ==================================================
 
+      - name: cta_title
+        label: 文末 CTA 標題
+        type: string
+        required: false
+        description: "選填。留白時使用預設：想把數位工具真正整合進日常營運？"
+
+
       - name: cta_text
-        label: 文末 isoPOS CTA 銜接文字
+        label: 文末 CTA 銜接文字
         type: text
         required: false
         description: "選填。依文章內容自然銜接到 isoPOS，例如：如果你需要的不只是建立網站，而是希望整合線上預約、會員、LINE 與 POS，也可以進一步了解 isoPOS。"
+
+
+      - name: cta_button
+        label: 文末 CTA 按鈕文字
+        type: string
+        required: false
+        description: "選填。留白時使用預設：了解 isoPOS"
+
+
+      - name: cta_kicker
+        label: 文末 CTA 上方小標
+        type: string
+        required: false
+        description: "進階選填。留白時使用預設：FROM KNOWLEDGE TO WORKFLOW。填一個半形空格可以隱藏這一行。"
