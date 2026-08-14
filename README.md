@@ -19,23 +19,45 @@
 
 | 檔案 | 原因 |
 |---|---|
-| `_posts/2026-08-13-welcome-to-isopos-ishare.md` | 測試文章 |
-| `_posts/2026-08-13-line-oa-test.md` | 測試文章 |
+| `isopos-ishare-mobile-menu-hotfix.zip` | 舊修補包，目前任何人都能直接下載 |
+| `README.txt` | 舊修補說明，已被這份 README 取代 |
 | `assets/images/公告_標準範例01.png` | 測試文章的圖，中文檔名 |
 | `assets/images/公告_標準範例01-1.png` | 同上 |
-| `isopos-ishare-mobile-menu-hotfix.zip` | 舊修補包，目前任何人都能下載 |
-| `README.txt` | 舊修補說明，已被這份 README 取代 |
 
-### 步驟 3｜開啟 GitHub Actions 建置（建議，但可跳過）
+**測試文章**（在 Pages CMS 裡依標題找，比較不會刪錯）：
 
-`Settings` → `Pages` → `Build and deployment` → `Source` 改成 **GitHub Actions**。
+- 「isoPOS iShare 新版知識中心測試文章」
+- 「LINE 官方帳號測試文章」
+
+> 這兩篇已勾選「不允許搜尋引擎索引」，新版會自動把它們從首頁、分類頁、
+> 標籤頁、搜尋、RSS、sitemap 全部隱藏，所以**不刪也不會出現在前台**。
+> 想留著當排版範本完全可以。
+
+### 步驟 3｜開啟 GitHub Actions 建置（選用，可以先跳過）
+
+`.github/workflows/jekyll.yml` 預設是**手動觸發**，不會自己跑，所以現在上傳
+不會多出任何失敗的紅叉。想啟用時：
+
+1. `Settings` → `Pages` → `Build and deployment` → `Source` 改成 **GitHub Actions**
+2. 打開 `.github/workflows/jekyll.yml`，把 `# push:` 那三行的 `#` 拿掉
 
 開啟後多了什麼：
 
 - **每個標籤有自己的網址**（`/tags/notion/`），可以被 Google 單獨索引
-- 建置失敗會在 Actions 頁面顯示明確錯誤，不再只是「網站沒更新」
+- 建置失敗會顯示明確訊息與行號，不再只是「網站沒更新」
 
-不開也沒關係 —— 網站會照舊運作，標籤自動退回原本的 `?tag=` 篩選模式，不會壞掉。
+不開也沒關係 —— 網站會用 GitHub Pages 內建建置（Jekyll 3.10），
+標籤自動退回原本的 `?tag=` 篩選模式，其他功能全部正常。
+
+### 步驟 3.5｜認識「建置檢查」
+
+`.github/workflows/lint.yml` 會在每次 push 時，用和 GitHub Pages 相同的環境
+試建一次網站，然後檢查：關鍵頁面有沒有產生、`search.json` 是不是合法 JSON、
+sitemap 與 feed 是不是合法 XML、結構化資料是不是合法 JSON-LD。
+
+**它不會部署任何東西**，失敗也不影響線上網站。存在的意義是：
+語法出錯時你能立刻在 Actions 看到「檔名 + 行號」，
+不用再從 `pages-build-deployment` 的長日誌裡慢慢找。
 
 ### 步驟 4｜填三個設定（`_config.yml`）
 
@@ -190,7 +212,43 @@ bundle exec jekyll serve
 
 ---
 
-## 六、還沒做、建議接著處理
+## 六、疑難排解
+
+### 建置失敗（Actions 出現紅色叉叉）
+
+先看是哪一個 workflow 失敗：
+
+| Workflow | 意義 |
+|---|---|
+| **建置檢查** | 語法或內容有問題。點進去 → `試建網站` 那一步會有明確的檔名與行號 |
+| **pages-build-deployment** | GitHub 內建的建置，線上網站真的沒更新 |
+
+訊息最後一段會寫出**檔名與行號**，
+例如：
+
+```
+Error: Liquid syntax error (/github/workspace/_includes/head.html line 34):
+Variable '{{ ... }}' was not properly terminated
+```
+
+最常見的原因是 **Liquid 標籤裡出現了單獨的大括號**。Liquid 掃到 `{{` 之後
+會找第一個 `}` 就停下來，所以像 `{{ '?q={關鍵字}' }}` 這種寫法一定會失敗。
+解法是把大括號放到 `{% capture %}` 的純文字區，不要寫在 `{{ }}` 裡面。
+
+### 改了東西但網站沒更新
+
+- 先看 Actions 頁面是不是建置失敗了
+- CSS 版本號現在會自動帶入建置時間，理論上不會再有快取問題；
+  如果還是舊的，用無痕視窗開一次確認
+
+### 標籤點進去是 404
+
+代表 GitHub Actions 建置沒有啟用（見步驟 3）。
+把 Source 改回「Deploy from a branch」，標籤會自動退回 `?tag=` 模式。
+
+---
+
+## 七、還沒做、建議接著處理
 
 1. **圖片轉 WebP**：目前文章截圖都是 PNG，單張約 1.3MB。轉 WebP 通常可省 60–80%。
 2. **圖片檔名改英數**：中文檔名會被編碼成 `%E5%85%AC...`，網址不好看，部分平台貼上會出錯。

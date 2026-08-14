@@ -1,0 +1,67 @@
+# =============================================================
+# 用 GitHub Actions 建置並部署 Jekyll（選用）
+#
+# 預設「只能手動觸發」，不會在每次 push 時自動跑。
+# 這是刻意的：如果 Settings → Pages 的 Source 還是「Deploy from a
+# branch」，這個 workflow 的最後一步一定會失敗，只會製造紅色叉叉。
+#
+# ---- 啟用步驟 ----
+# 1. GitHub repo → Settings → Pages
+#    → Build and deployment → Source 改成「GitHub Actions」
+# 2. 回到這個檔案，把下面「push:」那三行的 # 拿掉
+# 3. Commit 之後就會自動建置
+#
+# ---- 啟用後多了什麼 ----
+# - _plugins/tag_pages.rb 會執行 → 每個標籤有自己的網址，可被搜尋引擎索引
+# - 建置錯誤會顯示明確訊息與行號，不再只是「網站沒更新」
+#
+# 不啟用完全沒關係：網站會用 GitHub Pages 內建建置（Jekyll 3.10），
+# 標籤自動退回 /tags/?tag= 的篩選模式，其他功能全部正常。
+# =============================================================
+
+name: Build and deploy Jekyll site
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - uses: actions/configure-pages@v5
+        id: pages
+
+      - name: Build site
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        env:
+          JEKYLL_ENV: production
+
+      - uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,80 @@
+# =============================================================
+# 建置檢查（只檢查，不部署）
+#
+# 每次 push 都會用和 GitHub Pages 相同的環境試建一次網站。
+# 目的：Liquid 語法錯誤能立刻看到「檔名 + 行號」，
+#       不用再從 pages-build-deployment 的長日誌裡慢慢找。
+#
+# 這個 workflow 不會部署任何東西，失敗也不會影響線上網站，
+# 純粹是給你一個紅燈／綠燈。
+# =============================================================
+
+name: 建置檢查
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: 試建網站
+        run: bundle exec jekyll build --trace
+
+      - name: 檢查關鍵頁面是否都有產生
+        run: |
+          set -e
+          for f in \
+            _site/index.html \
+            _site/404.html \
+            _site/search/index.html \
+            _site/search.json \
+            _site/sitemap.xml \
+            _site/feed.xml \
+            _site/tags/index.html \
+            _site/categories/line/index.html \
+            _site/categories/management/index.html \
+            _site/categories/tools/index.html \
+            _site/categories/industry/index.html
+          do
+            if [ ! -f "$f" ]; then echo "::error::缺少 $f"; exit 1; fi
+            echo "✓ $f"
+          done
+
+      - name: 檢查 search.json 是合法 JSON
+        run: |
+          python3 -c "import json,sys; d=json.load(open('_site/search.json')); print(f'✓ 搜尋索引 {len(d)} 篇文章')"
+
+      - name: 檢查 sitemap 與 feed 是合法 XML
+        run: |
+          python3 - <<'PY'
+          import xml.dom.minidom as md
+          for f in ['_site/sitemap.xml', '_site/feed.xml']:
+              md.parse(f); print('✓', f)
+          PY
+
+      - name: 檢查結構化資料是合法 JSON-LD
+        run: |
+          python3 - <<'PY'
+          import json, re, glob, sys
+          bad = 0
+          for f in glob.glob('_site/**/*.html', recursive=True):
+              html = open(f, encoding='utf-8').read()
+              for i, b in enumerate(re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S)):
+                  try:
+                      json.loads(b)
+                  except Exception as e:
+                      print(f'::error file={f}::JSON-LD #{i+1} 無效: {e}'); bad += 1
+          print('✓ 結構化資料全部有效' if not bad else f'✗ {bad} 筆無效')
+          sys.exit(1 if bad else 0)
+          PY
