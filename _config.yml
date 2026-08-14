@@ -1,13 +1,110 @@
-title: "isoPOS iShare"
+# =============================================================
+# isoPOS iShare — Jekyll 設定
+# =============================================================
+
+title:       "isoPOS iShare"
+tagline:     "愛分享"
 description: "LINE 官方帳號、美業經營管理、數位工具與產業知識"
-lang: "zh-TW"
-url: "https://isopossoft.github.io"
+lang:        "zh-TW"
+
+# -------------------------------------------------------------
+# 網址設定
+#
+# 【現在】GitHub Pages 預設網址
+url:     "https://isopossoft.github.io"
 baseurl: "/isoPOS-ishare"
+#
+# 【之後要換成自訂網域時】把上面兩行註解掉，改用下面兩行：
+# url:     "https://ishare.zoom-world.tw"
+# baseurl: ""
+#
+# 換網域完整步驟請看 README.md 的「切換自訂網域」章節。
+# -------------------------------------------------------------
 
 permalink: /articles/:title/
+timezone:  Asia/Taipei
 
 author:
   name: "isoPOS"
+
+# -------------------------------------------------------------
+# 品牌 / 連結
+# -------------------------------------------------------------
+isopos:
+  product_url:  "https://zoom-world.tw/"
+  product_name: "isoPOS"
+
+  # 預設社群分享圖（1200x630）。文章沒設封面時會用這張。
+  default_og_image: "/assets/images/og-default.png"
+
+  # 品牌 Logo（結構化資料的 publisher logo 會用）
+  logo: "/assets/images/isopos-icon.png"
+
+# -------------------------------------------------------------
+# 分析與驗證（填了才會輸出，留空就不會插入任何程式碼）
+# -------------------------------------------------------------
+analytics:
+  ga4_id: ""            # 例如 "G-XXXXXXXXXX"
+
+verification:
+  google: ""            # Search Console 的 HTML 標記驗證碼
+  bing: ""
+
+# -------------------------------------------------------------
+# 文章分類（唯一來源）
+#
+# name  = 文章 front matter 的 category 值，必須完全一致
+# slug  = 網址，對應 /categories/<slug>/
+# -------------------------------------------------------------
+category_list:
+  - slug: line
+    name: "LINE 官方帳號"
+    index: "01"
+    short: "LINE OA、Messaging API、Webhook、會員綁定與系統串接。"
+    desc:  "LINE 官方帳號、Messaging API、Webhook、會員與系統串接等相關教學。"
+
+  - slug: management
+    name: "美業經營管理"
+    index: "02"
+    short: "顧客經營、回流率、預約、會員制度與營運管理。"
+    desc:  "顧客經營、回流率、線上預約、會員制度與日常營運管理實務。"
+
+  - slug: tools
+    name: "數位工具教學"
+    index: "03"
+    short: "Google、Windows、遠端工具與數位工作技巧。"
+    desc:  "Google、Windows、遠端協作工具與各種提升效率的數位工作技巧。"
+
+  - slug: industry
+    name: "產業知識"
+    index: "04"
+    short: "美業趨勢、制度、經營觀念與實務知識。"
+    desc:  "美業趨勢、制度、經營觀念與實務產業知識。"
+
+# -------------------------------------------------------------
+# 文章頁功能開關
+# -------------------------------------------------------------
+features:
+  toc:            true    # 文章目錄
+  reading_time:   true    # 閱讀時間
+  share_buttons:  true    # 分享按鈕（LINE / Facebook / 複製連結）
+  related_posts:  true    # 相關文章
+  prev_next:      true    # 上一篇 / 下一篇
+  site_search:    true    # 站內搜尋
+
+# 中文閱讀速度（字／分鐘），用來估算閱讀時間
+reading_speed: 400
+
+# -------------------------------------------------------------
+# Jekyll
+# -------------------------------------------------------------
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+sass:
+  style: compressed
 
 defaults:
   - scope:
@@ -19,6 +116,8 @@ defaults:
 
 exclude:
   - README.md
-
-isopos:
-  product_url: "https://zoom-world.tw/"
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .github
+  - node_modules

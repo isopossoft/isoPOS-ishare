@@ -1,0 +1,30 @@
+{%- comment -%}
+  文章分享按鈕。LINE 放第一個（台灣讀者最常用）。
+{%- endcomment -%}
+{%- assign share_url   = page.url | absolute_url -%}
+{%- assign share_title = page.title | strip_html -%}
+<div class="article-share" data-share-url="{{ share_url }}">
+  <p class="article-share-label">分享這篇文章</p>
+  <div class="article-share-buttons">
+    <a class="share-btn share-line"
+       href="https://social-plugins.line.me/lineit/share?url={{ share_url | url_encode }}"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="分享到 LINE">
+      <span aria-hidden="true">LINE</span>
+    </a>
+
+    <a class="share-btn share-fb"
+       href="https://www.facebook.com/sharer/sharer.php?u={{ share_url | url_encode }}"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="分享到 Facebook">
+      <span aria-hidden="true">Facebook</span>
+    </a>
+
+    <button class="share-btn share-copy" type="button"
+            data-copy-url="{{ share_url }}"
+            aria-label="複製文章連結">
+      <span class="share-copy-idle">複製連結</span>
+      <span class="share-copy-done" hidden>已複製 ✓</span>
+    </button>
+  </div>
+</div>

@@ -1,7 +1,14 @@
-{% assign rich = include.content | default: "" %}
-{% capture image_prefix %}src="{{ '/assets/images/' | relative_url }}{% endcapture %}
-{% capture image_prefix_single %}src='{{ '/assets/images/' | relative_url }}{% endcapture %}
+{%- comment -%}
+  Pages CMS rich-text 輸出。
+  1. 把 /assets/images/ 補上 baseurl（原本就有的行為）
+  2. 自動補上 loading="lazy" 與 decoding="async"，改善長文載入速度
+{%- endcomment -%}
+{%- assign rich = include.content | default: "" -%}
+{%- capture image_prefix %}src="{{ '/assets/images/' | relative_url }}{% endcapture -%}
+{%- capture image_prefix_single %}src='{{ '/assets/images/' | relative_url }}{% endcapture -%}
 {{ rich
   | replace: 'src="/assets/images/', image_prefix
   | replace: "src='/assets/images/", image_prefix_single
+  | replace: '<img ', '<img loading="lazy" decoding="async" '
+  | replace: '<img loading="lazy" decoding="async" loading=', '<img loading='
 }}

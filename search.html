@@ -1,0 +1,59 @@
+---
+layout: default
+title: "搜尋文章｜isoPOS iShare"
+meta_description: "搜尋 isoPOS iShare 的 LINE 官方帳號、美業經營管理、數位工具與產業知識文章。"
+permalink: /search/
+needs_search_js: true
+noindex: true
+---
+
+<section class="category-hero search-hero">
+  <div class="container narrow">
+    <nav class="breadcrumb" aria-label="麵包屑">
+      <a href="{{ '/' | relative_url }}">首頁</a>
+      <span aria-hidden="true">›</span>
+      <span aria-current="page">搜尋</span>
+    </nav>
+    <p class="eyebrow">站內搜尋</p>
+    <h1>搜尋文章</h1>
+    <p>輸入關鍵字，同時搜尋標題、摘要、標籤與內文。</p>
+
+    <form class="search-form" role="search" id="search-form" action="{{ '/search/' | relative_url }}" method="get">
+      <label class="sr-only" for="search-input">搜尋關鍵字</label>
+      <svg class="search-form-icon" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false">
+        <circle cx="9" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <line x1="13.5" y1="13.5" x2="18" y2="18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <input id="search-input" name="q" type="search"
+             placeholder="例如：LINE 綁定、預約、Notion、回流率"
+             autocomplete="off" autocapitalize="off" spellcheck="false">
+      <button class="search-clear" type="button" id="search-clear" aria-label="清除搜尋" hidden>×</button>
+    </form>
+
+    <div class="search-filters" id="search-filters">
+      <button class="search-filter is-active" type="button" data-filter="">全部</button>
+      {%- for cat in site.category_list %}
+      <button class="search-filter" type="button" data-filter="{{ cat.name | escape }}">{{ cat.name }}</button>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="container narrow section">
+  <p class="search-status" id="search-status" role="status" aria-live="polite"></p>
+  <div class="post-list" id="search-results"></div>
+
+  <div class="empty-state" id="search-empty" hidden>
+    <h3>找不到符合的文章</h3>
+    <p>可以換個關鍵字，或直接從<a href="{{ '/' | relative_url }}">分類</a>瀏覽。</p>
+  </div>
+
+  <noscript>
+    <div class="empty-state">
+      <h3>站內搜尋需要開啟 JavaScript</h3>
+      <p>你也可以從首頁的分類瀏覽全部文章。</p>
+    </div>
+  </noscript>
+</section>
+
+<script>window.ISHARE_SEARCH_INDEX = "{{ '/search.json' | relative_url }}";</script>

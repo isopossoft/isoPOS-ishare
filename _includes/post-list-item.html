@@ -1,0 +1,12 @@
+{%- assign p = include.post -%}
+<article class="post-list-item">
+  <div>
+    <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%Y.%m.%d" }}</time>
+    <h2><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h2>
+    <p>{{ p.quick_answer | default: p.meta_description | default: p.excerpt | strip_html | truncate: 150 }}</p>
+    {%- if include.show_tags and p.tags.size > 0 %}
+    <div class="tag-result-tags">{% for tag in p.tags %}<span>#{{ tag }}</span>{% endfor %}</div>
+    {%- endif %}
+  </div>
+  <a class="arrow" href="{{ p.url | relative_url }}" aria-label="閱讀「{{ p.title | strip_html | escape }}」">→</a>
+</article>

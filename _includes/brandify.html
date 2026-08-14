@@ -1,0 +1,7 @@
+{%- comment -%}
+  把純文字裡的 isoPOS 套上品牌字體。
+  只用於「純文字欄位」（標題、小標、快速解答），不會碰到含 HTML 屬性的內容，
+  所以不會像舊版那樣有機會破壞 alt / href。
+  用法：{% include brandify.html text=page.title %}
+{%- endcomment -%}
+{{- include.text | escape | replace: 'isoPOS', '<span class="isopos-text">isoPOS</span>' -}}

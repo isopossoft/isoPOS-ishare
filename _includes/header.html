@@ -1,0 +1,74 @@
+<a class="skip-link" href="#main">跳到主要內容</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="{{ '/' | relative_url }}">
+      <img src="{{ '/assets/images/isopos-icon.png' | relative_url }}"
+           alt="{{ site.title }} Logo" width="22" height="22">
+      <span class="brand-copy">
+        <strong><span class="isopos-text">isoPOS</span> iShare</strong>
+        <small>{{ site.tagline }}</small>
+      </span>
+    </a>
+
+    <nav class="main-nav" aria-label="主要導覽">
+      {%- for cat in site.category_list %}
+      <a href="{{ '/categories/' | append: cat.slug | append: '/' | relative_url }}"
+         {% if page.url contains cat.slug %}aria-current="page"{% endif %}>{{ cat.name }}</a>
+      {%- endfor %}
+    </nav>
+
+    <div class="header-actions">
+      {%- if site.features.site_search %}
+      <a class="header-search-link" href="{{ '/search/' | relative_url }}" aria-label="搜尋文章">
+        <svg viewBox="0 0 20 20" width="17" height="17" aria-hidden="true" focusable="false">
+          <circle cx="9" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <line x1="13.5" y1="13.5" x2="18" y2="18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <span>搜尋</span>
+      </a>
+      {%- endif %}
+
+      <button class="mobile-menu-toggle" type="button"
+              aria-label="開啟選單" aria-controls="mobile-drawer" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav-backdrop" hidden></div>
+
+<aside id="mobile-drawer" class="mobile-drawer" aria-label="行動版選單" hidden>
+  <div class="mobile-drawer-head">
+    <div class="mobile-drawer-brand">
+      <img src="{{ '/assets/images/isopos-icon.png' | relative_url }}" alt="" width="34" height="34">
+      <div>
+        <strong><span class="isopos-text">isoPOS</span> iShare</strong>
+        <small>{{ site.tagline }}</small>
+      </div>
+    </div>
+    <button class="mobile-menu-close" type="button" aria-label="關閉選單">×</button>
+  </div>
+
+  {%- if site.features.site_search %}
+  <form class="mobile-drawer-search" action="{{ '/search/' | relative_url }}" method="get" role="search">
+    <label class="sr-only" for="drawer-search">搜尋文章</label>
+    <input id="drawer-search" type="search" name="q" placeholder="搜尋文章…" autocomplete="off">
+    <button type="submit" aria-label="開始搜尋">
+      <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false">
+        <circle cx="9" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <line x1="13.5" y1="13.5" x2="18" y2="18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </form>
+  {%- endif %}
+
+  <nav class="mobile-drawer-nav" aria-label="行動版主要導覽">
+    {%- for cat in site.category_list %}
+    <a href="{{ '/categories/' | append: cat.slug | append: '/' | relative_url }}">
+      <span>{{ cat.index }}</span><strong>{{ cat.name }}</strong>
+    </a>
+    {%- endfor %}
+  </nav>
+</aside>

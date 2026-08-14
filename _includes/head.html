@@ -1,0 +1,102 @@
+{%- comment -%}
+  <head> 內容。所有 SEO / OG / schema 都集中在這裡。
+{%- endcomment -%}
+
+{%- assign page_title = page.seo_title | default: page.title | default: site.title -%}
+{%- assign page_desc  = page.meta_description | default: page.description | default: page.quick_answer | default: site.description -%}
+{%- assign page_desc  = page_desc | strip_html | strip_newlines | truncate: 160 -%}
+{%- assign canonical_url = page.canonical | default: page.url | absolute_url -%}
+
+{%- if page.image -%}
+  {%- assign og_image = page.image | absolute_url -%}
+  {%- assign og_image_alt = page.image_alt | default: page.title -%}
+  {%- assign og_image_sized = false -%}
+{%- else -%}
+  {%- assign og_image = site.isopos.default_og_image | absolute_url -%}
+  {%- assign og_image_alt = site.title | append: '｜' | append: site.description -%}
+  {%- comment -%} 只有預設圖確定是 1200x630，文章封面尺寸不一定，不亂宣告 {%- endcomment -%}
+  {%- assign og_image_sized = true -%}
+{%- endif -%}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>{{ page_title | strip_html | escape }}</title>
+<meta name="description" content="{{ page_desc | escape }}">
+
+{%- if page.noindex %}
+<meta name="robots" content="noindex,follow">
+{%- else %}
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+{%- endif %}
+
+<link rel="canonical" href="{{ canonical_url }}">
+
+{%- comment -%} ---------- Open Graph ---------- {%- endcomment -%}
+<meta property="og:locale" content="zh_TW">
+<meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+<meta property="og:title" content="{{ page_title | strip_html | escape }}">
+<meta property="og:description" content="{{ page_desc | escape }}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:site_name" content="{{ site.title | escape }}">
+<meta property="og:image" content="{{ og_image }}">
+{%- if og_image_sized %}
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+{%- endif %}
+<meta property="og:image:alt" content="{{ og_image_alt | strip_html | escape }}">
+{%- if page.layout == 'post' %}
+<meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+{%- if page.updated %}<meta property="article:modified_time" content="{{ page.updated | date_to_xmlschema }}">{% endif %}
+{%- if page.category %}<meta property="article:section" content="{{ page.category | escape }}">{% endif %}
+{%- for tag in page.tags %}
+<meta property="article:tag" content="{{ tag | escape }}">
+{%- endfor %}
+{%- endif %}
+
+{%- comment -%} ---------- Twitter / X ---------- {%- endcomment -%}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ page_title | strip_html | escape }}">
+<meta name="twitter:description" content="{{ page_desc | escape }}">
+<meta name="twitter:image" content="{{ og_image }}">
+<meta name="twitter:image:alt" content="{{ og_image_alt | strip_html | escape }}">
+
+{%- comment -%} ---------- 搜尋引擎驗證 ---------- {%- endcomment -%}
+{%- if site.verification.google and site.verification.google != "" %}
+<meta name="google-site-verification" content="{{ site.verification.google }}">
+{%- endif %}
+{%- if site.verification.bing and site.verification.bing != "" %}
+<meta name="msvalidate.01" content="{{ site.verification.bing }}">
+{%- endif %}
+
+{%- comment -%} ---------- Icon ---------- {%- endcomment -%}
+<link rel="icon" type="image/png" href="{{ '/assets/images/isopos-icon.png' | relative_url }}">
+<link rel="apple-touch-icon" href="{{ '/assets/images/isopos-icon.png' | relative_url }}">
+<meta name="theme-color" content="#f7f8fb">
+
+{%- comment -%} ---------- 字型：preconnect + 非阻塞載入 ---------- {%- endcomment -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style"
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&display=swap">
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&display=swap"
+      media="print" onload="this.media='all'">
+<noscript>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&display=swap">
+</noscript>
+
+{%- comment -%}
+  ---------- CSS ----------
+  版本號用 site.time 自動帶入，不需要手動改，也不會再有舊快取問題。
+{%- endcomment -%}
+<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+
+{%- comment -%} ---------- RSS ---------- {%- endcomment -%}
+<link rel="alternate" type="application/rss+xml"
+      title="{{ site.title | escape }}" href="{{ '/feed.xml' | absolute_url }}">
+
+{%- comment -%} ---------- 結構化資料 ---------- {%- endcomment -%}
+{% include schema-site.html %}
+{% include analytics.html %}

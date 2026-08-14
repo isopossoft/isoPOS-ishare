@@ -1,0 +1,34 @@
+---
+layout: default
+---
+{%- assign posts = site.posts | where_exp: "p", "p.noindex != true" -%}
+
+<section class="category-hero tag-hero">
+  <div class="container narrow">
+    <nav class="breadcrumb" aria-label="麵包屑">
+      <a href="{{ '/' | relative_url }}">首頁</a>
+      <span aria-hidden="true">›</span>
+      <a href="{{ '/tags/' | relative_url }}">文章標籤</a>
+      <span aria-hidden="true">›</span>
+      <span aria-current="page">#{{ page.tag_name }}</span>
+    </nav>
+    <p class="eyebrow">文章標籤</p>
+    <h1>#{{ page.tag_name }}</h1>
+    <p>查看與「{{ page.tag_name }}」相關的文章。</p>
+    <p class="category-hero-count">共 {{ page.post_count }} 篇文章</p>
+  </div>
+</section>
+
+<section class="container narrow section">
+  <div class="post-list">
+    {%- for post in posts -%}
+      {%- if post.tags contains page.tag_name -%}
+        {% include post-list-item.html post=post show_tags=true %}
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  <p class="back-link"><a href="{{ '/tags/' | relative_url }}">← 查看所有標籤</a></p>
+</section>
+
+{% include schema-breadcrumb.html crumb_name="文章標籤" crumb_url="/tags/" leaf_name=page.tag_name %}

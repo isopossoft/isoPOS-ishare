@@ -1,0 +1,32 @@
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img src="{{ '/assets/images/isopos-icon.png' | relative_url }}"
+           alt="{{ site.title }}" width="34" height="34" loading="lazy">
+      <div>
+        <strong><span class="isopos-text">isoPOS</span> iShare</strong>
+        <p>{{ site.description }}</p>
+      </div>
+    </div>
+
+    <nav class="footer-nav" aria-label="頁尾導覽">
+      <div class="footer-nav-col">
+        <p class="footer-nav-title">文章分類</p>
+        {%- for cat in site.category_list %}
+        <a href="{{ '/categories/' | append: cat.slug | append: '/' | relative_url }}">{{ cat.name }}</a>
+        {%- endfor %}
+      </div>
+      <div class="footer-nav-col">
+        <p class="footer-nav-title">其他</p>
+        {%- if site.features.site_search %}<a href="{{ '/search/' | relative_url }}">搜尋文章</a>{% endif %}
+        <a href="{{ '/tags/' | relative_url }}">所有標籤</a>
+        <a href="{{ '/feed.xml' | relative_url }}">RSS 訂閱</a>
+        <a href="{{ site.isopos.product_url }}" rel="noopener">{{ site.isopos.product_name }} 官方網站</a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container footer-bottom">
+    <p class="muted">© {{ 'now' | date: '%Y' }} {{ site.isopos.product_name }}</p>
+  </div>
+</footer>

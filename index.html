@@ -1,8 +1,12 @@
 ---
 layout: default
 title: "isoPOS iShare｜美業經營與數位工具知識指南"
-description: "整理 LINE 官方帳號、美業經營管理、數位工具教學與產業知識，提供可實際應用的完整解答。"
+meta_description: "整理 LINE 官方帳號、美業經營管理、數位工具教學與產業知識，提供可實際應用的完整解答。"
+needs_search_js: false
 ---
+
+{%- comment -%} 只顯示正式文章，測試／noindex 文章不會出現在前台 {%- endcomment -%}
+{%- assign live_posts = site.posts | where_exp: "p", "p.noindex != true" -%}
 
 <section class="hero">
   <div class="container hero-grid">
@@ -10,9 +14,23 @@ description: "整理 LINE 官方帳號、美業經營管理、數位工具教學
       <p class="eyebrow"><span class="isopos-text">isoPOS</span> iShare</p>
       <h1>美業經營與數位工具的<br class="desktop-break">實用知識指南</h1>
       <p class="hero-desc">從 LINE 官方帳號、美業經營管理到數位工具，把複雜問題整理成真正能使用的答案。</p>
+
+      {%- if site.features.site_search %}
+      <form class="hero-search" action="{{ '/search/' | relative_url }}" method="get" role="search">
+        <label class="sr-only" for="hero-search-input">搜尋文章</label>
+        <svg class="hero-search-icon" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false">
+          <circle cx="9" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <line x1="13.5" y1="13.5" x2="18" y2="18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <input id="hero-search-input" type="search" name="q"
+               placeholder="搜尋：LINE 綁定、預約、Notion…" autocomplete="off">
+        <button type="submit">搜尋</button>
+      </form>
+      {%- endif %}
     </div>
+
     <div class="hero-mark" aria-hidden="true">
-      <img src="{{ '/assets/images/isopos-logo-full.png' | relative_url }}" alt="">
+      <img src="{{ '/assets/images/isopos-logo-full.png' | relative_url }}" alt="" width="240" height="170">
     </div>
   </div>
 </section>
@@ -26,26 +44,15 @@ description: "整理 LINE 官方帳號、美業經營管理、數位工具教學
   </div>
 
   <div class="category-grid">
-    <a class="category-card" href="{{ '/categories/line/' | relative_url }}">
-      <span class="category-index">01</span>
-      <h3>LINE 官方帳號</h3>
-      <p>LINE OA、Messaging API、Webhook、會員綁定與系統串接。</p>
+    {%- for cat in site.category_list -%}
+    {%- assign cat_count = live_posts | where: "category", cat.name | size -%}
+    <a class="category-card" href="{{ '/categories/' | append: cat.slug | append: '/' | relative_url }}">
+      <span class="category-index">{{ cat.index }}</span>
+      <h3>{{ cat.name }}</h3>
+      <p>{{ cat.short }}</p>
+      <span class="category-count">{{ cat_count }} 篇文章</span>
     </a>
-    <a class="category-card" href="{{ '/categories/management/' | relative_url }}">
-      <span class="category-index">02</span>
-      <h3>美業經營管理</h3>
-      <p>顧客經營、回流率、預約、會員制度與營運管理。</p>
-    </a>
-    <a class="category-card" href="{{ '/categories/tools/' | relative_url }}">
-      <span class="category-index">03</span>
-      <h3>數位工具教學</h3>
-      <p>Google、Windows、遠端工具與數位工作技巧。</p>
-    </a>
-    <a class="category-card" href="{{ '/categories/industry/' | relative_url }}">
-      <span class="category-index">04</span>
-      <h3>產業知識</h3>
-      <p>美業趨勢、制度、經營觀念與實務知識。</p>
-    </a>
+    {%- endfor -%}
   </div>
 </section>
 
@@ -55,37 +62,21 @@ description: "整理 LINE 官方帳號、美業經營管理、數位工具教學
       <p class="eyebrow">文章精選</p>
       <h2>最新文章</h2>
     </div>
+    {%- if site.features.site_search %}
+    <a class="section-link" href="{{ '/search/' | relative_url }}">瀏覽全部文章 →</a>
+    {%- endif %}
   </div>
 
-  {% if site.posts.size > 0 %}
+  {%- if live_posts.size > 0 %}
   <div class="post-grid">
-    {% for post in site.posts limit: 12 %}
-    <article class="post-card">
-      <a class="post-cover" href="{{ post.url | relative_url }}">
-        {% if post.image %}
-          <img src="{{ post.image | relative_url }}" alt="{{ post.image_alt | default: post.title | escape }}">
-        {% else %}
-          <div class="post-cover-fallback">
-            <img src="{{ '/assets/images/isopos-logo-symbol.png' | relative_url }}" alt="">
-          </div>
-        {% endif %}
-      </a>
-      <div class="post-card-body">
-        <p class="post-category">{{ post.category }}</p>
-        <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-        <p class="post-summary">{{ post.quick_answer | default: post.meta_description | default: post.excerpt | strip_html | truncate: 110 }}</p>
-        <div class="post-footer">
-          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
-          <a href="{{ post.url | relative_url }}">閱讀文章 →</a>
-        </div>
-      </div>
-    </article>
-    {% endfor %}
+    {%- for post in live_posts limit: 12 %}
+      {% include post-card.html post=post %}
+    {%- endfor %}
   </div>
-  {% else %}
+  {%- else %}
   <div class="empty-state">
     <h3>目前還沒有文章</h3>
     <p>可從 Pages CMS 新增第一篇內容。</p>
   </div>
-  {% endif %}
+  {%- endif %}
 </section>

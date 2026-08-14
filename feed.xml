@@ -1,0 +1,33 @@
+---
+layout: null
+sitemap: false
+---
+{%- assign live_posts = site.posts | where_exp: "p", "p.noindex != true" -%}
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>{{ site.title | xml_escape }}</title>
+    <link>{{ '/' | absolute_url }}</link>
+    <atom:link href="{{ '/feed.xml' | absolute_url }}" rel="self" type="application/rss+xml"/>
+    <description>{{ site.description | xml_escape }}</description>
+    <language>zh-TW</language>
+    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+    <generator>Jekyll</generator>
+    <image>
+      <url>{{ site.isopos.logo | absolute_url }}</url>
+      <title>{{ site.title | xml_escape }}</title>
+      <link>{{ '/' | absolute_url }}</link>
+    </image>
+
+    {%- for post in live_posts limit: 30 %}
+    <item>
+      <title>{{ post.title | strip_html | xml_escape }}</title>
+      <link>{{ post.url | absolute_url }}</link>
+      <guid isPermaLink="true">{{ post.url | absolute_url }}</guid>
+      <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
+      {%- if post.category %}<category>{{ post.category | xml_escape }}</category>{% endif %}
+      <description>{{ post.quick_answer | default: post.meta_description | default: post.excerpt | strip_html | normalize_whitespace | truncate: 300 | xml_escape }}</description>
+    </item>
+    {%- endfor %}
+  </channel>
+</rss>

@@ -1,0 +1,42 @@
+{%- comment -%}
+  全站共用結構化資料：
+  - Organization（品牌）
+  - WebSite（含站內搜尋 SearchAction，Google 有機會顯示 sitelinks searchbox）
+  只在首頁輸出一次，避免每頁重複。
+{%- endcomment -%}
+{%- if page.url == '/' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": {{ '/#organization' | absolute_url | jsonify }},
+      "name": {{ site.isopos.product_name | default: 'isoPOS' | jsonify }},
+      "url": {{ site.isopos.product_url | jsonify }},
+      "logo": {
+        "@type": "ImageObject",
+        "url": {{ site.isopos.logo | absolute_url | jsonify }}
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": {{ '/#website' | absolute_url | jsonify }},
+      "url": {{ '/' | absolute_url | jsonify }},
+      "name": {{ site.title | jsonify }},
+      "description": {{ site.description | jsonify }},
+      "inLanguage": "zh-TW",
+      "publisher": { "@id": {{ '/#organization' | absolute_url | jsonify }} }{% if site.features.site_search %},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": {{ '/search/?q={search_term_string}' | absolute_url | jsonify }}
+        },
+        "query-input": "required name=search_term_string"
+      }{% endif %}
+    }
+  ]
+}
+</script>
+{%- endif -%}

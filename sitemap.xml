@@ -1,26 +1,63 @@
 ---
 layout: null
+sitemap: false
 ---
+{%- assign live_posts = site.posts | where_exp: "p", "p.noindex != true" -%}
+{%- assign latest = live_posts | first -%}
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
   <url>
     <loc>{{ '/' | absolute_url }}</loc>
+    {%- if latest %}<lastmod>{{ latest.updated | default: latest.date | date_to_xmlschema }}</lastmod>{% endif %}
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
 
-  {% for page in site.pages %}
-    {% if page.url contains '/categories/' or page.url == '/tags/' %}
+  {%- comment -%} 分類頁：lastmod 用該分類最新一篇的日期 {%- endcomment -%}
+  {%- for cat in site.category_list -%}
+    {%- assign cat_posts = live_posts | where: "category", cat.name -%}
+    {%- assign newest = cat_posts | first %}
   <url>
-    <loc>{{ page.url | absolute_url }}</loc>
+    <loc>{{ '/categories/' | append: cat.slug | append: '/' | absolute_url }}</loc>
+    {%- if newest %}<lastmod>{{ newest.updated | default: newest.date | date_to_xmlschema }}</lastmod>{% endif %}
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
-    {% endif %}
-  {% endfor %}
+  {%- endfor %}
 
-  {% for post in site.posts %}
-    {% unless post.noindex %}
+  <url>
+    <loc>{{ '/tags/' | absolute_url }}</loc>
+    {%- if latest %}<lastmod>{{ latest.updated | default: latest.date | date_to_xmlschema }}</lastmod>{% endif %}
+    <changefreq>weekly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  {%- comment -%} 標籤頁（只有啟用 GitHub Actions 建置時才會有） {%- endcomment -%}
+  {%- for p in site.pages -%}
+    {%- if p.tag_name %}
+  <url>
+    <loc>{{ p.url | absolute_url }}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.4</priority>
+  </url>
+    {%- endif -%}
+  {%- endfor %}
+
+  {%- for post in live_posts %}
   <url>
     <loc>{{ post.url | absolute_url }}</loc>
-    <lastmod>{% if post.updated %}{{ post.updated | date_to_xmlschema }}{% else %}{{ post.date | date_to_xmlschema }}{% endif %}</lastmod>
+    <lastmod>{{ post.updated | default: post.date | date_to_xmlschema }}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    {%- if post.image %}
+    <image:image>
+      <image:loc>{{ post.image | absolute_url }}</image:loc>
+      <image:title>{{ post.image_alt | default: post.title | strip_html | xml_escape }}</image:title>
+    </image:image>
+    {%- endif %}
   </url>
-    {% endunless %}
-  {% endfor %}
+  {%- endfor %}
+
 </urlset>

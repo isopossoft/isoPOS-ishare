@@ -1,0 +1,73 @@
+---
+layout: default
+---
+{%- assign cat = site.category_list | where: "slug", page.category_slug | first -%}
+{%- assign posts = site.posts | where_exp: "p", "p.noindex != true" | where: "category", cat.name -%}
+
+<section class="category-hero">
+  <div class="container narrow">
+    <nav class="breadcrumb" aria-label="麵包屑">
+      <a href="{{ '/' | relative_url }}">首頁</a>
+      <span aria-hidden="true">›</span>
+      <span aria-current="page">{{ cat.name }}</span>
+    </nav>
+    <p class="eyebrow">文章分類</p>
+    <h1>{{ cat.name }}</h1>
+    <p>{{ cat.desc }}</p>
+    <p class="category-hero-count">共 {{ posts.size }} 篇文章</p>
+  </div>
+</section>
+
+<section class="container narrow section">
+  <div class="post-list">
+  {%- if posts.size > 0 -%}
+    {%- for post in posts %}
+      {% include post-list-item.html post=post show_tags=true %}
+    {%- endfor %}
+  {%- else -%}
+    <div class="empty-state">
+      <h3>這個分類還在準備中</h3>
+      <p>可以先看看其他分類，或使用<a href="{{ '/search/' | relative_url }}">站內搜尋</a>找你要的主題。</p>
+    </div>
+  {%- endif -%}
+  </div>
+
+  <nav class="other-categories" aria-label="其他分類">
+    <p class="footer-nav-title">其他分類</p>
+    <div class="other-categories-list">
+      {%- for c in site.category_list -%}
+        {%- unless c.slug == page.category_slug -%}
+        <a href="{{ '/categories/' | append: c.slug | append: '/' | relative_url }}">{{ c.name }} →</a>
+        {%- endunless -%}
+      {%- endfor -%}
+    </div>
+  </nav>
+</section>
+
+{% include schema-breadcrumb.html leaf_name=cat.name %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": {{ cat.name | jsonify }},
+  "description": {{ cat.desc | jsonify }},
+  "url": {{ page.url | absolute_url | jsonify }},
+  "inLanguage": "zh-TW",
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": {{ posts.size }},
+    "itemListElement": [
+      {%- for post in posts -%}
+      {%- unless forloop.first -%},{%- endunless -%}
+      {
+        "@type": "ListItem",
+        "position": {{ forloop.index }},
+        "url": {{ post.url | absolute_url | jsonify }},
+        "name": {{ post.title | strip_html | jsonify }}
+      }
+      {%- endfor -%}
+    ]
+  }
+}
+</script>

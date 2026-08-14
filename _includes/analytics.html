@@ -1,0 +1,15 @@
+{%- comment -%}
+  GA4。_config.yml 的 analytics.ga4_id 有填才會輸出。
+  本機預覽（localhost）不送資料，避免污染統計。
+{%- endcomment -%}
+{%- if site.analytics.ga4_id and site.analytics.ga4_id != "" -%}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics.ga4_id }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {
+    gtag('config', '{{ site.analytics.ga4_id }}');
+  }
+</script>
+{%- endif -%}
