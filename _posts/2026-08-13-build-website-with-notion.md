@@ -30,8 +30,9 @@ article_sections:
   - type: text
     content: <p>(1) 點擊 <strong>免費取得 Notion</strong></p>
   - type: image
-    image: /assets/images/notion01.png
+    image: /assets/images/notion01-1.png
     alt: Notion 官方網站首頁的「免費取得 Notion」按鈕
+    caption: 兩個地方都可加入，擇一操作即可
   - type: text
     content: <p>(2) 依需求選擇要用 Google 或 Email ，註冊建立帳號，完成後就可以進入 Notion 工作區</p>
   - type: image
