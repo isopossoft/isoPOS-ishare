@@ -8,7 +8,7 @@ tags:
 date: 2022-04-11
 updated: 2026-08-14
 image: /assets/images/chatgpt-image-2026814-052411.png
-author: Amber
+author: isoPOS｜Amber
 article_sections:
   - type: text
     content: <blockquote><p>打開 LINE
