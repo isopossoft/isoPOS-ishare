@@ -11,7 +11,7 @@ date: 2025-08-20
 updated: 2026-08-14
 image: /assets/images/selling-prepaid-productscover.png
 image_alt: selling-prepaid-products_Cover
-author: isoPOS
+author: isoPOS｜Zonghan
 quick_answer: 在現今的商業模式中，預付型票券（或稱儲值卡、計次券）已成為許多店家吸引顧客、預收營收的常用工具。然而，許多店家常有一個迷思，認為只要有賣券即可，不需特別記名，讓顧客能輕鬆分享給親友。但這種看似便利的模式，卻隱藏著巨大的經營風險，尤其是在「隱形負債」與「顧客關係管理」方面。因此，實施「票券記名制」是確保品牌健康營運的關鍵邏輯。
 article_sections:
   - type: text
