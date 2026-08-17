@@ -59,12 +59,12 @@
         {%- if site.features.site_search %}<a href="{{ '/search/' | relative_url }}">搜尋文章</a>{% endif %}
         <a href="{{ '/tags/' | relative_url }}">所有標籤</a>
         {%- if site.features.rss_link %}<a href="{{ '/feed.xml' | relative_url }}">RSS 訂閱</a>{% endif %}
-        <a href="{{ site.isopos.product_url }}" target="_blank" rel="noopener">{{ site.isopos.product_name }} 官方網站</a>
+        <a href="{{ site.isopos.product_url }}" target="_blank" rel="noopener"><span class="isopos-text">{{ site.isopos.product_name }}</span> 官方網站</a>
       </div>
     </nav>
   </div>
 
   <div class="container footer-bottom">
-    <p class="muted">© {{ 'now' | date: '%Y' }} {{ site.isopos.product_name }}</p>
+    <p class="muted">© {{ 'now' | date: '%Y' }} <span class="isopos-text">{{ site.isopos.product_name }}</span></p>
   </div>
 </footer>

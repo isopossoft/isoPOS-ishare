@@ -215,7 +215,22 @@ features:
 
 小標想整行隱藏，在 Pages CMS 該欄位填一個半形空格即可。
 
+多行文案（在 Pages CMS 按 Enter 換行）前台會真的換行，
+「快速解答」欄位也一樣。
+
 **改社群連結**：`_config.yml` → `social`。留空的圖示不會顯示。
+
+**分享按鈕要開哪幾顆**：`_config.yml` → `share`。
+
+```yaml
+share:
+  line:     true
+  facebook: false   # 手機 FB App 常攔截 sharer 連結，預設關閉
+  native:   false   # 系統原生分享選單
+  copy:     true
+```
+
+**作者名稱**：Pages CMS 的「作者」欄位，留白時使用 `isoPOS`。
 
 **要不要顯示 RSS**：`_config.yml` → `features.rss_link`。
 預設關閉，但 `feed.xml` 仍會產生 —— RSS 閱讀器可以自動偵測訂閱，

@@ -1,12 +1,5 @@
 {%- comment -%}
-  文章分享按鈕。
-
-  關於 Facebook：
-  手機上的 FB App 常會攔截 sharer.php 連結，只把 App 打開卻不帶入分享內容
-  （FB 的已知行為，不是網站的問題）。
-  因此這裡多提供一顆「分享」按鈕，走瀏覽器原生的 Web Share API，
-  由系統跳出分享選單讓使用者選 FB / IG / Threads / LINE / 任何 App，成功率高很多。
-  支援時才顯示，桌機不支援就自動隱藏，Facebook 按鈕則改用彈出視窗。
+  文章分享按鈕。要顯示哪幾顆，在 _config.yml 的 share 區塊調整。
 {%- endcomment -%}
 {%- assign share_url   = page.url | absolute_url -%}
 {%- assign share_title = page.title | strip_html -%}
@@ -16,31 +9,39 @@
   <p class="article-share-label">分享這篇文章</p>
   <div class="article-share-buttons">
 
+    {%- if site.share.line %}
     <a class="share-btn share-line"
        href="https://social-plugins.line.me/lineit/share?url={{ share_url | url_encode }}"
        target="_blank" rel="noopener noreferrer"
        aria-label="分享到 LINE">
       <span aria-hidden="true">LINE</span>
     </a>
+    {%- endif %}
 
+    {%- if site.share.facebook %}
     <a class="share-btn share-fb"
        href="https://www.facebook.com/sharer/sharer.php?u={{ share_url | url_encode }}"
        target="_blank" rel="noopener noreferrer"
        aria-label="分享到 Facebook">
       <span aria-hidden="true">Facebook</span>
     </a>
+    {%- endif %}
 
+    {%- if site.share.native %}
     <button class="share-btn share-native" type="button" hidden
             aria-label="使用系統分享">
       <span aria-hidden="true">更多分享</span>
     </button>
+    {%- endif %}
 
+    {%- if site.share.copy %}
     <button class="share-btn share-copy" type="button"
             data-copy-url="{{ share_url }}"
             aria-label="複製文章連結">
       <span class="share-copy-idle">複製連結</span>
       <span class="share-copy-done" hidden>已複製 ✓</span>
     </button>
+    {%- endif %}
 
   </div>
 </div>

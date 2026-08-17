@@ -101,13 +101,20 @@ category_list:
 features:
   toc:            true    # 文章目錄
   reading_time:   true    # 閱讀時間
-  share_buttons:  true    # 分享按鈕（LINE / Facebook / 複製連結）
+  share_buttons:  true    # 文章底部分享區塊（要顯示哪幾顆看下方 share）
   related_posts:  true    # 相關文章
   prev_next:      true    # 上一篇 / 下一篇
   site_search:    true    # 站內搜尋
   rss_link:       false   # 頁尾是否顯示 RSS 連結
                           # （feed.xml 本身仍會產生，RSS 閱讀器可自動偵測訂閱，
                           #   只是不放在頁尾讓一般訪客誤點）
+
+# 分享按鈕：想開哪顆就改成 true
+share:
+  line:     true
+  facebook: false   # 手機 FB App 常攔截 sharer 連結，預設關閉
+  native:   false   # 系統原生分享選單
+  copy:     true
 
 # 中文閱讀速度（字／分鐘），用來估算閱讀時間
 reading_speed: 400

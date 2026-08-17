@@ -114,6 +114,9 @@ button{font:inherit;color:inherit}
 
 .muted{font-size:12px;color:var(--muted)}
 
+/* Hero 標題的固定斷行。字級會隨螢幕縮放，所以手機也維持同樣斷行位置。 */
+.desktop-break{display:block}
+
 .isopos-text{
   font-family:var(--font-brand);
   font-weight:600;
@@ -347,6 +350,7 @@ button{font:inherit;color:inherit}
 /* --- 文章卡片 --- */
 .post-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
 .post-card{
+  position:relative;
   background:var(--surface);
   border:1px solid var(--line);
   border-radius:var(--r-lg);
@@ -355,6 +359,12 @@ button{font:inherit;color:inherit}
   min-width:0;
   transition:border-color .18s ease,box-shadow .18s ease;
 }
+/* 標題連結撐滿整張卡片 —— 點卡片任何地方都能進文章，
+   手機上尤其重要（原本只有標題那幾個字可以點）。 */
+.post-card h3 a::after{content:"";position:absolute;inset:0;z-index:1}
+/* 分類連結要浮在上面才點得到 */
+.post-card .post-category a{position:relative;z-index:2}
+.post-card:hover .post-more{color:var(--brand-ink)}
 .post-card:hover{border-color:#d6dbe5;box-shadow:0 12px 30px rgba(40,48,63,.06)}
 .post-cover{
   display:block;
@@ -1026,7 +1036,10 @@ a.search-result-cat:hover{text-decoration:underline}
   font-size:10px;letter-spacing:.13em;
 }
 .article-cta h2{margin:0 0 10px;color:#293c57;font-size:23px;line-height:1.4}
-.article-cta-copy>p:last-child{margin:0;color:#596779;font-size:15px;line-height:1.8}
+.article-cta-copy>p:last-child{margin:0;color:#596779;font-size:15px;line-height:1.85}
+/* 多行文案（在 Pages CMS 按 Enter 換行）的斷行間距 */
+.article-cta-copy>p:last-child br{content:"";display:block;margin-bottom:6px}
+.answer-box p:last-child br{content:"";display:block;margin-bottom:6px}
 .article-cta-button{
   flex:0 0 auto;
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
@@ -1132,9 +1145,16 @@ a.post-nav-item:hover{border-color:#c9d1de;box-shadow:0 10px 26px rgba(40,48,63,
   .header-search-link span{display:none}
   .header-search-link{width:38px;padding:0;justify-content:center;border-radius:11px}
 
-  .hero-grid{grid-template-columns:1fr}
-  .hero-mark{position:absolute;right:-50px;top:60px;opacity:.16}
-  .hero-mark img{max-height:150px}
+  .hero-grid{grid-template-columns:1fr;gap:20px}
+  /* 原本是 opacity .16 的背景浮水印，在手機上只看得到一片灰影，
+     還會透在標題後面。改成正常顯示的 Logo，靠左對齊文字欄。 */
+  .hero-mark{
+    position:static;
+    justify-content:flex-start;
+    opacity:1;
+    margin-top:4px;
+  }
+  .hero-mark img{max-height:88px}
 
   .post-grid,
   .related-grid{grid-template-columns:repeat(2,1fr)}
@@ -1232,10 +1252,18 @@ a.post-nav-item:hover{border-color:#c9d1de;box-shadow:0 10px 26px rgba(40,48,63,
   .container,.narrow{width:min(calc(100% - 28px),var(--max))}
   .header-inner{min-height:70px}
 
-  .hero{padding:38px 0 34px}
-  .hero h1{font-size:40px}
-  .hero-desc{font-size:17px}
-  .hero-search{margin-top:22px;padding-left:38px}
+  .hero{padding:34px 0 30px}
+  /* 「美業經營與數位工具的」共 10 個字。字級固定 40px 時第一行放不下，
+     會把「的」擠到單獨一行。改成隨螢幕寬度縮放就不會斷錯位置。 */
+  .hero h1{
+    font-size:min(9vw,40px);
+    line-height:1.22;
+    letter-spacing:-.02em;
+    margin:12px 0 18px;
+  }
+  .hero-desc{font-size:16px}
+  .hero-mark img{max-height:72px}
+  .hero-search{margin-top:20px;padding-left:38px}
   .hero-search-icon{left:14px}
   .hero-search button{padding:0 16px}
 

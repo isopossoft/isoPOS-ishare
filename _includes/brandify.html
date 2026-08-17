@@ -1,7 +1,14 @@
 {%- comment -%}
-  把純文字裡的 isoPOS 套上品牌字體。
-  只用於「純文字欄位」（標題、小標、快速解答），不會碰到含 HTML 屬性的內容，
-  所以不會像舊版那樣有機會破壞 alt / href。
+  純文字欄位的輸出處理：
+    1. strip        —— 去掉頭尾多餘的空白與換行
+    2. escape       —— escape 使用者輸入，避免破壞版面
+    3. newline_to_br—— 在 Pages CMS 按 Enter 換行，前台就真的換行
+                       （cta_text、quick_answer 這類多行欄位需要）
+    4. isoPOS       —— 套上品牌字體
+
+  只用於「純文字欄位」（標題、小標、快速解答、CTA 文案），
+  不會碰到含 HTML 屬性的內容，所以不會破壞 alt / href。
+
   用法：{% include brandify.html text=page.title %}
 {%- endcomment -%}
-{{- include.text | escape | replace: 'isoPOS', '<span class="isopos-text">isoPOS</span>' -}}
+{{- include.text | strip | escape | newline_to_br | replace: 'isoPOS', '<span class="isopos-text">isoPOS</span>' -}}
