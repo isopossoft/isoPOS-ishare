@@ -139,8 +139,9 @@ content:
       - name: author
         label: 作者
         type: string
+        required: false
         default: "isoPOS"
-        hidden: true
+        description: "顯示在文章標題下方的作者名稱。留白時使用 isoPOS，也可以填個人或團隊名稱。"
 
 
 
