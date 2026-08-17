@@ -17,7 +17,7 @@ article_sections:
       服務項目有所差異</strong>，<strong>例如美甲美睫大約是3週~1個月，男士剪髮1~2個月，燙染髮可能會是3~4個月以上</strong></p><p><strong>isoPOS</strong>
       中有一份「退客回客分析」報表，利用〝預期回流週期〞，將顧客劃分成兩大區塊：</p><p><strong>《退客》</strong>顧客在
       <strong>預期的時間內「沒有」再次消費</strong></p><p><strong>《回客》</strong>顧客在
-      <strong>預期的時間內「有」再次消費</strong></p>
+      <strong>預期的時間內「有」再次消費</strong></p><p></p>
   - type: text
     content: <h2><strong>做退客回客分析時，有什麼需要注意的？</strong></h2><p></p>
   - type: step
