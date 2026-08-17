@@ -57,8 +57,9 @@ article_sections:
     image: /assets/images/line-blocked04-1.png
     alt: LINEFillouttheform
 noindex: false
+cta_title: 遇到像這樣的事別擔心？
 cta_text: |-
-  遇到像這樣的事別擔心？isoPOS總是走在您的前面，為您鋪路。
+  isoPOS總是走在您的前面，為您鋪路。
   如果您想把 POS、會員、線上預約、LINE 與官網整合成更完整的營運流程，可以進一步了解 isoPOS。
 ---
 <p></p>
