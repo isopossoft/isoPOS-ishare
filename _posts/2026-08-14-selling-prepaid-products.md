@@ -1,7 +1,7 @@
 ---
 title: 預付型票券為什麼要記名？儲值、計次券的隱形負債與管理重點
 slug: selling-prepaid-products
-category: 美業經營管理
+category: 產業知識
 tags:
   - 預付型
   - 計次券
